@@ -1,0 +1,28 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="RadioElectronicsShop:war exploded">
+    <output-path>$PROJECT_DIR$/target/RadioElectronicsShop</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="RadioElectronicsShop" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: joda-time:joda-time:2.9.9" />
+          <element id="library" level="project" name="Maven: ch.qos.logback:logback-classic:1.1.6" />
+          <element id="library" level="project" name="Maven: ch.qos.logback:logback-core:1.1.6" />
+          <element id="library" level="project" name="Maven: org.webjars:bootstrap:3.3.7" />
+          <element id="library" level="project" name="Maven: org.webjars:jquery:1.11.1" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.13" />
+          <element id="library" level="project" name="Maven: javax.servlet:javax.servlet-api:4.0.0-b07" />
+          <element id="library" level="project" name="Maven: org.joda:joda-money:0.12" />
+          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.38" />
+          <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
+        </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/target/RadioElectronicsShop/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="javaee-facet-resources" facet="RadioElectronicsShop/web/Web" />
+    </root>
+  </artifact>
+</component>
