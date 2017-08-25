@@ -90,31 +90,31 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
     @Override
     public List<T> findAllByParams(Map<String, String> params) throws DaoException {
         List<T> objects = new ArrayList<>();
-        try(Statement st = connection.createStatement();) {
-            ResultSet rs = st.executeQuery(createQueryForFindAllByParams(params));
-            while(rs.next()){
+        try (Statement st = connection.createStatement();
+             ResultSet rs = st.executeQuery(createQueryForFindAllByParams(params))) {
+            while (rs.next()) {
                 objects.add(getObjectFromResultSet(rs));
-                LOG.debug("Get object list - {}", objects);
             }
+            LOG.debug("Get entity list by current params: {} - {}", params, objects);
         } catch (SQLException e) {
-            throw  new DaoException("couldn't get objects list", e);
+            throw new DaoException("Could not find object with this params", e);
         }
         return objects;
     }
-
     @Override
     public List<T> findAll() throws DaoException {
-        List<T> objects = new ArrayList();
-        try (Statement st = connection.createStatement();){
-            ResultSet rs = st.executeQuery(SELECT_FROM + getTableName() + ORDER_BY_ID);
-            while(rs.next()){
+        List<T> objects = new ArrayList<>();
+        try (Statement st = connection.createStatement();
+             ResultSet rs = st.executeQuery(SELECT_FROM + getTableName() + ORDER_BY_ID)) {
+            while (rs.next()) {
                 objects.add(getObjectFromResultSet(rs));
             }
-            LOG.debug("Get objects list - {}", objects);
+            LOG.info(SELECT_FROM + getTableName() + ORDER_BY_ID);
+            LOG.debug("Get entity list - {}", objects);
         } catch (SQLException e) {
-            throw new DaoException("Could't get object list", e);
+            throw new DaoException("Could not find object by current id", e);
         }
-        return null;
+        return objects;
     }
 
     @Override
@@ -172,16 +172,16 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
     }
 
     public String createQueryForFindAllByParams(Map<String, String> params){
-        String resultQuery = SELECT_FROM + getTableName() + WHERE;
-        for(Map.Entry<String, String> param : params.entrySet()){
-            if(params.size() == 1){
+        String resultQuery = SELECT_FROM + getTableName() + " WHERE ";
+        for (Map.Entry<String, String> param : params.entrySet()) {
+            if (params.size() == 1) {
                 resultQuery += param.getKey() + " = '" + param.getValue() + "'";
                 return resultQuery;
-            }
-            else{
+            } else {
                 resultQuery += param.getKey() + " = '" + param.getValue() + "' AND ";
             }
         }
-        return resultQuery.substring(0, resultQuery.length() - 5); //if no params then select all
+        LOG.info("result query - {}", resultQuery);
+        return resultQuery.substring(0, resultQuery.length() - 5);
     }
 }

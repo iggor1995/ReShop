@@ -1,14 +1,15 @@
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<fmt:message key="welcome.register" var="register"/>
-<c:url var="register_url" value="/do/register"/>
-
-<my:page-pattern role="guest"/>
-<div class="container">
+<my:page-pattern role="user"/>
+<%--@elvariable id="loggedUser" type="com.epam.igor.electronicsshop.entity.User"--%>
+<my:user-page user="${loggedUser}">
     <div class="col-lg-10" align="center">
-        <a class="btn btn-default" role="button"
-           href="${register_url}">${register}</a>
+        <div>
+            <p align="center" style="font-size: 18px"><b>${loggedUser.role}</b></p>
+            <hr>
+        </div>
     </div>
-</div>
-
+</my:user-page>

@@ -1,6 +1,7 @@
 package com.epam.igor.electronicsshop.entity;
 
 import com.epam.igor.electronicsshop.entity.BaseEntity;
+import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 
 /**
@@ -17,8 +18,11 @@ public class User extends BaseEntity {
     private Gender gender;
     private Money cash;
 
-    public User(){}
-    public User(int id) {
+    public User() {
+        this.role = Role.user;
+        this.cash = Money.zero(CurrencyUnit.getInstance("KZT"));
+    }
+    public User(int id){
         setId(id);
     }
 
@@ -94,7 +98,7 @@ public class User extends BaseEntity {
         this.cash = cash;
     }
     public enum Role{
-        ADMIN,
-        USER
+        admin,
+        user
     }
 }

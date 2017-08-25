@@ -32,13 +32,12 @@ public class UserService {
         return null;
     }
     public boolean checkEmail(String email) throws ServiceException{
-        List<User> usersWithThisEmail = new ArrayList<>();
-        try(DaoFactory jdbcDaoFactory = new JDBCDaoFactory()) {
+        try (DaoFactory jdbcDaoFactory = new JDBCDaoFactory()) {
             GenericDaoInterface<User> userDao = jdbcDaoFactory.getDao(User.class);
-            usersWithThisEmail = userDao.findAllByParams(Collections.singletonMap("email", email));
-            return usersWithThisEmail.isEmpty();
+            List<User> usersWithCurrentEmail = userDao.findAllByParams(Collections.singletonMap("email", email));
+            return usersWithCurrentEmail.isEmpty();
         } catch (DaoException e) {
-            throw new ServiceException(e, "Couldn't check email");
+            throw new ServiceException(e, "Could not check email");
         }
     }
     public User registerUser(User user, Address address) throws ServiceException{

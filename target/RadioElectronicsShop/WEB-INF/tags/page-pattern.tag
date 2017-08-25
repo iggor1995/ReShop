@@ -21,20 +21,26 @@
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
+                    <ul class="dropdown-menu" style="min-width: 60px">
+                        <a href="<c:url value="/do/locale?locale=ru"/>" class="language"><img
+                                style="height: 18px"
+                                src="<c:url value="/images/ru.png"/>" alt="Ru"/> Ru</a>
+                        <a href="<c:url value="/do/locale?locale=en"/>" class="language"><img
+                                style="height: 18px"
+                                src="<c:url value="/images/us.png"/>" alt="En"/> En</a>
+                    </ul>
                     <c:if test="${role.equals('guest')}">
                         <a class="row" align="left">
                             <div class="col-md-10 col-lg-10">
                                 <h3>${welcome}</h3>
                             </div>
-                            <ul class="dropdown-menu" style="min-width: 60px">
-                            <a href="<c:url value="/do/locale?locale=ru"/>" class="language"><img
-                                    style="height: 18px"
-                                    src="<c:url value="/images/ru.png"/>" alt="Ru"/> Ru</a>
-                            <a href="<c:url value="/do/locale?locale=en"/>" class="language"><img
-                                    style="height: 18px"
-                                    src="<c:url value="/images/us.png"/>" alt="En"/> En</a>
-                            </ul>
-
+                    </c:if>
+                    <c:if test="${role.equals('user')}">
+                        <div class="col-lg-10">
+                            <p>asdasdasda</p>
+                        </div>
+                    </c:if>
+                    <c:if test="${role.equals('registering')}">
                     </c:if>
                 </div>
             </div>

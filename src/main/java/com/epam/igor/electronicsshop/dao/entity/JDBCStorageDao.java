@@ -43,7 +43,7 @@ public class JDBCStorageDao extends JDBCAbstractDao<Storage> {
 
     @Override
     protected String getTableName() {
-        return "storage";
+        return "reshop.storage";
     }
 
     @Override

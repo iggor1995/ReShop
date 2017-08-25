@@ -15,9 +15,9 @@ import java.sql.Timestamp;
  * Created by User on 02.08.2017.
  */
 public class JDBCImageDao extends JDBCAbstractDao<Image> {
-    private static final String INSERT_IMAGE = "INSERT INTO reshop.image(name, product_id, " +
+    private static final String INSERT_IMAGE = "INSERT INTO electronics.image(name, product_id, " +
             "content, date_modified) VALUES(?, ?, ?, ?)";
-    private static final String UPDATE_IMAGE_BY_ID = "UPDATE reshop.image " +
+    private static final String UPDATE_IMAGE_BY_ID = "UPDATE electronics.image " +
             "SET name = ?, ST product_id = ?, SET content = ?, SET date_modified";
     @Override
     protected Image getObjectFromResultSet(ResultSet rs) throws DaoException {

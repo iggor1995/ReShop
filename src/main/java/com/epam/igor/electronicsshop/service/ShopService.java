@@ -3,6 +3,7 @@ package com.epam.igor.electronicsshop.service;
 import com.epam.igor.electronicsshop.dao.DaoException;
 import com.epam.igor.electronicsshop.dao.DaoFactory;
 import com.epam.igor.electronicsshop.dao.GenericDaoInterface;
+import com.epam.igor.electronicsshop.dao.entity.JDBCDaoFactory;
 import com.epam.igor.electronicsshop.entity.*;
 
 import java.util.Collections;
@@ -38,5 +39,15 @@ public class ShopService {
             throw new ServiceException(e, "Couldn't get order");
         }
         return order;
+    }
+    public List<Gender> getAllGenders() throws ServiceException{
+        List<Gender> genders;
+        try(DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)) {
+            GenericDaoInterface<Gender> genderDao = jdbcDaoFactory.getDao(Gender.class);
+            genders = genderDao.findAll();
+        } catch (DaoException e) {
+            throw new ServiceException(e, "Couldn't get gender list");
+        }
+        return genders;
     }
 }

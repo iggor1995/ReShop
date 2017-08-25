@@ -18,7 +18,6 @@ public class LocaleName extends BaseEntity {
     }
 
     public String getRuName() {
-
         return ruName;
     }
 

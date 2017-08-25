@@ -15,9 +15,9 @@ import java.sql.SQLException;
  * Created by User on 02.08.2017.
  */
 public class JDBCProductDao extends JDBCAbstractDao<Product> {
-    private static final String INSERT_PRODUCT = "INSERT INTO reshop.product(name, price, type, " +
+    private static final String INSERT_PRODUCT = "INSERT INTO electronics.product(name, price, type, " +
             "description_RU, description_EN) VALUES(?, ?, ?, ?, ?)";
-    private static final String UPDATE_PRODUCT_BY_ID = "UPDATE reshop.product" +
+    private static final String UPDATE_PRODUCT_BY_ID = "UPDATE electronics.product" +
             "SET name = ?, SET price = ?, SET type = ?, SET description_RU = ?, SET description_EN" +
             "WHERE id = ?";
     @Override

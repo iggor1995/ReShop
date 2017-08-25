@@ -8,23 +8,19 @@ import java.sql.SQLException;
 import java.util.Properties;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.TimeUnit;
 
 import com.mysql.fabric.jdbc.FabricMySQLDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Created by User on 01.08.2017.
- */
 public class ConnectionPool {
     private static final Logger LOG = LoggerFactory.getLogger(ConnectionPool.class);
+
     private String url;
     private String username;
     private String password;
     private String driver;
     private int connectionsLimit;
-    private int timeout;
     private BlockingQueue<Connection> freeConnections = null;
     private BlockingQueue<Connection> usedConnections = null;
 
@@ -43,28 +39,25 @@ public class ConnectionPool {
         Properties properties = new Properties();
         try {
             properties.load(ConnectionPool.class.getClassLoader().getResourceAsStream("database/database.properties"));
-            LOG.info("Load DB property file");
-
+            LOG.info("Load property file with information about DB");
         } catch (IOException e) {
-            throw  new ConnectionPoolException(e, "Cannot load properties");
+            throw new ConnectionPoolException(e, "Cannot load properties");
         }
-        if(!properties.isEmpty()){
-            LOG.info("Load DB properties to instance");
-            setDriver(properties.getProperty("driver"));
+        if (!properties.isEmpty()) {
+            LOG.info("Set information about DB to instance");
             setUrl(properties.getProperty("url"));
             setUsername(properties.getProperty("username"));
             setPassword(properties.getProperty("password"));
-            setConnectionsLimit(Integer.parseInt(properties.getProperty("connections.limit")));
-            setTimeout(Integer.parseInt(properties.getProperty("connection.time.out")));
-        }
-        else{
-            LOG.error("Properies list is empty");
+            setDriver(properties.getProperty("driver"));
+            setConnectionsLimit(Integer.parseInt(properties.getProperty("connections")));
+        } else {
+            LOG.error("Property have not any parameters");
         }
     }
 
     private void registerDriver() throws ConnectionPoolException{
         try {
-            LOG.info("Creationg and registering new driver");
+            LOG.info("Creating and registering new driver");
             Driver driver = new FabricMySQLDriver();
             DriverManager.registerDriver(driver);
         } catch (SQLException e) {
@@ -72,32 +65,32 @@ public class ConnectionPool {
         }
     }
     private void initializePool() throws ConnectionPoolException{
+        if (freeConnections == null) {
+            freeConnections = new ArrayBlockingQueue<>(connectionsLimit);
+        }
+        if(usedConnections == null) {
+            usedConnections = new ArrayBlockingQueue<>(connectionsLimit);
+        }
         try {
             Class.forName(driver);
-        } catch (ClassNotFoundException e) {
-            throw new ConnectionPoolException(e, "Cannot find class");
-        }
-        freeConnections = new ArrayBlockingQueue<Connection>(connectionsLimit);
-        usedConnections = new ArrayBlockingQueue<Connection>(connectionsLimit);
-        while(freeConnections.size() != connectionsLimit){
-            try {
+        for (int i = 0; i < connectionsLimit; i++) {
                 Connection connection = DriverManager.getConnection(url, username, password);
                 freeConnections.put(connection);
-            } catch (SQLException | InterruptedException e) {
-                throw new ConnectionPoolException(e, "Cannot get conection or put into connections");
             }
+        } catch (InterruptedException | ClassNotFoundException |SQLException e) {
+            e.printStackTrace();
         }
     }
     public synchronized Connection getConnection() throws ConnectionPoolException{
         Connection currentConnection;
-        LOG.info("Free connections" + freeConnections.size() + " Used connections" + usedConnections);
+        LOG.info("Free connections: " + freeConnections.size() + " Used connections: " + usedConnections.size());
         try {
-            currentConnection = freeConnections.poll(timeout, TimeUnit.SECONDS);
+            currentConnection = freeConnections.take();
             usedConnections.put(currentConnection);
         } catch (InterruptedException e) {
-            throw new ConnectionPoolException(e, "Cannot get free connection");
+            throw new ConnectionPoolException(e, "Cannot replace connection");
         }
-        LOG.info("Free connections" + freeConnections.size() + " Used connections" + usedConnections);
+        LOG.info("Free connections: " + freeConnections.size() + " Used connections: " + usedConnections.size());
         return currentConnection;
     }
 
@@ -115,18 +108,6 @@ public class ConnectionPool {
 
     private static class InstanceHolder {
         private static ConnectionPool instance = new ConnectionPool();
-    }
-
-    public int getTimeout() {
-        return timeout;
-    }
-
-    public void setTimeout(int timeout) {
-        this.timeout = timeout;
-    }
-
-    public static Logger getLOG() {
-        return LOG;
     }
 
     public String getUrl() {

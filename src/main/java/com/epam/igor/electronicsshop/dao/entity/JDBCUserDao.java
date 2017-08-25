@@ -15,10 +15,10 @@ import java.sql.SQLException;
 /**
  * Created by User on 01.08.2017.
  */
-public class JDBCUser extends JDBCAbstractDao<User> {
-    private static final String INSERT_USER = "INSERT INTO reshop.user(email, password, role, " +
-            "first_name, last_name, address_id, cash, phone_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String UPDATE_USER_BY_ID = "UPDATE reshop.user SET email = ?, SET password = ?," +
+public class JDBCUserDao extends JDBCAbstractDao<User> {
+    private static final String INSERT_USER = "INSERT INTO electronics.user(email, password, " +
+            "firstname, lastname, address_id, phonenumber, role, cash, gender_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String UPDATE_USER_BY_ID = "UPDATE electronics.user SET email = ?, SET password = ?," +
             "SET role = ?, SET first_name = ?, SET last_name = ?, SET address_id = ?, SET cash = ?, " +
             "SET phone_number = ? WHERE id = ?";
     @Override

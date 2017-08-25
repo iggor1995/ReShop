@@ -1,8 +1,11 @@
 package com.epam.igor.electronicsshop.dao.entity;
 
+import com.epam.igor.electronicsshop.action.RegisterAction;
 import com.epam.igor.electronicsshop.dao.DaoException;
 import com.epam.igor.electronicsshop.dao.entity.JDBCAbstractDao;
 import com.epam.igor.electronicsshop.entity.Gender;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,20 +15,22 @@ import java.sql.SQLException;
  * Created by User on 02.08.2017.
  */
 public class JDBCGenderDao extends JDBCAbstractDao<Gender> {
-    private static final String INSERT_GENDER = "INSERT INTO reshop.gender(name_ru, name_en)" +
+    private static final String INSERT_GENDER = "INSERT INTO electronics.gender(name_ru, name_en)" +
             "VALUES(?, ?)";
-    private static final String UPDATE_GENDER_BY_ID = "UPDATE reshop.gender" +
+    private static final String UPDATE_GENDER_BY_ID = "UPDATE electronics.gender" +
             "SET name_ru = ?, SET name_en = ? WHERE id = ?";
+    private static final Logger LOG = LoggerFactory.getLogger(JDBCGenderDao.class);
+
     @Override
     protected Gender getObjectFromResultSet(ResultSet rs) throws DaoException {
         Gender gender = new Gender();
+        LOG.info("123");
         try {
             gender.setId(rs.getInt("id"));
-            gender.setRuName(rs.getString("name_ru"));
-            gender.setEnName(rs.getString("name_en"));
-            gender.setDeleted(rs.getBoolean("deleted"));
+            gender.setEnName(rs.getString("name_ru"));
+            gender.setRuName(rs.getString("name_en"));
         } catch (SQLException e) {
-            throw new DaoException("Cannot get gender from result set", e);
+            throw new DaoException("Could not get object from result set", e);
         }
         return gender;
     }

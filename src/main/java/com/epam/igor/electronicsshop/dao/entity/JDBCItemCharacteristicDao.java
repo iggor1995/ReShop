@@ -13,13 +13,13 @@ import java.sql.SQLException;
  * Created by User on 11.08.2017.
  */
 public class JDBCItemCharacteristicDao extends JDBCAbstractDao<ItemCharacteristic> {
-    private static final String INSERT_ITEM_CHARACTERISTIC = "INSERT INTO reshop.item_characteristic" +
+    private static final String INSERT_ITEM_CHARACTERISTIC = "INSERT INTO electronics.item_characteristic" +
             "(price, characteristic_id, product_id) VALUES(?, ?, ?)";
-    private static final String UPDATE_ITEM_CHARACTERISTIC_BY_ID = " UPDATE reshop.item_characteristic" +
+    private static final String UPDATE_ITEM_CHARACTERISTIC_BY_ID = " UPDATE electronics.item_characteristic" +
             "SET price = ?, SET characteristic_id = ?, SET product_id  = ?";
     @Override
     protected String getTableName() {
-        return "item characteristic";
+        return "item_characteristic";
     }
 
     @Override

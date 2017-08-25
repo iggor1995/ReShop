@@ -5,6 +5,7 @@ com\epam\igor\electronicsshop\entity\Order.class
 com\epam\igor\electronicsshop\entity\Characteristic.class
 com\epam\igor\electronicsshop\dao\entity\JDBCOrderingItemDao.class
 com\epam\igor\electronicsshop\service\ProductService.class
+com\epam\igor\electronicsshop\action\RegisterAction.class
 com\epam\igor\electronicsshop\pool\ConnectionPool$1.class
 com\epam\igor\electronicsshop\action\Action.class
 com\epam\igor\electronicsshop\entity\ProductType.class
@@ -47,4 +48,5 @@ com\epam\igor\electronicsshop\action\ActionResult.class
 com\epam\igor\electronicsshop\dao\entity\JDBCAddressDao.class
 com\epam\igor\electronicsshop\dao\entity\JDBCStorageItemDao.class
 com\epam\igor\electronicsshop\dao\DaoFactory.class
+com\epam\igor\electronicsshop\action\ShowPageAction.class
 com\epam\igor\electronicsshop\entity\ItemCharacteristic.class

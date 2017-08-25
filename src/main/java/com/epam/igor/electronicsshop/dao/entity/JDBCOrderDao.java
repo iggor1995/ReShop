@@ -16,9 +16,9 @@ import java.sql.Timestamp;
  * Created by User on 02.08.2017.
  */
 public class JDBCOrderDao extends JDBCAbstractDao<Order> {
-    private static final String INSERT_ORDER = "INSERT INTO reshop.order(user_id, created, description," +
+    private static final String INSERT_ORDER = "INSERT INTO electronics.order(user_id, created, description," +
             " status) VALUES(?, ?, ?, ?)";
-    private static final String UPDATE_ORDER_BY_ID = "UPDATE reshop.order SET user_id = ?," +
+    private static final String UPDATE_ORDER_BY_ID = "UPDATE electronics.order SET user_id = ?," +
             "SET creater = ?, SET description = ?, SET status = ? WHERE id = ?";
     @Override
     protected Order getObjectFromResultSet(ResultSet rs) throws DaoException {

@@ -11,9 +11,9 @@ import java.sql.SQLException;
  * Created by User on 02.08.2017.
  */
 public class JDBCAddressDao extends JDBCAbstractDao<Address> {
-    private static final String INSERT_ADDRESS = "INSERT INTO reshop.address" +
+    private static final String INSERT_ADDRESS = "INSERT INTO electronics.address" +
             "(country, city, street, building_number, apartment_number) VALUES(?, ?, ?, ?, ?)";
-    private static final String UPDATE_ADDRESS_BY_ID = "UPDATE reshop.address" +
+    private static final String UPDATE_ADDRESS_BY_ID = "UPDATE electronics.address" +
             "SET country = ?, SET city = ?, SET street = ?, SET building_number = ?, " +
             "SET apartment_number = ? WHERE id = ?";
     @Override

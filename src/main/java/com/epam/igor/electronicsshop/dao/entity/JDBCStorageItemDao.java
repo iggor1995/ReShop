@@ -14,10 +14,10 @@ import java.sql.SQLException;
  * Created by User on 02.08.2017.
  */
 public class JDBCStorageItemDao extends JDBCAbstractDao<StorageItem> {
-    private static final String INSERT_STORAGE_ITEM = "INSERT INTO reshop.storage_item(storage_id," +
+    private static final String INSERT_STORAGE_ITEM = "INSERT INTO electronics.storage_item(storage_id," +
             "product_id, amount) VALUES(?, ?, ?)";
-    private static final String UPDATE_STORAGE_ITEM_BY_ID = "UPDATE reshop.storage_item" +
-            "SET storage_id = ?, SET rpoduct_id = ?, SET amount = ? WHERE id = ?";
+    private static final String UPDATE_STORAGE_ITEM_BY_ID = "UPDATE electronics.storage_item" +
+            "SET storage_id = ?, SET product_id = ?, SET amount = ? WHERE id = ?";
     @Override
     protected StorageItem getObjectFromResultSet(ResultSet rs) throws DaoException {
         StorageItem storageItem = new StorageItem();
@@ -47,7 +47,7 @@ public class JDBCStorageItemDao extends JDBCAbstractDao<StorageItem> {
 
     @Override
     protected String getTableName() {
-        return "storage item";
+        return "storage_item";
     }
 
     @Override

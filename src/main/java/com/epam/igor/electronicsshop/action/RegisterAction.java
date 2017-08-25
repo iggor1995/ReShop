@@ -5,11 +5,14 @@ import com.epam.igor.electronicsshop.entity.Gender;
 import com.epam.igor.electronicsshop.entity.User;
 import com.epam.igor.electronicsshop.service.ServiceException;
 import com.epam.igor.electronicsshop.service.UserService;
+import org.joda.money.BigMoney;
+import org.joda.money.Money;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -48,6 +51,11 @@ public class RegisterAction implements Action {
         UserService userService = new UserService();
         String email = req.getParameter(EMAIL);
         try {
+            properties.load(RegisterAction.class.getClassLoader().getResourceAsStream("validation.properties"));
+        } catch (IOException e) {
+            throw new ActionException("Cannot load properties", e);
+        }
+        try {
             if(!userService.checkEmail(email)){
                 req.setAttribute(EMAIL_ERROR, "used");
                 invalid = true;
@@ -72,11 +80,11 @@ public class RegisterAction implements Action {
         checkParameterByRegex(firstName, FIRST_NAME, properties.getProperty(NOT_EMPTY_TEXT), req);
         checkParameterByRegex(lastName, LAST_NAME, properties.getProperty(NOT_EMPTY_TEXT), req);
         checkParameterByRegex(phoneNumber, PHONE_NUMBER, properties.getProperty(NOT_EMPTY_NUMBER), req);
-        checkParameterByRegex(country, COUNTRY, NOT_EMPTY_TEXT, req);
-        checkParameterByRegex(city, CITY, NOT_EMPTY_TEXT, req);
-        checkParameterByRegex(street, STREET, NOT_EMPTY_TEXT, req);
-        checkParameterByRegex(buildingNumber, BUILDING_NUMBER, NOT_EMPTY_NUMBER, req);
-        checkParameterByRegex(apartmentNumber, APARTMENT_NUMBER, NOT_EMPTY_NUMBER, req);
+        checkParameterByRegex(country, COUNTRY, properties.getProperty(NOT_EMPTY_TEXT), req);
+        checkParameterByRegex(city, CITY, properties.getProperty(NOT_EMPTY_TEXT), req);
+        checkParameterByRegex(street, STREET, properties.getProperty(NOT_EMPTY_TEXT), req);
+        checkParameterByRegex(buildingNumber, BUILDING_NUMBER, properties.getProperty(NOT_EMPTY_NUMBER), req);
+        checkParameterByRegex(apartmentNumber, APARTMENT_NUMBER, properties.getProperty(NOT_EMPTY_NUMBER), req);
 
         if(invalid){
             invalid = false;
@@ -100,12 +108,12 @@ public class RegisterAction implements Action {
         user.setPhoneNumber(phoneNumber);
         Address address = new Address();
         address.setCountry(country);
+        address.setCity(city);
         address.setStreet(street);
         address.setBuildingNumber(Integer.parseInt(buildingNumber));
         address.setApartmentNumber(Integer.parseInt(apartmentNumber));
-        user.setAddress(address);
         Gender gender = new Gender();
-        gender.setId(Integer.valueOf(req.getParameter("gender_id")));
+        gender.setId(Integer.valueOf(req.getParameter("gender")));
         user.setGender(gender);
 
         try {
@@ -113,6 +121,8 @@ public class RegisterAction implements Action {
             req.getSession(false).setAttribute("loggedUser", registeredUser);
             req.getSession(false).removeAttribute("genders");
             LOG.info(USER_HAS_BEEN_REGISTERED, registeredUser, address);
+            LOG.info("ROLE - {}", registeredUser.getRole());
+
         } catch (ServiceException e) {
             throw new ActionException(UNABLE_REGISTER, e);
         }

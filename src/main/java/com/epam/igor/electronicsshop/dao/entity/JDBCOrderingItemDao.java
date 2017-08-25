@@ -13,9 +13,9 @@ import java.sql.SQLException;
  * Created by User on 02.08.2017.
  */
 public class JDBCOrderingItemDao extends JDBCAbstractDao<OrderingItem> {
-    private static final String INSERT_ORDERING_ITEM = "INSERT INTO reshop.ordering_item(order_id, product_id, " +
+    private static final String INSERT_ORDERING_ITEM = "INSERT INTO electronics.ordering_item(order_id, product_id, " +
             "amount) VALUES(?, ?, ?)";
-    private static final String UPDATE_ORDERING_ITEM_BY_ID = "UPDATE reshop.ordering_item" +
+    private static final String UPDATE_ORDERING_ITEM_BY_ID = "UPDATE electronics.ordering_item" +
             "SET order_id = ?, SET product_id = ?, SET amount = ? WHERE id = ?";
     @Override
     protected OrderingItem getObjectFromResultSet(ResultSet rs) throws DaoException {
@@ -46,7 +46,7 @@ public class JDBCOrderingItemDao extends JDBCAbstractDao<OrderingItem> {
 
     @Override
     protected String getTableName() {
-        return "ordering item";
+        return "ordering_item";
     }
 
     @Override
