@@ -12,6 +12,16 @@ public class Product extends EntityDescription {
     private String name;
     private Money price;
     private ProductType type;
+
+    public List<ItemCharacteristic> getCharacteristics() {
+        return characteristics;
+    }
+
+    public void setCharacteristics(List<ItemCharacteristic> characteristics) {
+        this.characteristics = characteristics;
+    }
+
+    private List<ItemCharacteristic> characteristics = new ArrayList<>();
     private List<Image> images = new ArrayList<>();
 
     public List<Image> getImages() {

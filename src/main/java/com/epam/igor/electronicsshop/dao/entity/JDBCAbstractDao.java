@@ -1,6 +1,5 @@
 package com.epam.igor.electronicsshop.dao.entity;
 
-import com.epam.igor.electronicsshop.dao.Dao;
 import com.epam.igor.electronicsshop.dao.DaoException;
 import com.epam.igor.electronicsshop.dao.GenericDaoInterface;
 import com.epam.igor.electronicsshop.entity.BaseEntity;
@@ -18,13 +17,14 @@ import java.util.Map;
 public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDaoInterface<T> {
 
     private static final String SELECT_FROM = "SELECT * FROM ";
-    private static final String WHERE_ID = "WHERE id = ";
+    private static final String SELECT_COUNT_FROM = "SELECT count(*) FROM ";
+    private static final String WHERE_ID = " WHERE id = ";
     private static final String WHERE = " WHERE ";
-    private static final String WHERE_NOT_DELETED = "WHERE deleted = 0 ";
+    private static final String WHERE_NOT_DELETED = " WHERE deleted = 0 ";
     private static final String UPDATE = "UPDATE ";
     private static final String ORDER_BY_ID = " ORDER BY id ";
     private static final String SET_DELETED = "SET deleted = 1 ";
-    private static final String LIMIT_OFFSET = "LIMIT = ? OFFSET = ? ";
+    private static final String LIMIT_OFFSET = " LIMIT = ? OFFSET = ? ";
     private static final Logger LOG = LoggerFactory.getLogger(JDBCAbstractDao.class);
     private Connection connection;
 
@@ -74,9 +74,8 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
 
     @Override
     public T findByPK(Integer id) throws DaoException {
-        Statement st = null;
-        try {
-            st = connection.createStatement();
+        try(Statement st = connection.createStatement();) {
+            LOG.info(SELECT_FROM + getTableName() + WHERE_ID + id);
             ResultSet rs = st.executeQuery(SELECT_FROM + getTableName() + WHERE_ID + id);
             rs.next();
             T object = getObjectFromResultSet(rs);
@@ -120,7 +119,8 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
     @Override
     public List<T> findAll(int pageNumber, int pageSize) throws DaoException {
         List<T> objects = new ArrayList<>();
-        try(PreparedStatement st = connection.prepareStatement(SELECT_FROM + getTableName() + WHERE_NOT_DELETED + LIMIT_OFFSET)) {
+
+        try (PreparedStatement st = connection.prepareStatement(SELECT_FROM + getTableName() + " WHERE deleted=0 LIMIT ? OFFSET ?")) {
             st.setInt(1, pageSize);
             st.setInt(2, (pageNumber - 1) * pageSize);
             ResultSet rs = st.executeQuery();
@@ -136,8 +136,7 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
 
     @Override
     public void update(T t) throws DaoException {
-        try {
-            PreparedStatement ps = connection.prepareStatement(getQueryForUpdate());
+        try(PreparedStatement ps = connection.prepareStatement(getQueryForUpdate());) {
             setVariablesForPreparedStatement(t, ps);
             ps.executeUpdate();
             LOG.debug("Updating ", t);
@@ -161,7 +160,7 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
     public int getNotDeletedCount() throws DaoException {
         try {
             Statement st = connection.createStatement();
-            ResultSet rs = st.executeQuery(SELECT_FROM + getTableName() + WHERE_NOT_DELETED);
+            ResultSet rs = st.executeQuery(SELECT_COUNT_FROM + getTableName() + WHERE_NOT_DELETED);
             rs.next();
             int count = rs.getInt(1);
             LOG.debug("{} table has {} not deleted rows", getTableName(), count);
@@ -172,7 +171,7 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
     }
 
     public String createQueryForFindAllByParams(Map<String, String> params){
-        String resultQuery = SELECT_FROM + getTableName() + " WHERE ";
+        String resultQuery = SELECT_FROM + getTableName() + WHERE;
         for (Map.Entry<String, String> param : params.entrySet()) {
             if (params.size() == 1) {
                 resultQuery += param.getKey() + " = '" + param.getValue() + "'";

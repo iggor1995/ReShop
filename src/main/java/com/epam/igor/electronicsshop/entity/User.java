@@ -97,6 +97,11 @@ public class User extends BaseEntity {
     public void setCash(Money cash) {
         this.cash = cash;
     }
+
+    public void spendCash(Money cashAmount) {
+        this.cash = this.cash.minus(cashAmount);
+    }
+
     public enum Role{
         admin,
         user

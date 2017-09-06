@@ -13,17 +13,17 @@ import java.sql.SQLException;
  */
 public class JDBCStorageDao extends JDBCAbstractDao<Storage> {
 
-    private static final String INSERT_STORAGE = "INSERT INTO reshop.user(name, description_RU," +
-            "descriprion_EN) VALUES (?, ?, ?)";
-    private static final String UPDATE_STORAGE_BY_ID = "UPDATE reshop.user SET name = ?," +
+    private static final String INSERT_STORAGE = "INSERT INTO electronics.user(name, description_RU," +
+            "description_EN) VALUES (?, ?, ?)";
+    private static final String UPDATE_STORAGE_BY_ID = "UPDATE electronics.user SET name = ?," +
             "SET description_RU = ?, SET description_EN = ? WHERE id = ?";
     @Override
     protected Storage getObjectFromResultSet(ResultSet rs) throws DaoException {
         Storage storage = new Storage();
         try {
             storage.setName(rs.getString("name"));
-            storage.setRuDescription(rs.getString("descritpion_RU"));
-            storage.setEnDescription(rs.getString("descritpion_EN"));
+            storage.setRuDescription(rs.getString("description_RU"));
+            storage.setEnDescription(rs.getString("description_EN"));
             storage.setDeleted(rs.getBoolean("deleted"));
         } catch (SQLException e) {
             throw new DaoException("Cannot set storage variables for prepared statement", e);
@@ -43,7 +43,7 @@ public class JDBCStorageDao extends JDBCAbstractDao<Storage> {
 
     @Override
     protected String getTableName() {
-        return "reshop.storage";
+        return "electronics.storage";
     }
 
     @Override

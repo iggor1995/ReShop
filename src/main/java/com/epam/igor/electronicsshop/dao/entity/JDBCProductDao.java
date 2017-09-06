@@ -15,15 +15,16 @@ import java.sql.SQLException;
  * Created by User on 02.08.2017.
  */
 public class JDBCProductDao extends JDBCAbstractDao<Product> {
-    private static final String INSERT_PRODUCT = "INSERT INTO electronics.product(name, price, type, " +
+    private static final String INSERT_PRODUCT = "INSERT INTO electronics.product(name, price, type_id, " +
             "description_RU, description_EN) VALUES(?, ?, ?, ?, ?)";
     private static final String UPDATE_PRODUCT_BY_ID = "UPDATE electronics.product" +
-            "SET name = ?, SET price = ?, SET type = ?, SET description_RU = ?, SET description_EN" +
+            "SET name = ?, SET price = ?, SET type_id = ?, SET description_RU = ?, SET description_EN" +
             "WHERE id = ?";
     @Override
     protected Product getObjectFromResultSet(ResultSet rs) throws DaoException {
         Product product = new Product();
         try {
+            product.setId(rs.getInt("id"));
             product.setName(rs.getString("name"));
             product.setPrice(Money.of(CurrencyUnit.getInstance("KZT"), rs.getBigDecimal("price")));
             ProductType type = new ProductType();

@@ -12,7 +12,7 @@ public class ConnectionPoolException extends RuntimeException {
 
     public ConnectionPoolException(Exception exeption, String message ){
         super(message, exeption);
-        LOG.error("Conntection pool exception has been caught", message);
+        LOG.error("Connection pool exception has been caught", message);
     }
     public ConnectionPoolException(String message){
         super(message);

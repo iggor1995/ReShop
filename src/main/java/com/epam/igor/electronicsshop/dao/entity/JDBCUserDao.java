@@ -18,9 +18,9 @@ import java.sql.SQLException;
 public class JDBCUserDao extends JDBCAbstractDao<User> {
     private static final String INSERT_USER = "INSERT INTO electronics.user(email, password, " +
             "firstname, lastname, address_id, phonenumber, role, cash, gender_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String UPDATE_USER_BY_ID = "UPDATE electronics.user SET email = ?, SET password = ?," +
-            "SET role = ?, SET first_name = ?, SET last_name = ?, SET address_id = ?, SET cash = ?, " +
-            "SET phone_number = ? WHERE id = ?";
+    private static final String UPDATE_USER_BY_ID = "UPDATE electronics.user SET email = ?, password = ?, " +
+            "firstname = ?, lastname = ?, address_id = ?, phonenumber = ?, role = ?, " +
+            "cash = ?, gender_id = ? WHERE id = ?";
     @Override
     protected User getObjectFromResultSet(ResultSet rs) throws DaoException {
         User user = new User();
@@ -29,12 +29,12 @@ public class JDBCUserDao extends JDBCAbstractDao<User> {
             user.setEmail(rs.getString("email"));
             user.setPassword(rs.getString("password"));
             user.setRole(User.Role.valueOf(rs.getString("role")));
-            user.setFirstName(rs.getString("first_name"));
-            user.setLastName(rs.getString("last_name"));
+            user.setFirstName(rs.getString("firstname"));
+            user.setLastName(rs.getString("lastname"));
             Address address = new Address(rs.getInt("address_id"));
             user.setAddress(address);
             user.setCash(Money.of(CurrencyUnit.getInstance("KZT"), rs.getBigDecimal("cash")));
-            user.setPhoneNumber(rs.getString("phone"));
+            user.setPhoneNumber(rs.getString("phonenumber"));
             Gender gender = new Gender();
             gender.setId(rs.getInt("gender_id"));
             user.setGender(gender);
@@ -62,7 +62,6 @@ public class JDBCUserDao extends JDBCAbstractDao<User> {
 
     @Override
     protected void setVariablesForPreparedStatementExceptId(User user, PreparedStatement ps) throws DaoException {
-
         try {
             ps.setString(1, user.getEmail());
             ps.setString(2, user.getPassword());

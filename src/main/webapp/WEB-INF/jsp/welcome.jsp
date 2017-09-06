@@ -3,14 +3,20 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<fmt:bundle basename="i18n">
+    <fmt:message key="welcome.register" var="register"/>
+    <fmt:message key="register.gotoregister" var="gotoregister"/>
+    <fmt:message key="login.getin" var="login"/>
+</fmt:bundle>
 
-<fmt:message key="welcome.register" var="register"/>
+<c:url var="login_url" value="/do/login"/>
 <c:url var="register_url" value="/do/register"/>
 
-<my:page-pattern role="guest">
+<my:page-pattern pagetitle="REShop">
     <div class="container">
         <div class="col-lg-10" align="center">
-            <a href="${register_url}" class="btn btn-default">Go to Registration</a>
+            <a href="${login_url}" class="btn btn-default">${login}</a>
+            <a href="${register_url}" class="btn btn-default">${gotoregister}</a>
         </div>
     </div>
 </my:page-pattern>

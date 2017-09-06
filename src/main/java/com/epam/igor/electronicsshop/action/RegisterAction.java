@@ -44,7 +44,7 @@ public class RegisterAction implements Action {
     private static final String UNABLE_REGISTER= "Couldn't register user";
     private static final String USER_HAS_BEEN_REGISTERED= "{} registered. Address - {}";
     private static final Logger LOG = LoggerFactory.getLogger(RegisterAction.class);
-    private boolean invalid;
+    private boolean INVALID;
     Properties properties = new Properties();
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
@@ -58,7 +58,7 @@ public class RegisterAction implements Action {
         try {
             if(!userService.checkEmail(email)){
                 req.setAttribute(EMAIL_ERROR, "used");
-                invalid = true;
+                INVALID = true;
                 LOG.error(EMAIL_TAKEN, email);
             }
             else {
@@ -86,8 +86,8 @@ public class RegisterAction implements Action {
         checkParameterByRegex(buildingNumber, BUILDING_NUMBER, properties.getProperty(NOT_EMPTY_NUMBER), req);
         checkParameterByRegex(apartmentNumber, APARTMENT_NUMBER, properties.getProperty(NOT_EMPTY_NUMBER), req);
 
-        if(invalid){
-            invalid = false;
+        if(INVALID){
+            INVALID = false;
             req.setAttribute(EMAIL, email);
             req.setAttribute(PASSWORD, password);
             req.setAttribute(FIRST_NAME, false);
@@ -126,6 +126,7 @@ public class RegisterAction implements Action {
         } catch (ServiceException e) {
             throw new ActionException(UNABLE_REGISTER, e);
         }
+
         return new ActionResult("home", true);
     }
     private void checkParameterByRegex(String parameter, String parameterName, String regex, HttpServletRequest req) {
@@ -135,7 +136,7 @@ public class RegisterAction implements Action {
         if (!matcher.matches()) {
             LOG.debug(WRONG_PARAMETR, parameterName, parameter);
             req.setAttribute(parameterName + "Error", "true");
-            invalid = true;
+            INVALID = true;
         }
     }
 }

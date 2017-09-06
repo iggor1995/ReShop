@@ -19,16 +19,18 @@ public class UserService {
     public UserService(){}
 
     public User performUserLogin(String email, String password) throws ServiceException{
-
-        Map<String, String> params = new HashMap<>();
-        params.put("email", email);
-        params.put("password", password);
-        DaoFactory jdbcDaofactory = new JDBCDaoFactory();
-        try {
+        try(DaoFactory jdbcDaofactory = new JDBCDaoFactory();) {
+            Map<String, String> params = new HashMap<>();
+            params.put("email", email);
+            params.put("password", password);
             GenericDaoInterface<User> userDao = jdbcDaofactory.getDao(User.class);
-        } catch (DaoException e) {
-            throw new ServiceException("");
-        }
+            List<User> users = userDao.findAllByParams(params);
+            if(!users.isEmpty() && !users.get(0).isDeleted()){
+                return users.get(0);
+            }
+            } catch (DaoException e) {
+                throw new ServiceException(e, "Couldn't get user");
+            }
         return null;
     }
     public boolean checkEmail(String email) throws ServiceException{
