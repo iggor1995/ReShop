@@ -7,8 +7,8 @@ public class Address extends BaseEntity {
     private String country;
     private String city;
     private String street;
-    private int buildingNumber;
-    private int apartmentNumber;
+    private String buildingNumber;
+    private String apartmentNumber;
     public Address(){}
     public Address(int id){
         setId(id);
@@ -25,11 +25,11 @@ public class Address extends BaseEntity {
         this.street = street;
     }
 
-    public void setBuildingNumber(int buildingNumber) {
+    public void setBuildingNumber(String buildingNumber) {
         this.buildingNumber = buildingNumber;
     }
 
-    public void setApartmentNumber(int apartmentNumber) {
+    public void setApartmentNumber(String apartmentNumber) {
         this.apartmentNumber = apartmentNumber;
     }
 
@@ -46,11 +46,11 @@ public class Address extends BaseEntity {
         return street;
     }
 
-    public int getBuildingNumber() {
+    public String getBuildingNumber() {
         return buildingNumber;
     }
 
-    public int getApartmentNumber() {
+    public String getApartmentNumber() {
         return apartmentNumber;
     }
 }

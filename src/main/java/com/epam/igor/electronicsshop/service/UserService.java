@@ -155,4 +155,18 @@ public class UserService {
         }
         return address;
     }
+    public User getFilledUserById(int id) throws ServiceException{
+        User user;
+        try(DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)) {
+            GenericDaoInterface<User> userDao = jdbcDaoFactory.getDao(User.class);
+            GenericDaoInterface<Address> addressDao = jdbcDaoFactory.getDao(Address.class);
+            GenericDaoInterface<Gender> genderDao = jdbcDaoFactory.getDao(Gender.class);
+            user = userDao.findByPK(id);
+            user.setGender(genderDao.findByPK(user.getGender().getId()));
+            user.setAddress(addressDao.findByPK(user.getAddress().getId()));
+        } catch (DaoException e) {
+            throw new ServiceException(e, "Couldn't get filled user by id");
+        }
+        return user;
+    }
 }

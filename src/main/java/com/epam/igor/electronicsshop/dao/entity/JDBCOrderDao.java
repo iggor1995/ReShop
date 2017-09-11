@@ -19,13 +19,13 @@ public class JDBCOrderDao extends JDBCAbstractDao<Order> {
     private static final String INSERT_ORDER = "INSERT INTO electronics.order(user_id, created, description," +
             " status_id) VALUES(?, ?, ?, ?)";
     private static final String UPDATE_ORDER_BY_ID = "UPDATE electronics.order SET user_id = ?," +
-            "SET created = ?, SET description = ?, SET status = ? WHERE id = ?";
+            "SET created = ?, description = ?, status = ? WHERE id = ?";
     @Override
     protected Order getObjectFromResultSet(ResultSet rs) throws DaoException {
         Order order = new Order();
         try {
             order.setId(rs.getInt("id"));
-            User user = new User(rs.getInt("id"));
+            User user = new User(rs.getInt("user_id"));
             order.setUser(user);
             order.setCreationTime(new DateTime(rs.getTimestamp("created")));
             order.setDescription(rs.getString("description"));

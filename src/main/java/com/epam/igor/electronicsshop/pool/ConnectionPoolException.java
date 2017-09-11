@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by User on 01.08.2017.
  */
-public class ConnectionPoolException extends RuntimeException {
+public class ConnectionPoolException extends Exception {
     private static final Logger LOG = LoggerFactory.getLogger(ServiceException.class);
 
     public ConnectionPoolException(Exception exeption, String message ){

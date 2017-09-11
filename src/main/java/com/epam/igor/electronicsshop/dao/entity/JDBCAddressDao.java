@@ -13,9 +13,9 @@ import java.sql.SQLException;
 public class JDBCAddressDao extends JDBCAbstractDao<Address> {
     private static final String INSERT_ADDRESS = "INSERT INTO electronics.address" +
             "(country, city, street, building_number, apartment_number) VALUES(?, ?, ?, ?, ?)";
-    private static final String UPDATE_ADDRESS_BY_ID = "UPDATE electronics.address" +
-            "SET country = ?, SET city = ?, SET street = ?, SET building_number = ?, " +
-            "SET apartment_number = ? WHERE id = ?";
+    private static final String UPDATE_ADDRESS_BY_ID = "UPDATE electronics.address " +
+            "SET country = ?, city = ?, street = ?, building_number = ?, " +
+            "apartment_number = ? WHERE id = ?";
     @Override
     protected Address getObjectFromResultSet(ResultSet rs) throws DaoException {
         Address address = new Address();
@@ -24,8 +24,8 @@ public class JDBCAddressDao extends JDBCAbstractDao<Address> {
             address.setCountry(rs.getString("country"));
             address.setCity(rs.getString("city"));
             address.setStreet(rs.getString("street"));
-            address.setBuildingNumber(rs.getInt("building_number"));
-            address.setApartmentNumber(rs.getInt("apartment_number"));
+            address.setBuildingNumber(rs.getString("building_number"));
+            address.setApartmentNumber(rs.getString("apartment_number"));
             address.setDeleted(rs.getBoolean("deleted"));
         } catch (SQLException e) {
             throw  new DaoException("Cannot get address from result set", e);
@@ -54,8 +54,8 @@ public class JDBCAddressDao extends JDBCAbstractDao<Address> {
             ps.setString(1, address.getCountry());
             ps.setString(2, address.getCity());
             ps.setString(3, address.getStreet());
-            ps.setInt(4, address.getBuildingNumber());
-            ps.setInt(5, address.getApartmentNumber());
+            ps.setString(4, address.getBuildingNumber());
+            ps.setString(5, address.getApartmentNumber());
         } catch (SQLException e) {
             throw  new DaoException("Couldn't set address variables for prepared statement", e);
         }

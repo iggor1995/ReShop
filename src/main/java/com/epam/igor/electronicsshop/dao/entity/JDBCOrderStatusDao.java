@@ -15,7 +15,7 @@ public class JDBCOrderStatusDao extends JDBCAbstractDao<OrderStatus> {
     private static final String INSERT_ODER_STATUS = "INSERT INTO electronics.order_status" +
             "(name_ru, name_en) VALUES(?, ?)";
     private static final String UPDATE_ORDER_STATUS_BY_ID = "UPDATE electronics.order_status" +
-            "SET name_ru = ?, SET name_en = ? WHERE id = ?";
+            "SET name_ru = ?, name_en = ? WHERE id = ?";
     @Override
     protected OrderStatus getObjectFromResultSet(ResultSet rs) throws DaoException {
         OrderStatus orderStatus = new OrderStatus();

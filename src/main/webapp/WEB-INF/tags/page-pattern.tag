@@ -19,7 +19,6 @@
 
 </fmt:bundle>
 
-<c:url value="/do/home"/>
 <c:url value="/do/locale?locale=en" var="en_locale_url"/>
 <c:url value="/do/locale?locale=ru" var="ru_locale_url"/>
 <head>
@@ -37,6 +36,11 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="<c:url value="/do/home"/>"><span
                             class="glyphicon glyphicon-home"></span></a>
+                    <c:if test="${loggedUser.role == 'user' || loggedUser.role == 'admin'}">
+                        <a class="navbar-brand" href="<c:url value="/do/logout"/>"><span
+                                class="glyphicon glyphicon-exclamation-sign"></span></a>
+                    </c:if>
+
                 </div>
                 <ul class="nav navbar-nav">
                     <li class="dropdown">

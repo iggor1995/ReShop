@@ -23,7 +23,7 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
     private static final String WHERE_NOT_DELETED = " WHERE deleted = 0 ";
     private static final String UPDATE = "UPDATE ";
     private static final String ORDER_BY_ID = " ORDER BY id ";
-    private static final String SET_DELETED = "SET deleted = 1 ";
+    private static final String SET_DELETED = " SET deleted = 1 ";
     private static final String LIMIT_OFFSET = " LIMIT = ? OFFSET = ? ";
     private static final Logger LOG = LoggerFactory.getLogger(JDBCAbstractDao.class);
     private Connection connection;
@@ -77,6 +77,7 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
         try(Statement st = connection.createStatement();) {
             LOG.info(SELECT_FROM + getTableName() + WHERE_ID + id);
             ResultSet rs = st.executeQuery(SELECT_FROM + getTableName() + WHERE_ID + id);
+            LOG.info(SELECT_FROM + getTableName() + WHERE_ID + id);
             rs.next();
             T object = getObjectFromResultSet(rs);
             LOG.debug("Getting object {} with id = {}",object, id);

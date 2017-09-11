@@ -19,10 +19,11 @@
         <form role="form" action="${login_url}" method="post">
             <div class="form-group input-group" style="width: 300px">
                 <span class="input-group-addon" id="basic-addon1">@</span>
-                <input type="text" class="form-control" aria-describedby="basic_addon1" placeholder="${email}" name="email">
+                <input type="text" class="form-control" aria-describedby="basic-addon1" placeholder="${email}"
+                       name="email">
             </div>
             <div class="form-group input-group" style="width: 300px">
-                <span class="input-group-addon"><i class="glyphicon-lock"></i> </span>
+                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
                 <input type="password" class="form-control" placeholder="${password}" name="password">
             </div>
             <div class="form-group">

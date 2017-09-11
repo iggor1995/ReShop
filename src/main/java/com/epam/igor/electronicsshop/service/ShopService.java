@@ -115,4 +115,141 @@ public class ShopService {
         }
         return user;
     }
+    public List<User> getAllUsersOnPage(int pageNumber, int pageSize) throws ServiceException{
+        List<User> users;
+        try(DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)) {
+            GenericDaoInterface<User> userDao = jdbcDaoFactory.getDao(User.class);
+            GenericDaoInterface<Gender> genderDao = jdbcDaoFactory.getDao(Gender.class);
+            users = userDao.findAll(pageNumber, pageSize);
+            for(User user : users){
+                user.setGender(genderDao.findByPK(user.getGender().getId()));
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e, "Couldn't get users");
+        }
+        return users;
+    }
+    public int getUsersCount() throws ServiceException{
+        int usersCount;
+        try(DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)) {
+            GenericDaoInterface<User> userDao = jdbcDaoFactory.getDao(User.class);
+            usersCount = userDao.getNotDeletedCount();
+        } catch (DaoException e) {
+            throw new ServiceException(e, "Couldn't get users count");
+        }
+        return usersCount;
+    }
+    public List<Order> getAllOrdersOnPage(int pageSize, int pageNumber) throws ServiceException{
+        List<Order> orders;
+        try(DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)) {
+            GenericDaoInterface<Order> orderDao = jdbcDaoFactory.getDao(Order.class);
+            GenericDaoInterface<OrderingItem> orderingItemDao = jdbcDaoFactory.getDao(OrderingItem.class);
+            GenericDaoInterface<OrderStatus> orderStatusDao = jdbcDaoFactory.getDao(OrderStatus.class);
+            GenericDaoInterface<User> userDao = jdbcDaoFactory.getDao(User.class);
+            GenericDaoInterface<Product> productDao = jdbcDaoFactory.getDao(Product.class);
+            orders = orderDao.findAll(pageNumber, pageSize);
+            for(Order order : orders){
+                order.setUser(userDao.findByPK(order.getUser().getId()));
+                order.setStatus(orderStatusDao.findByPK(order.getStatus().getId()));
+                List<OrderingItem> orderingItems = orderingItemDao.findAllByParams(Collections.singletonMap("order_id",
+                        String.valueOf(order.getId())));
+                for(OrderingItem orderingItem : orderingItems){
+                    orderingItem.setProduct(productDao.findByPK(orderingItem.getProduct().getId()));
+                }
+                order.setOrderingItems(orderingItems);
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e, "Couldn't get orders on page");
+        }
+        return orders;
+    }
+    public List<StorageItem> getAllStorageItemsOnPage(int pageSize, int pageNumber) throws ServiceException{
+        List<StorageItem> storageItems;
+        try(DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)) {
+            GenericDaoInterface<StorageItem> storageItemDao = jdbcDaoFactory.getDao(StorageItem.class);
+            GenericDaoInterface<Product> productDao = jdbcDaoFactory.getDao(Product.class);
+            GenericDaoInterface<Storage> storageDao = jdbcDaoFactory.getDao(Storage.class);
+            storageItems = storageItemDao.findAll(pageNumber, pageSize);
+            for(StorageItem storageItem : storageItems){
+                storageItem.setStorage(storageDao.findByPK(storageItem.getStorage().getId()));
+                storageItem.setProduct(productDao.findByPK(storageItem.getProduct().getId()));
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e, "Couldn't get storage items on page");
+        }
+        return storageItems;
+    }
+    public int getOrdersCount() throws ServiceException{
+        int ordersCount;
+        try(DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)) {
+            GenericDaoInterface<Order> orderDao = jdbcDaoFactory.getDao(Order.class);
+            ordersCount = orderDao.getNotDeletedCount();
+        } catch (DaoException e) {
+            throw new ServiceException(e, "Couldn't get orders count");
+        }
+        return ordersCount;
+    }
+    public int getStorageItemsCount() throws ServiceException{
+        int storageItemsCount;
+        try(DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)) {
+            GenericDaoInterface<StorageItem> storageItemDao = jdbcDaoFactory.getDao(StorageItem.class);
+            storageItemsCount = storageItemDao.getNotDeletedCount();
+        } catch (DaoException e) {
+            throw new ServiceException(e, "Couldn't get orders count");
+        }
+        return storageItemsCount;
+    }
+    public List<OrderStatus> getAllOrderStatuses() throws ServiceException{
+        List<OrderStatus> orderStatuses;
+        try(DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)) {
+            GenericDaoInterface<OrderStatus> orderStatusDao = jdbcDaoFactory.getDao(OrderStatus.class);
+            orderStatuses = orderStatusDao.findAll();
+            orderStatuses = orderStatuses.stream().filter(status -> !status.isDeleted()).collect(Collectors.toList());
+        } catch (DaoException e) {
+            throw new ServiceException(e, "Couldn't get order statuses");
+        }
+        return orderStatuses;
+    }
+    public void updateOrderStatus(String orderId, String statusId) throws ServiceException{
+        try(DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)) {
+            GenericDaoInterface<Order> orderDao = jdbcDaoFactory.getDao(Order.class);
+            Order order = orderDao.findByPK(Integer.valueOf(orderId));
+            order.getStatus().setId(Integer.valueOf(statusId));
+            orderDao.update(order);
+        } catch (DaoException e) {
+            throw new ServiceException(e, "Couldn't update Order status");
+        }
+    }
+    public void deleteOrderById(String id) throws ServiceException{
+        try(DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)){
+            GenericDaoInterface<Order> orderDao = jdbcDaoFactory.getDao(Order.class);
+            orderDao.delete(Integer.valueOf(id));
+        } catch (DaoException e) {
+            throw new ServiceException(e, "Couldn't delete order");
+        }
+    }
+    public void deleteProductById(String id) throws ServiceException{
+        try(DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)){
+            GenericDaoInterface<Product> productDao = jdbcDaoFactory.getDao(Product.class);
+            productDao.delete(Integer.valueOf(id));
+        } catch (DaoException e) {
+            throw new ServiceException(e, "Couldn't delete product");
+        }
+    }
+    public void deleteUserById(String id) throws ServiceException{
+        try(DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)){
+            GenericDaoInterface<User> userDao = jdbcDaoFactory.getDao(User.class);
+            userDao.delete(Integer.valueOf(id));
+        } catch (DaoException e) {
+            throw new ServiceException(e, "Couldn't delete user");
+        }
+    }
+    public void deleteStorageItemById(String id) throws ServiceException{
+        try(DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)){
+            GenericDaoInterface<StorageItem> storageItemDao = jdbcDaoFactory.getDao(StorageItem.class);
+            storageItemDao.delete(Integer.valueOf(id));
+        } catch (DaoException e) {
+            throw new ServiceException(e, "Couldn't delete storage item");
+        }
+    }
 }

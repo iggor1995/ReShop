@@ -30,20 +30,35 @@ public class AddProductAction implements Action {
     private static final String WRONG_PARAMETR = "Parameter '{}' with value '{}' is unsuitable.";
     private static final String MONEY = "money";
     private static final String MONEY_REGEX = "money.regex";
+    private static final String PARAMETER_NAME = "name";
+    private static final String PARAMETER_TYPE_ID = "typeId";
+    private static final String PARAMETER_DESCRIPTION_RU = "descriptionRU";
+    private static final String PARAMETER_DESCRIPTION_EN = "descriptionEN";
+    private static final String PARAMETER_PRICE = "price";
+    private static final String ERROR_MONEY = "moneyError";
+    private static final String ERROR_IMAGE = "imageError";
+    private static final String ERROR_PROPERTIES = "Couldn't get validation.properties";
+    private static final String ADD_PRODUCT_PAGE = "add-product";
+    private static final String MANAGE_PRODUCTS_PAGE = "manage/products";
+    private static final String CURRENCY_KZT = "KZT";
+    private static final String IMAGE_PART = "image";
+    private static final String PROPERTIES = "validation.properties";
+    private static final String LOGGED_USER = "loggedUser";
+    private static final String ADDED_PRODUCT = "{} inserted in db and added on central storage by {}";
     Properties properties = new Properties();
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
         try {
-            properties.load(AddProductAction.class.getClassLoader().getResourceAsStream("validation.properties"));
+            properties.load(AddProductAction.class.getClassLoader().getResourceAsStream(PROPERTIES));
         } catch (IOException e) {
-            throw new ActionException("Couldn't get validation.properties", e);
+            throw new ActionException(ERROR_PROPERTIES , e);
         }
 
-        String name = req.getParameter("name");
-        String type = req.getParameter("typeId");
-        String descriptionEN = req.getParameter("descriptionEN");
-        String descriptionRU = req.getParameter("descriptionRU");
-        String price = req.getParameter("price");
+        String name = req.getParameter(PARAMETER_NAME);
+        String type = req.getParameter(PARAMETER_TYPE_ID);
+        String descriptionEN = req.getParameter(PARAMETER_DESCRIPTION_EN);
+        String descriptionRU = req.getParameter(PARAMETER_DESCRIPTION_RU);
+        String price = req.getParameter(PARAMETER_PRICE);
 
         ProductService productService = new ProductService();
         try{
@@ -55,17 +70,17 @@ public class AddProductAction implements Action {
             checkParameterByRegex(price, MONEY, properties.getProperty(MONEY_REGEX), req);
             if(INVALID){
                 INVALID = false;
-                req.setAttribute("moneyError", "true");
+                req.setAttribute(ERROR_MONEY, "true");
                 req.setAttribute("product", product);
-                return new ActionResult("add-product");
+                return new ActionResult(ADD_PRODUCT_PAGE);
             }
-            product.setPrice(Money.parse("KZT" + price));
-            Part imagePart = req.getPart("image");
-            if(!imagePart.getContentType().startsWith("image")){
-                req.setAttribute("imageError", "true");
+            product.setPrice(Money.parse(CURRENCY_KZT + price));
+            Part imagePart = req.getPart(IMAGE_PART);
+            if(!imagePart.getContentType().startsWith(IMAGE_PART)){
+                req.setAttribute(ERROR_IMAGE, "true");
                 req.setAttribute("product", product);
                 LOG.error("Invalid content type - {}", imagePart.getContentType());
-                return new ActionResult("add-product");
+                return new ActionResult(ADD_PRODUCT_PAGE);
             }
 
             Image image = new Image();
@@ -75,11 +90,11 @@ public class AddProductAction implements Action {
             image.setImageStream(imagePart.getInputStream());
             Product newProduct = productService.addProduct(product, image);
             productService.addProductToStorage(newProduct);
-            LOG.info("{} inserted in db and added on central storage by {}", newProduct, req.getSession(false).getAttribute("loggedUser"));
+            LOG.info(ADDED_PRODUCT, newProduct, req.getSession(false).getAttribute(LOGGED_USER));
         } catch (ServiceException | IOException | ServletException e) {
             throw new ActionException("Couldn't add product", e);
         }
-        return new ActionResult("manage/products", true);
+        return new ActionResult(MANAGE_PRODUCTS_PAGE, true);
     }
     private void checkParameterByRegex(String parameter, String parameterName, String regex, HttpServletRequest req) {
         LOG.debug(CHECK_PARAMETR, parameterName, parameter, regex);

@@ -1,6 +1,5 @@
 package com.epam.igor.electronicsshop.dao.entity;
 
-import com.epam.igor.electronicsshop.dao.Dao;
 import com.epam.igor.electronicsshop.dao.DaoException;
 import com.epam.igor.electronicsshop.dao.entity.JDBCAbstractDao;
 import com.epam.igor.electronicsshop.entity.ProductType;
@@ -16,7 +15,7 @@ public class JDBCProductTypeDao extends JDBCAbstractDao<ProductType> {
     private static final String INSERT_PRODUCT_TYPE = "INSERT INTO electronics.product_type(name_ru, name_en)" +
             "VALUES(?, ?)";
     private static final String UPDATE_PRODUCT_TYPE_BY_ID = "UPDATE electronics.product_type" +
-            "SET name_ru = ?, SET name_en = ?";
+            "SET name_ru = ?, name_en = ?";
 
     @Override
     protected ProductType getObjectFromResultSet(ResultSet rs) throws DaoException {

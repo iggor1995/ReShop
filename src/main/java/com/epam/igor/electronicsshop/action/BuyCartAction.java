@@ -16,12 +16,16 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class BuyCartAction implements Action {
     private final static Logger LOG = LoggerFactory.getLogger(BuyCartAction.class);
-    private final String BALANCE_ERROR = "balance.error";
-    private final String BALANCE_NEEDED = "balance.needed";
-    private final String ERROR_MESSAGE = "{} - doesn't has enough money. Money needed - {}";
-    private final String NOT_ENOUGH = "notEnough";
-    private final String LOGGED_USER = "loggedUser";
-    private final String CART = "cart";
+    private static final String BALANCE_ERROR = "balance.error";
+    private static final String BALANCE_NEEDED = "balance.needed";
+    private static final String ERROR_MESSAGE = "{} - doesn't has enough money. Money needed - {}";
+    private static final String NOT_ENOUGH = "notEnough";
+    private static final String LOGGED_USER = "loggedUser";
+    private static final String USER_PROFILE_PAGE = "user/profile";
+    private static final String USER_ORDERS_PAGE = "user-orders";
+    private static final String ERROR_PLACING = "Couldn't place order";
+    private static final String BOUGHT_ORDER = "{} has been bought by - {}";
+    private static final String CART = "cart";
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
         Order order = (Order) req.getSession().getAttribute(CART);
@@ -32,17 +36,17 @@ public class BuyCartAction implements Action {
             Money balanceNeeded = order.getPrice().minus(loggedUser.getCash());
             req.setAttribute(BALANCE_NEEDED, balanceNeeded);
             LOG.info(ERROR_MESSAGE, loggedUser, balanceNeeded);
-            return new ActionResult("user/profile", true);
+            return new ActionResult(USER_PROFILE_PAGE, true);
         }
         try {
             ShopService shopService = new ShopService();
             shopService.buyCart(order);
-            req.getSession().setAttribute("loggedUser", loggedUser);
-            req.getSession(false).removeAttribute("cart");
-            LOG.info("{} has been bought by - {}", order, loggedUser);
-            return new ActionResult("user-orders");
+            req.getSession().setAttribute(LOGGED_USER, loggedUser);
+            req.getSession(false).removeAttribute(CART);
+            LOG.info(BOUGHT_ORDER, order, loggedUser);
+            return new ActionResult(USER_ORDERS_PAGE);
         } catch (ServiceException e) {
-            throw new ActionException("Couldn't place order", e);
+            throw new ActionException(ERROR_PLACING, e);
         }
     }
 }

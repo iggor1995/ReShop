@@ -17,6 +17,9 @@
     <fmt:message key="common.role" var="role"/>
     <fmt:message key="common.address.title" var="addressTitle"/>
     <fmt:message key="profile.pagetitle" var="pagetitle"/>
+    <fmt:message key="edit.userData" var="editData"/>
+    <fmt:message key="edit.address" var="editaddress"/>
+
 </fmt:bundle>
 
 <%--@elvariable id="loggedUser" type="com.epam.igor.electronicsshop.entity.User"--%>
@@ -24,7 +27,6 @@
 <my:page-pattern pagetitle="My profile">
     <div class="row row-offcanvas row-offcanvas-right" style="width: 1200px; margin: auto;">
         <my:user user="${loggedUser}"/>
-
         <div class="col-lg-10">
             <div class="col-lg-4">
                 <p><b>${pagetitle}</b></p>
@@ -35,6 +37,7 @@
                 <p><b>${email}: </b>${loggedUser.email}</p>
                 <p><b>${phoneNumber}: </b>${loggedUser.phoneNumber}</p>
                 <p><b>${role}: </b>${loggedUser.role}</p>
+                <a href="<c:url value="/do/edit/userData"/>" class="list-group-item">${editData}</a>
             </div>
             <div class="col-lg-4">
                 <p><b>${addressTitle}</b></p>
@@ -44,6 +47,7 @@
                 <p><b>${street}: </b>${address.street}</p>
                 <p><b>${buildingNumber}: </b>${address.buildingNumber}</p>
                 <p><b>${apartmentNumber}: </b>${address.apartmentNumber}</p>
+                <a href="<c:url value="/do/edit/userAddress"/>" class="list-group-item">${editaddress}</a>
             </div>
         </div>
     </div>

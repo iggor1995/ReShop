@@ -1,114 +1,155 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCAbstractDao.java" description="protected abstract void setVariablesForPreparedSta..." line="45" />
-  </component>
   <component name="ChangeListManager">
     <list default="true" id="60dd5797-30f4-4642-9ec4-72bd0959b447" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/AddProductAction.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/AddProductToCartAction.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/BuyCartAction.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/LoginAction.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowAddProductPageAction.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowCatalogPageAction.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowHomePageAction.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowManageProductsPageAction.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowOrderPageAction.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowProductPageAction.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowUserOrdersAction.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowUserProfileAction.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/servlet/ImageServlet.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/cart.jsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/login.jsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/order.jsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/orders.jsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/product-add.jsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/product-page.jsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/products.jsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/type-catalog.jsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user-orders.jsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user-profile.jsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/pagination.tag" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/product-add-form.tag" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/product.tag" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/user.tag" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/css/bootstrap.min.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/css/bootstrap.min.css.map" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/js/bootstrap.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/js/jquery-1.12.2.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/js/jquery-2.2.2.min.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/user-page.tag" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/tags/user-page.tag" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/fonts/glyphicons-halflings-regular.eot" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/fonts/glyphicons-halflings-regular.ttf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/fonts/glyphicons-halflings-regular.woff" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/fonts/glyphicons-halflings-regular.woff2" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ClearCartAction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/DeleteOrderAction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/DeleteOrderingItemAction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/DeleteProductAction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/DeleteStorageItemAction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/DeleteUserAction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/EditOrderStatusAction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/EditUserAction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/EditUserAddressAction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/EditUserDataAction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/LogoutAction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/RefillUserBalanceAction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowEditAddressAction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowEditUserDataAction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowEditUserPageAction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowManageOrdersPageAction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowManageStoragePageAction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowManageUsersPageAction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowRefillPageAction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/filter/EncodingFilter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/filter/LocaleFilter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/edit-user-address.jsp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/edit-user-data.jsp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/edit-user.jsp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/manage-orders.jsp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/manage-users.jsp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/refill.jsp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/storage.jsp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/fonts/glyphicons-halflings-regular.svg" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/Dao.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/orders.jsp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/images/logo.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/dao/Dao.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/jsp/orders.jsp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/images/logo.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/action/ActionFactory.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/dao/Dao.class" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/action/ActionException.class" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/action/ActionException.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/action/ActionFactory.class" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/action/ActionFactory.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/action/AddProductAction.class" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/action/AddProductAction.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/action/AddProductToCartAction.class" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/action/AddProductToCartAction.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/action/BuyCartAction.class" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/action/BuyCartAction.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/action/LoginAction.class" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/action/LoginAction.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/action/RegisterAction.class" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/action/RegisterAction.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/dao/entity/JDBCAbstractDao.class" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/dao/entity/JDBCAbstractDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/dao/entity/JDBCAddressDao.class" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/dao/entity/JDBCAddressDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/dao/entity/JDBCGenderDao.class" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/dao/entity/JDBCGenderDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/dao/entity/JDBCImageDao.class" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/dao/entity/JDBCImageDao.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/dao/entity/JDBCOrderDao.class" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/dao/entity/JDBCOrderDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/dao/entity/JDBCOrderStatusDao.class" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/dao/entity/JDBCOrderStatusDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/dao/entity/JDBCOrderingItemDao.class" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/dao/entity/JDBCOrderingItemDao.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/dao/entity/JDBCProductDao.class" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/dao/entity/JDBCProductDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/dao/entity/JDBCProductTypeDao.class" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/dao/entity/JDBCProductTypeDao.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/dao/entity/JDBCStorageDao.class" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/dao/entity/JDBCStorageDao.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/dao/entity/JDBCUserDao.class" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/dao/entity/JDBCUserDao.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/entity/Image.class" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/entity/Image.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/entity/Order.class" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/entity/Order.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/entity/Product.class" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/entity/Product.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/entity/ProductType.class" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/entity/ProductType.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/dao/entity/JDBCStorageItemDao.class" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/dao/entity/JDBCStorageItemDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/entity/Address.class" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/entity/Address.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/pool/ConnectionPoolException.class" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/pool/ConnectionPoolException.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/service/ProductService.class" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/service/ProductService.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/service/ShopService.class" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/service/ShopService.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/service/UserService.class" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/service/UserService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/action/ActionFactory.class" afterPath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/action/ActionFactory.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/servlet/ImageServlet.class" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/servlet/ImageServlet.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/servlet/ReShopServlet.class" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/com/epam/igor/electronicsshop/servlet/ReShopServlet.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/action/ActionException.class" afterPath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/action/ActionException.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/action/AddProductAction.class" afterPath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/action/AddProductAction.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/action/AddProductToCartAction.class" afterPath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/action/AddProductToCartAction.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/action/BuyCartAction.class" afterPath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/action/BuyCartAction.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/action/LoginAction.class" afterPath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/action/LoginAction.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/action/RegisterAction.class" afterPath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/action/RegisterAction.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/dao/entity/JDBCAbstractDao.class" afterPath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/dao/entity/JDBCAbstractDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/dao/entity/JDBCAddressDao.class" afterPath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/dao/entity/JDBCAddressDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/dao/entity/JDBCGenderDao.class" afterPath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/dao/entity/JDBCGenderDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/dao/entity/JDBCImageDao.class" afterPath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/dao/entity/JDBCImageDao.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/dao/entity/JDBCOrderDao.class" afterPath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/dao/entity/JDBCOrderDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/dao/entity/JDBCOrderStatusDao.class" afterPath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/dao/entity/JDBCOrderStatusDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/dao/entity/JDBCOrderingItemDao.class" afterPath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/dao/entity/JDBCOrderingItemDao.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/dao/entity/JDBCProductDao.class" afterPath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/dao/entity/JDBCProductDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/dao/entity/JDBCProductTypeDao.class" afterPath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/dao/entity/JDBCProductTypeDao.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/dao/entity/JDBCStorageDao.class" afterPath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/dao/entity/JDBCStorageDao.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/dao/entity/JDBCUserDao.class" afterPath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/dao/entity/JDBCUserDao.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/entity/Image.class" afterPath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/entity/Image.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/entity/Order.class" afterPath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/entity/Order.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/entity/Product.class" afterPath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/entity/Product.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/entity/ProductType.class" afterPath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/entity/ProductType.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/dao/entity/JDBCStorageItemDao.class" afterPath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/dao/entity/JDBCStorageItemDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/entity/Address.class" afterPath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/entity/Address.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/pool/ConnectionPoolException.class" afterPath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/pool/ConnectionPoolException.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/service/ProductService.class" afterPath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/service/ProductService.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/service/ShopService.class" afterPath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/service/ShopService.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/service/UserService.class" afterPath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/service/UserService.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/servlet/ImageServlet.class" afterPath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/servlet/ImageServlet.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/servlet/ReShopServlet.class" afterPath="$PROJECT_DIR$/target/classes/com/epam/igor/electronicsshop/servlet/ReShopServlet.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/585edcdc-eb83-4b29-bd52-83004e5f3da6.xml" afterPath="$PROJECT_DIR$/.idea/dataSources/585edcdc-eb83-4b29-bd52-83004e5f3da6.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ActionException.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ActionException.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ActionFactory.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ActionFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/AddProductAction.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/AddProductAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/AddProductToCartAction.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/AddProductToCartAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/BuyCartAction.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/BuyCartAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/LoginAction.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/LoginAction.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/RegisterAction.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/RegisterAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/SelectLocaleAction.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/SelectLocaleAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowAddProductPageAction.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowAddProductPageAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowCatalogPageAction.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowCatalogPageAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowHomePageAction.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowHomePageAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowManageProductsPageAction.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowManageProductsPageAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowOrderPageAction.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowOrderPageAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowProductPageAction.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowProductPageAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowRegisterPageAction.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowRegisterPageAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowUserOrdersAction.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowUserOrdersAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowUserProfileAction.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowUserProfileAction.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCAbstractDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCAbstractDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCAddressDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCAddressDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCGenderDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCGenderDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCImageDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCImageDao.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCOrderDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCOrderDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCOrderStatusDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCOrderStatusDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCOrderingItemDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCOrderingItemDao.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCProductDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCProductDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCProductTypeDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCProductTypeDao.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCStorageDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCStorageDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCUserDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCUserDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/entity/Image.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/entity/Image.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/entity/Order.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/entity/Order.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/entity/Product.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/entity/Product.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/entity/ProductType.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/entity/ProductType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/entity/User.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/entity/User.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCStorageItemDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCStorageItemDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/entity/Address.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/entity/Address.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/pool/ConnectionPoolException.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/pool/ConnectionPoolException.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/service/ProductService.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/service/ProductService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/service/ShopService.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/service/ShopService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/service/UserService.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/service/UserService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/servlet/ImageServlet.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/servlet/ImageServlet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/servlet/ReShopServlet.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/servlet/ReShopServlet.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/i18n.properties" afterPath="$PROJECT_DIR$/src/main/resources/i18n.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/i18n_en.properties" afterPath="$PROJECT_DIR$/src/main/resources/i18n_en.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/i18n_ru.properties" afterPath="$PROJECT_DIR$/src/main/resources/i18n_ru.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/validation.properties" afterPath="$PROJECT_DIR$/src/main/resources/validation.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/home.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/home.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/cart.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/cart.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/login.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/login.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/register.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/register.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/welcome.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/welcome.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user-profile.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user-profile.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/page-pattern.tag" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/page-pattern.tag" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/product.tag" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/product.tag" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/user.tag" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/user.tag" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/i18n.properties" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/i18n.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/i18n_en.properties" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/i18n_en.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/i18n_ru.properties" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/i18n_ru.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/validation.properties" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/classes/validation.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/jsp/home.jsp" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/jsp/home.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/jsp/register.jsp" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/jsp/register.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/jsp/welcome.jsp" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/jsp/welcome.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/jsp/cart.jsp" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/jsp/cart.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/jsp/login.jsp" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/jsp/login.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/jsp/user-profile.jsp" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/jsp/user-profile.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/tags/page-pattern.tag" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/tags/page-pattern.tag" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/tags/product.tag" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/tags/product.tag" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/tags/user.tag" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/tags/user.tag" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/web.xml" afterPath="$PROJECT_DIR$/target/RadioElectronicsShop/WEB-INF/web.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/i18n.properties" afterPath="$PROJECT_DIR$/target/classes/i18n.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/i18n_en.properties" afterPath="$PROJECT_DIR$/target/classes/i18n_en.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/i18n_ru.properties" afterPath="$PROJECT_DIR$/target/classes/i18n_ru.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/validation.properties" afterPath="$PROJECT_DIR$/target/classes/validation.properties" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -146,85 +187,103 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="JDBCAbstractDao.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCAbstractDao.java">
+      <file leaf-file-name="ShowManageOrdersPageAction.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowManageOrdersPageAction.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="214">
-              <caret line="69" column="0" lean-forward="false" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+            <state relative-caret-position="272">
+              <caret line="28" column="89" lean-forward="false" selection-start-line="21" selection-start-column="2" selection-end-line="28" selection-end-column="89" />
               <folding>
-                <element signature="method#setVariablesForPreparedStatement#0;class#JDBCAbstractDao#0" expanded="false" />
-                <element signature="method#findAll#0;class#JDBCAbstractDao#0" expanded="false" />
-                <element signature="method#findAll#1;class#JDBCAbstractDao#0" expanded="false" />
-                <element signature="method#delete#0;class#JDBCAbstractDao#0" expanded="false" />
-                <marker date="1504619638758" expanded="true" signature="561:574" ph="SELECT * FRO... " />
-                <marker date="1504619638758" expanded="true" signature="631:651" ph="SELECT count... " />
-                <marker date="1504619638758" expanded="true" signature="646:651" ph="SELECT * FRO... " />
-                <marker date="1504619638758" expanded="true" signature="1002:1017" ph="SET deleted " />
-                <marker date="1504619638758" expanded="true" signature="1070:1090" ph="LIMIT = ? OF... " />
-                <marker date="1504619638758" expanded="true" signature="4780:4813" ph="SELECT * FRO... missingValue" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="electronics.order" pinned="false" current-in-tab="false">
-        <entry file="dbDummy://dbtable:/33795e25/585edcdc-eb83-4b29-bd52-83004e5f3da6/electronics.order">
-          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-            <state>
-              <filtering enabled="true" />
-            </state>
-          </provider>
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+      <file leaf-file-name="ShowManageProductsPageAction.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowManageProductsPageAction.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JDBCOrderDao.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCOrderDao.java">
+      <file leaf-file-name="ShowManageUsersPageAction.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowManageUsersPageAction.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="850">
-              <caret line="66" column="0" lean-forward="false" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+            <state relative-caret-position="187">
+              <caret line="19" column="2" lean-forward="false" selection-start-line="19" selection-start-column="2" selection-end-line="19" selection-end-column="2" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="order.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/order.jsp">
+      <file leaf-file-name="ShowOrderPageAction.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowOrderPageAction.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="30" column="79" lean-forward="false" selection-start-line="30" selection-start-column="79" selection-end-line="30" selection-end-column="79" />
-              <folding>
-                <element signature="e#1779#1801#0#HTML" expanded="true" />
-              </folding>
+            <state relative-caret-position="442">
+              <caret line="35" column="43" lean-forward="false" selection-start-line="35" selection-start-column="43" selection-end-line="35" selection-end-column="43" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ShopService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/service/ShopService.java">
+      <file leaf-file-name="ShowPageAction.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowPageAction.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="112">
-              <caret line="102" column="0" lean-forward="false" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
-              <folding>
-                <element signature="method#getOrder#0;class#ShopService#0" expanded="false" />
-                <element signature="method#getAllGenders#0;class#ShopService#0" expanded="false" />
-                <element signature="method#getAllProductTypes#0;class#ShopService#0" expanded="false" />
-                <element signature="method#getAllProductsOnPage#0;class#ShopService#0" expanded="false" />
-                <element signature="method#getProductsCount#0;class#ShopService#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="119">
+              <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GenericDaoInterface.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/GenericDaoInterface.java">
+      <file leaf-file-name="ShowProductPageAction.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowProductPageAction.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="104">
-              <caret line="12" column="6" lean-forward="false" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
+            <state relative-caret-position="391">
+              <caret line="28" column="44" lean-forward="false" selection-start-line="28" selection-start-column="44" selection-end-line="28" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ShowRefillPageAction.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowRefillPageAction.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ShowRegisterPageAction.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowRegisterPageAction.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ShowUserOrdersAction.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowUserOrdersAction.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="166">
+              <caret line="53" column="43" lean-forward="false" selection-start-line="53" selection-start-column="43" selection-end-line="53" selection-end-column="43" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ShowUserProfileAction.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowUserProfileAction.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="22" column="67" lean-forward="false" selection-start-line="22" selection-start-column="67" selection-end-line="22" selection-end-column="67" />
               <folding />
             </state>
           </provider>
@@ -247,6 +306,16 @@
       <find> </find>
       <find>check</find>
       <find>setConnection</find>
+      <find>init</find>
+      <find>conne</find>
+      <find>add</find>
+      <find>url</find>
+      <find>user</find>
+      <find>sto</find>
+      <find>home</find>
+      <find>glyp</find>
+      <find>ref</find>
+      <find>pro</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -263,57 +332,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/LoginAction.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowUserProfileAction.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/RegisterAction.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/product-add-form.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/entity/ProductType.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowAddProductPageAction.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/entity/Image.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCStorageDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/pool/ConnectionPoolException.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/pagination.tag.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/AddProductAction.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/product-add-form.tag" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/pagination.tag" />
-        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowManageProductsPageAction.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowCatalogPageAction.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowHomePageAction.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/servlet/ImageServlet.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCProductDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/entity/Product.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowProductPageAction.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/service/ProductService.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/validation.properties" />
-        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/AddProductToCartAction.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowOrderPageAction.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/edit-user-data.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/edit-user-address.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/login.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/register.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/welcome.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/product.tag" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/order.xhtml" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/user.tag" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user-profile.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/products.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/product-page.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/product-add.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/home.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/type-catalog.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/orders.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowUserOrdersAction.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user-orders.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/cart.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/page-pattern.tag" />
-        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/entity/User.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/BuyCartAction.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCAbstractDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCUserDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/entity/Order.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCOrderDao.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/i18n.properties" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/order.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/filter/LocaleFilter.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/home.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/filter/EncodingFilter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/AddProductAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/AddProductToCartAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/RefilUserBalanceAction.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/manage-users.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ActionFactory.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/service/ShopService.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/refill.jsp" />
+        <option value="$PROJECT_DIR$/src/main/resources/i18n.properties" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/register.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/user.tag" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/EditUserAddressAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/EditUserDataAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ActionException.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/BuyCartAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ClearCartAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/DeleteOrderAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/DeleteOrderingItemAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/DeleteProductAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/DeleteStorageItemAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/DeleteUserAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/EditOrderStatusAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/EditUserAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/LoginAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/LogoutAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/RefillUserBalanceAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/RegisterAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/SelectLocaleAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowAddProductPageAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowCatalogPageAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowEditAddressAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowEditUserDataAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowEditUserPageAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowHomePageAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowManageOrdersPageAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowManageProductsPageAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowManageStoragePageAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowManageUsersPageAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowOrderPageAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowProductPageAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowRefillPageAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowRegisterPageAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowUserOrdersAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowUserProfileAction.java" />
       </list>
     </option>
   </component>
@@ -425,8 +494,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -565,36 +633,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bootstrap.min.css" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NestingTreeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RadioElectronicsShop" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RadioElectronicsShop" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -676,10 +714,6 @@
               <option name="myItemId" value="electronicsshop" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="servlet" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -707,127 +741,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RadioElectronicsShop" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RadioElectronicsShop" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="electronicsshop" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RadioElectronicsShop" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RadioElectronicsShop" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="electronicsshop" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="entity" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RadioElectronicsShop" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RadioElectronicsShop" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="electronicsshop" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dao" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RadioElectronicsShop" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RadioElectronicsShop" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="electronicsshop" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dao" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="entity" />
+              <option name="myItemId" value="filter" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -863,7 +777,8 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -871,8 +786,8 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="MySQL" />
-    <property name="settings.editor.selected.configurable" value="MavenSettings" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../PaintballShop_Alex" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../BondarenkoIlya_bets" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15567766" />
     <property name="project.structure.side.proportion" value="0.3470716" />
@@ -881,9 +796,6 @@
     <property name="Repository.Attach.Sources" value="false" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\User\IdeaProjects\RadioElectronicsShop\src\main\resources" />
-    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
     </key>
@@ -893,6 +805,9 @@
       <recent name="C:\Users\User\IdeaProjects\RadioElectronicsShop\lib" />
       <recent name="C:\Users\User\IdeaProjects\RadioElectronicsShop\src\main\webapp\images" />
       <recent name="C:\Users\User\IdeaProjects\RadioElectronicsShop\src\main\webapp\WEB-INF\jsp" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\User\IdeaProjects\RadioElectronicsShop\src\main\resources" />
     </key>
   </component>
   <component name="RunManager" selected="Tomcat Server.Tomcat 9.0.0.M22">
@@ -1415,12 +1330,13 @@
       <workItem from="1503665542216" duration="8056000" />
       <workItem from="1503724977764" duration="24986000" />
       <workItem from="1503926687778" duration="21052000" />
-      <workItem from="1504275965355" duration="56113000" />
+      <workItem from="1504275965355" duration="69552000" />
+      <workItem from="1504708904763" duration="64473000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="282745000" />
+    <option name="totallyTimeSpent" value="360657000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1443,21 +1359,21 @@
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1323752" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14750378" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.44189852" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36006546" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40261865" sideWeight="0.4969743" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4091653" sideWeight="0.4969743" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32526475" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2647504" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -1526,24 +1442,6 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCAbstractDao.java</url>
-          <line>49</line>
-          <properties />
-          <option name="timeStamp" value="78" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCAbstractDao.java</url>
-          <line>174</line>
-          <properties />
-          <option name="timeStamp" value="84" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCAbstractDao.java</url>
-          <line>92</line>
-          <properties />
-          <option name="timeStamp" value="85" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCAbstractDao.java</url>
           <line>62</line>
           <properties />
           <option name="timeStamp" value="86" />
@@ -1555,524 +1453,486 @@
           <option name="timeStamp" value="87" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/service/ShopService.java</url>
-          <line>102</line>
+          <url>file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/manage-orders.jsp</url>
+          <line>30</line>
           <properties />
-          <option name="timeStamp" value="88" />
+          <option name="timeStamp" value="103" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCStorageItemDao.java</url>
+          <line>55</line>
+          <properties />
+          <option name="timeStamp" value="111" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/AddProductAction.java</url>
+          <line>91</line>
+          <properties />
+          <option name="timeStamp" value="112" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/service/UserService.java</url>
+          <line>149</line>
+          <properties />
+          <option name="timeStamp" value="129" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCAddressDao.java</url>
+          <line>53</line>
+          <properties />
+          <option name="timeStamp" value="133" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="89" />
+      <option name="time" value="139" />
     </breakpoint-manager>
-    <watches-manager />
+    <watches-manager>
+      <configuration name="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory">
+        <watch expression="((NullPointerException)((NullPointerException)((NullPointerException)((NullPointerException)((NullPointerException)((NullPointerException)((NullPointerException)((NullPointerException)((NullPointerException)((NullPointerException)((NullPointerException)((NullPointerException)((NullPointerException)e).cause).cause).cause).cause).cause).cause).cause).cause).cause).cause).cause).cause).cause" custom="java.lang.NullPointerException" />
+        <watch expression="((NullPointerException)((NullPointerException)((NullPointerException)((NullPointerException)((NullPointerException)((NullPointerException)((NullPointerException)((NullPointerException)((NullPointerException)((NullPointerException)((NullPointerException)((NullPointerException)((NullPointerException)e).cause).cause).cause).cause).cause).cause).cause).cause).cause).cause).cause).cause).cause" custom="java.lang.NullPointerException" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="dbDummy://dbtable:/33795e25/585edcdc-eb83-4b29-bd52-83004e5f3da6/electronics.characteristic">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbtable:/33795e25/585edcdc-eb83-4b29-bd52-83004e5f3da6/electronics.item_charachteristic">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/service/ProductService.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCAbstractDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="108" column="18" lean-forward="false" selection-start-line="108" selection-start-column="18" selection-end-line="108" selection-end-column="18" />
+        <state relative-caret-position="197">
+          <caret line="146" column="0" lean-forward="false" selection-start-line="146" selection-start-column="0" selection-end-line="146" selection-end-column="0" />
           <folding>
-            <element signature="method#getProductById#0;class#ProductService#0" expanded="false" />
-            <element signature="method#addProduct#0;class#ProductService#0" expanded="false" />
-            <element signature="method#addProductToStorage#0;class#ProductService#0" expanded="false" />
-            <element signature="method#getFeaturedProducts#0;class#ProductService#0" expanded="false" />
-            <element signature="method#getAllProductsByType#0;class#ProductService#0" expanded="false" />
-            <element signature="method#getProductPreviewImage#0;class#ProductService#0" expanded="false" />
+            <element signature="method#findAll#1;class#JDBCAbstractDao#0" expanded="false" />
+            <marker date="1504844245824" expanded="true" signature="561:574" ph="SELECT * FRO... " />
+            <marker date="1504844245824" expanded="true" signature="631:651" ph="SELECT count... " />
+            <marker date="1504844245824" expanded="true" signature="646:651" ph="SELECT * FRO... " />
+            <marker date="1504844245824" expanded="true" signature="1003:1018" ph="SET deleted " />
+            <marker date="1504844245824" expanded="true" signature="1071:1091" ph="LIMIT = ? OF... " />
+            <marker date="1504844245824" expanded="true" signature="4849:4882" ph="SELECT * FRO... missingValue" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/product-add-form.tag">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="38" column="37" lean-forward="false" selection-start-line="38" selection-start-column="37" selection-end-line="38" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/register.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-136">
-          <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowCatalogPageAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-34">
-          <caret line="39" column="46" lean-forward="false" selection-start-line="39" selection-start-column="46" selection-end-line="39" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowHomePageAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="45" column="63" lean-forward="false" selection-start-line="45" selection-start-column="63" selection-end-line="45" selection-end-column="63" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/entity/EntityDescription.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="31" column="34" lean-forward="true" selection-start-line="31" selection-start-column="34" selection-end-line="31" selection-end-column="34" />
-          <folding>
-            <element signature="method#getRuDescription#0;class#EntityDescription#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbtable:/33795e25/585edcdc-eb83-4b29-bd52-83004e5f3da6/electronics.product">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowPageAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="11" column="11" lean-forward="false" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
-          <folding>
-            <element signature="e#304#305#0" expanded="false" />
-            <element signature="e#351#352#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowManageProductsPageAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="17" column="29" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/order.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/welcome.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="20" column="10" lean-forward="true" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/type-catalog.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/home.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="25" column="16" lean-forward="false" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/login.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="15" column="16" lean-forward="false" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/products.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/product-add.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCImageDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/product-page.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-25">
-          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/AddProductAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="25" column="13" lean-forward="false" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/AddProductToCartAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="method#checkParameterByRegex#0;class#AddProductToCartAction#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/product.tag">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="68" lean-forward="false" selection-start-line="12" selection-start-column="68" selection-end-line="12" selection-end-column="68" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/page-pattern.tag">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="73" column="21" lean-forward="true" selection-start-line="73" selection-start-column="21" selection-end-line="73" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/entity/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="100" column="0" lean-forward="false" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/cart.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1156">
-          <caret line="7" column="48" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding>
-            <element signature="e#2950#2969#0#HTML" expanded="false" />
-            <element signature="e#5747#5768#0#HTML" expanded="false" />
-            <element signature="e#5817#5837#0#HTML" expanded="false" />
-            <element signature="e#6197#6232#0#HTML" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/servlet/ImageServlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCUserDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="22" column="23" lean-forward="false" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
-          <folding>
-            <element signature="method#getObjectFromResultSet#0;class#JDBCUserDao#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbtable:/33795e25/585edcdc-eb83-4b29-bd52-83004e5f3da6/electronics.user">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/entity/Order.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="24" column="5" lean-forward="false" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
-          <folding>
-            <element signature="e#612#613#0" expanded="true" />
-            <element signature="e#657#658#0" expanded="true" />
-            <element signature="method#getFormattedCreationTime#0;class#Order#0" expanded="false" />
-            <element signature="method#getPrice#0;class#Order#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbtable:/33795e25/585edcdc-eb83-4b29-bd52-83004e5f3da6/electronics.ordering_item">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbtable:/33795e25/585edcdc-eb83-4b29-bd52-83004e5f3da6/electronics.order_status">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/user.tag">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="33">
-          <caret line="13" column="29" lean-forward="false" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCProductDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-255">
-          <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/service/UserService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="144" column="0" lean-forward="false" selection-start-line="144" selection-start-column="0" selection-end-line="144" selection-end-column="0" />
+        <state relative-caret-position="274">
+          <caret line="125" column="0" lean-forward="false" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
           <folding>
             <element signature="method#performUserLogin#0;class#UserService#0" expanded="false" />
-            <element signature="method#checkEmail#0;class#UserService#0" expanded="false" />
             <element signature="method#registerUser#0;class#UserService#0" expanded="false" />
             <element signature="method#getUserAddress#0;class#UserService#0" expanded="false" />
             <element signature="method#getUserGender#0;class#UserService#0" expanded="false" />
-            <element signature="method#updateUser#0;class#UserService#0" expanded="false" />
-            <element signature="method#refillCash#0;class#UserService#0" expanded="false" />
-            <element signature="method#updateUserAddress#0;class#UserService#0" expanded="false" />
+            <element signature="method#getUserById#0;class#UserService#0" expanded="false" />
+            <element signature="method#getUserOrders#0;class#UserService#0" expanded="false" />
+            <element signature="method#getFilledUserById#0;class#UserService#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowUserOrdersAction.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/validation.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="44" column="0" lean-forward="false" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user-profile.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="17" column="64" lean-forward="true" selection-start-line="6" selection-start-column="3" selection-end-line="17" selection-end-column="64" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/orders.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="5" lean-forward="true" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user-orders.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="12" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/i18n.properties">
-      <provider selected="true" editor-type-id="ResourceBundle">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="30" column="29" lean-forward="false" selection-start-line="30" selection-start-column="29" selection-end-line="30" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ActionFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="26" column="58" lean-forward="false" selection-start-line="26" selection-start-column="58" selection-end-line="26" selection-end-column="58" />
+        <state relative-caret-position="68">
+          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/servlet/ReShopServlet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-185">
-          <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+        <state relative-caret-position="180">
+          <caret line="56" column="0" lean-forward="false" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/BuyCartAction.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/filter/LocaleFilter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="44" column="0" lean-forward="false" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowOrderPageAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="30" column="63" lean-forward="false" selection-start-line="30" selection-start-column="63" selection-end-line="30" selection-end-column="63" />
+        <state relative-caret-position="-92">
+          <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/order.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/page-pattern.tag">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="30" column="79" lean-forward="false" selection-start-line="30" selection-start-column="79" selection-end-line="30" selection-end-column="79" />
-          <folding>
-            <element signature="e#1779#1801#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCOrderStatusDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+        <state relative-caret-position="92">
+          <caret line="38" column="88" lean-forward="false" selection-start-line="38" selection-start-column="88" selection-end-line="38" selection-end-column="88" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/GenericDaoInterface.java">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/products.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="12" column="6" lean-forward="false" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/service/ShopService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="102" column="0" lean-forward="false" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
-          <folding>
-            <element signature="method#getOrder#0;class#ShopService#0" expanded="false" />
-            <element signature="method#getAllGenders#0;class#ShopService#0" expanded="false" />
-            <element signature="method#getAllProductTypes#0;class#ShopService#0" expanded="false" />
-            <element signature="method#getAllProductsOnPage#0;class#ShopService#0" expanded="false" />
-            <element signature="method#getProductsCount#0;class#ShopService#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCAbstractDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="69" column="0" lean-forward="false" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
-          <folding>
-            <element signature="method#setVariablesForPreparedStatement#0;class#JDBCAbstractDao#0" expanded="false" />
-            <element signature="method#findAll#0;class#JDBCAbstractDao#0" expanded="false" />
-            <element signature="method#findAll#1;class#JDBCAbstractDao#0" expanded="false" />
-            <element signature="method#delete#0;class#JDBCAbstractDao#0" expanded="false" />
-            <marker date="1504619638758" expanded="true" signature="561:574" ph="SELECT * FRO... " />
-            <marker date="1504619638758" expanded="true" signature="631:651" ph="SELECT count... " />
-            <marker date="1504619638758" expanded="true" signature="646:651" ph="SELECT * FRO... " />
-            <marker date="1504619638758" expanded="true" signature="1002:1017" ph="SET deleted " />
-            <marker date="1504619638758" expanded="true" signature="1070:1090" ph="LIMIT = ? OF... " />
-            <marker date="1504619638758" expanded="true" signature="4780:4813" ph="SELECT * FRO... missingValue" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbtable:/33795e25/585edcdc-eb83-4b29-bd52-83004e5f3da6/electronics.order">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/dao/entity/JDBCOrderDao.java">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/refill.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="850">
-          <caret line="66" column="0" lean-forward="false" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+        <state relative-caret-position="217">
+          <caret line="24" column="26" lean-forward="false" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/i18n.properties">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="30" column="29" lean-forward="false" selection-start-line="30" selection-start-column="29" selection-end-line="30" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="ResourceBundle">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/register.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1554">
+          <caret line="20" column="33" lean-forward="false" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/user.tag">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/33795e25/585edcdc-eb83-4b29-bd52-83004e5f3da6/electronics.user">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/Action.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ActionException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="10" column="18" lean-forward="false" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ActionFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="782">
+          <caret line="47" column="33" lean-forward="false" selection-start-line="47" selection-start-column="30" selection-end-line="47" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ActionResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/AddProductAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="51" column="98" lean-forward="false" selection-start-line="51" selection-start-column="98" selection-end-line="51" selection-end-column="98" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/AddProductToCartAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="34" column="28" lean-forward="true" selection-start-line="34" selection-start-column="28" selection-end-line="34" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/BuyCartAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="27" column="18" lean-forward="false" selection-start-line="27" selection-start-column="18" selection-end-line="27" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ClearCartAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="13" column="53" lean-forward="false" selection-start-line="13" selection-start-column="53" selection-end-line="13" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/DeleteOrderAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="19" column="18" lean-forward="false" selection-start-line="19" selection-start-column="18" selection-end-line="19" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/DeleteOrderingItemAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="18" column="18" lean-forward="false" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/DeleteProductAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="18" column="18" lean-forward="false" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/DeleteStorageItemAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="18" column="18" lean-forward="false" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/DeleteUserAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="149">
+          <caret line="23" column="18" lean-forward="false" selection-start-line="23" selection-start-column="18" selection-end-line="23" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/EditOrderStatusAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="20" column="18" lean-forward="false" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/EditUserAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="56" column="4" lean-forward="false" selection-start-line="56" selection-start-column="4" selection-end-line="56" selection-end-column="4" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/EditUserAddressAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="39" column="79" lean-forward="true" selection-start-line="21" selection-start-column="3" selection-end-line="39" selection-end-column="79" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/EditUserDataAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="16" column="18" lean-forward="false" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/LoginAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="26" column="18" lean-forward="false" selection-start-line="26" selection-start-column="18" selection-end-line="26" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/LogoutAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="15" column="18" lean-forward="false" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/RefillUserBalanceAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="32" column="16" lean-forward="true" selection-start-line="32" selection-start-column="16" selection-end-line="32" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/RegisterAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/SelectLocaleAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="28" column="32" lean-forward="false" selection-start-line="28" selection-start-column="32" selection-end-line="28" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowAddProductPageAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="30" column="48" lean-forward="false" selection-start-line="30" selection-start-column="48" selection-end-line="30" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowCatalogPageAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="29" column="0" lean-forward="true" selection-start-line="22" selection-start-column="3" selection-end-line="29" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowEditAddressAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="35" column="43" lean-forward="false" selection-start-line="35" selection-start-column="43" selection-end-line="35" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowEditUserPageAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowHomePageAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="27" column="89" lean-forward="true" selection-start-line="20" selection-start-column="3" selection-end-line="27" selection-end-column="89" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowEditUserDataAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="32" column="78" lean-forward="false" selection-start-line="32" selection-start-column="78" selection-end-line="32" selection-end-column="78" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowManageOrdersPageAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="28" column="89" lean-forward="false" selection-start-line="21" selection-start-column="2" selection-end-line="28" selection-end-column="89" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowManageStoragePageAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="25" column="89" lean-forward="true" selection-start-line="19" selection-start-column="4" selection-end-line="25" selection-end-column="89" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowManageProductsPageAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowManageUsersPageAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="19" column="2" lean-forward="false" selection-start-line="19" selection-start-column="2" selection-end-line="19" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowOrderPageAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="35" column="43" lean-forward="false" selection-start-line="35" selection-start-column="43" selection-end-line="35" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowPageAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowProductPageAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="28" column="44" lean-forward="false" selection-start-line="28" selection-start-column="44" selection-end-line="28" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowRefillPageAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowRegisterPageAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowUserOrdersAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="166">
+          <caret line="53" column="43" lean-forward="false" selection-start-line="53" selection-start-column="43" selection-end-line="53" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/igor/electronicsshop/action/ShowUserProfileAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="22" column="67" lean-forward="false" selection-start-line="22" selection-start-column="67" selection-end-line="22" selection-end-column="67" />
           <folding />
         </state>
       </provider>

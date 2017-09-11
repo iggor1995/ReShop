@@ -23,9 +23,19 @@ public class AddProductToCartAction implements Action {
     private static final String CHECK_PARAMETR = "Check parameter '{}' with value '{}' by regex '{}'";
     private static final String WRONG_PARAMETR = "Parameter '{}' with value '{}' is unsuitable.";
     private static final String AMOUNT = "amount";
+    private static final String ERROR_AMOUNT = "amountError";
+    private static final String ERROR_ADD = "Couldn't add product to cart";
+    private static final String INVALID_AMOUNT = "Invalid product amount format - {}";
+    private static final String PARAMETER_PRODUCT = "product";
+    private static final String REFERER_PAGE = "referer";
+    private static final String ATTRIBUTE_CART = "cart";
+    private static final String AMOUNT_INCREASED = "Product amount in cart increased by - {}";
+    private static final String PRODUCT_ADDED = "product - {} added in cart. Amount - {}";
+    private static final String PROPERTY_PRODUCT_AMOUNT = "product.amount";
     private boolean INVALID;
     private final static Logger LOG = LoggerFactory.getLogger(AddProductToCartAction.class);
     private Properties properties = new Properties();
+
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
         try {
@@ -33,28 +43,27 @@ public class AddProductToCartAction implements Action {
         } catch (IOException e) {
             throw new ActionException("Cannot load properties", e);
         }
-        String amount = req.getParameter("amount");
-        checkParameterByRegex(amount, AMOUNT, properties.getProperty("product.amount"), req);
+        String amount = req.getParameter(AMOUNT);
+        checkParameterByRegex(amount, AMOUNT, properties.getProperty(PROPERTY_PRODUCT_AMOUNT), req);
         if(INVALID){
             INVALID = false;
-            req.setAttribute("amountError", "true");
-            LOG.info("Invalid product amount format - {}", amount);
-            return new ActionResult(req.getHeader("referer"), true);
+            req.setAttribute(ERROR_AMOUNT, "true");
+            LOG.info(INVALID_AMOUNT, amount);
+            return new ActionResult(req.getHeader(REFERER_PAGE), true);
         }
-        LOG.info("here");
-        Order cart = (Order)req.getSession(false).getAttribute("cart");
+        Order cart = (Order)req.getSession(false).getAttribute(ATTRIBUTE_CART);
         if(cart == null){
             cart = new Order();
         }
-        String productId = req.getParameter("product");
+        String productId = req.getParameter(PARAMETER_PRODUCT);
         Integer amountInt = Integer.parseInt(amount);
 
         for(OrderingItem orderingItem : cart.getOrderingItems()){
             if(orderingItem.getProduct().getId() == Integer.parseInt(productId)){
                 orderingItem.setAmount(orderingItem.getAmount() + amountInt);
-                req.getSession().setAttribute("cart", cart);
-                LOG.info("Product amount in cart increaser by - {}", amount);
-                return new ActionResult(req.getHeader("referer"), true);
+                req.getSession().setAttribute(ATTRIBUTE_CART, cart);
+                LOG.info(AMOUNT_INCREASED, amount);
+                return new ActionResult(req.getHeader(REFERER_PAGE), true);
             }
         }
         OrderingItem orderingItem = new OrderingItem();
@@ -64,11 +73,11 @@ public class AddProductToCartAction implements Action {
             Product product = productService.getProductById(productId);
             orderingItem.setProduct(product);
             cart.addProduct(orderingItem);
-            req.getSession().setAttribute("cart", cart);
-            LOG.info("product - {} added in cart. Amount - {}", product, amount);
-            return new ActionResult(req.getHeader("referer"), true);
+            req.getSession().setAttribute(ATTRIBUTE_CART, cart);
+            LOG.info(PRODUCT_ADDED, product, amount);
+            return new ActionResult(req.getHeader(REFERER_PAGE), true);
         } catch (ServiceException e) {
-            throw  new ActionException("Couldn't add product to cart", e);
+            throw  new ActionException(ERROR_ADD, e);
         }
     }
     private void checkParameterByRegex(String parameter, String parameterName, String regex, HttpServletRequest req) {

@@ -18,7 +18,7 @@ public class JDBCImageDao extends JDBCAbstractDao<Image> {
     private static final String INSERT_IMAGE = "INSERT INTO electronics.image(name, product_id, " +
             "content, date_modified) VALUES(?, ?, ?, ?)";
     private static final String UPDATE_IMAGE_BY_ID = "UPDATE electronics.image " +
-            "SET name = ?, ST product_id = ?, SET content = ?, SET date_modified";
+            "SET name = ?, product_id = ?, content = ?, date_modified";
     @Override
     protected Image getObjectFromResultSet(ResultSet rs) throws DaoException {
         Image image = new Image();

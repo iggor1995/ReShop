@@ -17,7 +17,7 @@ public class JDBCStorageItemDao extends JDBCAbstractDao<StorageItem> {
     private static final String INSERT_STORAGE_ITEM = "INSERT INTO electronics.storage_item(storage_id," +
             "product_id, amount) VALUES(?, ?, ?)";
     private static final String UPDATE_STORAGE_ITEM_BY_ID = "UPDATE electronics.storage_item" +
-            "SET storage_id = ?, SET product_id = ?, SET amount = ? WHERE id = ?";
+            "SET storage_id = ?, product_id = ?, amount = ? WHERE id = ?";
     @Override
     protected StorageItem getObjectFromResultSet(ResultSet rs) throws DaoException {
         StorageItem storageItem = new StorageItem();
@@ -47,7 +47,7 @@ public class JDBCStorageItemDao extends JDBCAbstractDao<StorageItem> {
 
     @Override
     protected String getTableName() {
-        return "storage_item";
+        return "electronics.storage_item";
     }
 
     @Override

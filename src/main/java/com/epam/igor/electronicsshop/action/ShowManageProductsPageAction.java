@@ -17,16 +17,24 @@ import java.util.List;
 public class ShowManageProductsPageAction implements Action {
     private static final Logger LOG = LoggerFactory.getLogger(ShowManageProductsPageAction.class);
     private static final String FIRST_PAGE = "1";
-    private static final String DEFAULT_PAGE_SIZE = "4";
+    private static final String DEFAULT_PAGE_SIZE = "3";
+    private static final String PAGE = "page";
+    private static final String ENCODING = "UTF-8";
+    private static final String PRODUCTS = "products";
+    private static final String PAGES_COUNT = "pagesCount";
+    private static final String PAGE_SIZE = "pageSize";
+    private static final String ERROR = "Couldn't show manage products page";
+    private static final String INFO = "Page number: {}. Page size: {}. Pages count: {}";
+
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
         ShopService shopService = new ShopService();
         List<Product> products;
-        String pageNumber = req.getParameter("page");
+        String pageNumber = req.getParameter(PAGE);
         if(pageNumber == null){
             pageNumber = FIRST_PAGE;
         }
-        String pageSize = req.getParameter("pageSize");
+        String pageSize = req.getParameter(PAGE_SIZE);
         if(pageSize == null){
             pageSize = DEFAULT_PAGE_SIZE;
         }
@@ -34,9 +42,8 @@ public class ShowManageProductsPageAction implements Action {
         try {
             products = shopService.getAllProductsOnPage(Integer.parseInt(pageSize), Integer.parseInt(pageNumber));
             productsCount = shopService.getProductsCount();
-            LOG.info("products count - {}", productsCount);
         } catch (ServiceException e) {
-            throw new ActionException("Couldn't show manage products page", e);
+            throw new ActionException(ERROR, e);
         }
         int pageCount;
         if(productsCount % Integer.parseInt(pageSize) == 0){
@@ -45,16 +52,16 @@ public class ShowManageProductsPageAction implements Action {
         else {
             pageCount =  productsCount / Integer.parseInt(pageSize) + 1;
         }
-        req.setAttribute("page", pageNumber);
-        req.setAttribute("pagesCount", pageCount);
-        req.setAttribute("pageSize", pageSize);
-        req.setAttribute("products", products);
+        req.setAttribute(PAGE, pageNumber);
+        req.setAttribute(PAGES_COUNT, pageCount);
+        req.setAttribute(PAGE_SIZE, pageSize);
+        req.setAttribute(PRODUCTS, products);
         try {
-            req.setCharacterEncoding("UTF-8");
+            req.setCharacterEncoding(ENCODING);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        LOG.info("Page number - {}. Page size - {}. Pages count - {}", pageNumber, pageSize, pageCount);
-        return new ActionResult("products");
+        LOG.info(INFO, pageNumber, pageSize, pageCount);
+        return new ActionResult(PRODUCTS);
     }
 }

@@ -18,7 +18,7 @@ public class JDBCGenderDao extends JDBCAbstractDao<Gender> {
     private static final String INSERT_GENDER = "INSERT INTO electronics.gender(name_ru, name_en)" +
             "VALUES(?, ?)";
     private static final String UPDATE_GENDER_BY_ID = "UPDATE electronics.gender" +
-            "SET name_ru = ?, SET name_en = ? WHERE id = ?";
+            "SET name_ru = ?, name_en = ? WHERE id = ?";
     private static final Logger LOG = LoggerFactory.getLogger(JDBCGenderDao.class);
 
     @Override

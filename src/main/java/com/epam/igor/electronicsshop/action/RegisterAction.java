@@ -31,7 +31,6 @@ public class RegisterAction implements Action {
     private static final String LAST_NAME = "lastName";
     private static final String PHONE_NUMBER = "phoneNumber";
     private static final String EMAIL = "email";
-    private static final String GENDER = "gender";
     private static final String COUNTRY = "country";
     private static final String CITY = "city";
     private static final String STREET = "street";
@@ -41,27 +40,35 @@ public class RegisterAction implements Action {
     private static final String EMAIL_TAKEN = "email {} has already been taken!";
     private static final String CHECK_PARAMETR = "Check parameter '{}' with value '{}' by regex '{}'";
     private static final String WRONG_PARAMETR = "Parameter '{}' with value '{}' is unsuitable.";
-    private static final String UNABLE_REGISTER= "Couldn't register user";
-    private static final String USER_HAS_BEEN_REGISTERED= "{} registered. Address - {}";
+    private static final String UNABLE_REGISTER = "Couldn't register user";
+    private static final String USER_HAS_BEEN_REGISTERED = "{} registered. Address - {}";
+    private static final String LOGGED_USER = "loggedUser";
+    private static final String HOME_PAGE = "home";
+    private static final String GENDERS = "genders";
+    private static final String GENDER = "gender";
+    private static final String ERROR = "Error";
+    private static final String ROLE = "ROLE - {}";
+    private static final String VALIDATION_PROPERTIES = "loggedUser";
+    private static final String PROPERTIES_ERROR = "Cannot load properties";
     private static final Logger LOG = LoggerFactory.getLogger(RegisterAction.class);
     private boolean INVALID;
     Properties properties = new Properties();
+
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
         UserService userService = new UserService();
         String email = req.getParameter(EMAIL);
         try {
-            properties.load(RegisterAction.class.getClassLoader().getResourceAsStream("validation.properties"));
+            properties.load(RegisterAction.class.getClassLoader().getResourceAsStream(VALIDATION_PROPERTIES));
         } catch (IOException e) {
-            throw new ActionException("Cannot load properties", e);
+            throw new ActionException(PROPERTIES_ERROR, e);
         }
         try {
-            if(!userService.checkEmail(email)){
+            if (!userService.checkEmail(email)) {
                 req.setAttribute(EMAIL_ERROR, "used");
                 INVALID = true;
                 LOG.error(EMAIL_TAKEN, email);
-            }
-            else {
+            } else {
                 checkParameterByRegex(email, EMAIL, properties.getProperty(EMAIL_REGEX), req);
             }
         } catch (ServiceException e) {
@@ -86,7 +93,7 @@ public class RegisterAction implements Action {
         checkParameterByRegex(buildingNumber, BUILDING_NUMBER, properties.getProperty(NOT_EMPTY_NUMBER), req);
         checkParameterByRegex(apartmentNumber, APARTMENT_NUMBER, properties.getProperty(NOT_EMPTY_NUMBER), req);
 
-        if(INVALID){
+        if (INVALID) {
             INVALID = false;
             req.setAttribute(EMAIL, email);
             req.setAttribute(PASSWORD, password);
@@ -110,32 +117,33 @@ public class RegisterAction implements Action {
         address.setCountry(country);
         address.setCity(city);
         address.setStreet(street);
-        address.setBuildingNumber(Integer.parseInt(buildingNumber));
-        address.setApartmentNumber(Integer.parseInt(apartmentNumber));
+        address.setBuildingNumber(buildingNumber);
+        address.setApartmentNumber(apartmentNumber);
         Gender gender = new Gender();
-        gender.setId(Integer.valueOf(req.getParameter("gender")));
+        gender.setId(Integer.valueOf(req.getParameter(GENDER)));
         user.setGender(gender);
 
         try {
             User registeredUser = userService.registerUser(user, address);
-            req.getSession(false).setAttribute("loggedUser", registeredUser);
-            req.getSession(false).removeAttribute("genders");
+            req.getSession(false).setAttribute(LOGGED_USER, registeredUser);
+            req.getSession(false).removeAttribute(GENDERS);
             LOG.info(USER_HAS_BEEN_REGISTERED, registeredUser, address);
-            LOG.info("ROLE - {}", registeredUser.getRole());
+            LOG.info(ROLE, registeredUser.getRole());
 
         } catch (ServiceException e) {
             throw new ActionException(UNABLE_REGISTER, e);
         }
 
-        return new ActionResult("home", true);
+        return new ActionResult(HOME_PAGE, true);
     }
+
     private void checkParameterByRegex(String parameter, String parameterName, String regex, HttpServletRequest req) {
         LOG.debug(CHECK_PARAMETR, parameterName, parameter, regex);
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(parameter);
         if (!matcher.matches()) {
             LOG.debug(WRONG_PARAMETR, parameterName, parameter);
-            req.setAttribute(parameterName + "Error", "true");
+            req.setAttribute(parameterName + ERROR, "true");
             INVALID = true;
         }
     }

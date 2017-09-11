@@ -14,7 +14,9 @@ import java.util.List;
  * Created by User on 23.08.2017.
  */
 public class ShowRegisterPageAction implements Action {
-    private static final Logger LOG = LoggerFactory.getLogger(RegisterAction.class);
+    private static final String REGISTER_PAGE = "register";
+    private static final String GENDERS = "genders";
+    private static final String ERROR = "genders list unavailable";
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
@@ -23,9 +25,9 @@ public class ShowRegisterPageAction implements Action {
             ShopService shopService = new ShopService();
             genders = shopService.getAllGenders();
         } catch (ServiceException e) {
-            throw new ActionException("genders list unavailable", e);
+            throw new ActionException(ERROR, e);
         }
-        req.getSession(false).setAttribute("genders", genders);
-        return new ActionResult("register");
+        req.getSession(false).setAttribute(GENDERS, genders);
+        return new ActionResult(REGISTER_PAGE);
     }
 }

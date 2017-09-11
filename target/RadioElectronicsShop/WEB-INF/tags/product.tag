@@ -8,7 +8,7 @@
 </fmt:bundle>
 <div class="thumbnail">
     <img style="height: 200px"; alt="image" src="<c:url value="/img/${product.id}"/>"/>
-    <h4 align="center"></h4><b>${product.name}</b>/>
+    <h4 align="center"></h4><b>${product.name}</b>
     <p align="justify" style="height: 120px">${product.getDescription(locale)}</p>
     <fmt:formatNumber var="formattedPrice" type="currency" currencyCode="KZT"
                       maxFractionDigits="0" value="${product.price.amount}"/>

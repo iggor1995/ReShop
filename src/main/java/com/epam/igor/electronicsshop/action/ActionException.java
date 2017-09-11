@@ -8,10 +8,11 @@ import org.slf4j.LoggerFactory;
  */
 public class ActionException extends Exception {
     private static final Logger LOG = LoggerFactory.getLogger(ActionException.class);
+    private static final String ACTION_ERROR = "Action exception has been caught";
 
     public ActionException(String message) {
         super(message);
-        LOG.error("Action exception has been caught", message);
+        LOG.error(ACTION_ERROR, message);
     }
 
     public ActionException(String message, Exception e) {

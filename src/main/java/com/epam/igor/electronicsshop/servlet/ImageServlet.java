@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 
-@WebServlet(name = "ImageServlet", urlPatterns = "/img/*")
+//@WebServlet(name = "ImageServlet", urlPatterns = "/img/*")
 public class ImageServlet extends HttpServlet {
     private static final Logger LOG = LoggerFactory.getLogger(ImageServlet.class);
     private static final int DEFAULT_SIZE = 1024;

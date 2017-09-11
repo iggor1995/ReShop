@@ -16,7 +16,7 @@ public class JDBCOrderingItemDao extends JDBCAbstractDao<OrderingItem> {
     private static final String INSERT_ORDERING_ITEM = "INSERT INTO electronics.ordering_item(order_id, product_id, " +
             "amount) VALUES(?, ?, ?)";
     private static final String UPDATE_ORDERING_ITEM_BY_ID = "UPDATE electronics.ordering_item" +
-            "SET order_id = ?, SET product_id = ?, SET amount = ? WHERE id = ?";
+            "SET order_id = ?, product_id = ?, amount = ? WHERE id = ?";
     @Override
     protected OrderingItem getObjectFromResultSet(ResultSet rs) throws DaoException {
         OrderingItem orderingItem = new OrderingItem();

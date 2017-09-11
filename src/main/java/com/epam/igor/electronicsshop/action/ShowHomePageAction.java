@@ -16,18 +16,27 @@ import java.util.List;
  */
 public class ShowHomePageAction implements Action {
     private static final Logger LOG = LoggerFactory.getLogger(ShowHomePageAction.class);
-    public final String FIRST_PAGE = "1";
-    public final String DEFAULT_PAGE_SIZE = "4";
+    private static final String FIRST_PAGE = "1";
+    private static final String DEFAULT_PAGE_SIZE = "4";
+    private static final String PRODUCTS = "products";
+    private static final String PAGE_SIZE = "pageSize";
+    private static final String PAGE = "page";
+    private static final String PAGES_COUNT = "pagesCount";
+    private static final String HOME_PAGE = "home";
+    private static final String PRODUCT_TYPES = "productTypes";
+    private static final String ERROR = "Couldn't fill content at home page";
+    private static final String INFO = "Page number: {}. Page size: {}. Pages count: {}";
+
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
         List<Product> products;
         List<ProductType> productTypes;
-        String page = req.getParameter("page");
+        String page = req.getParameter(PAGE);
         if (page == null) {
             page = FIRST_PAGE;
         }
-        String pageSize = req.getParameter("pageSize");
-        if (req.getParameter("pageSize") == null) {
+        String pageSize = req.getParameter(PAGE_SIZE);
+        if (pageSize == null) {
             pageSize = DEFAULT_PAGE_SIZE;
         }
         int productsCount;
@@ -37,7 +46,7 @@ public class ShowHomePageAction implements Action {
             productsCount = shopService.getProductsCount();
             productTypes = shopService.getAllProductTypes();
         } catch (ServiceException e) {
-            throw new ActionException("Could not fill content at homepage", e);
+            throw new ActionException(ERROR, e);
         }
         int pageCount;
         if (productsCount % Integer.parseInt(pageSize) == 0) {
@@ -45,12 +54,12 @@ public class ShowHomePageAction implements Action {
         } else {
             pageCount = productsCount / Integer.parseInt(pageSize) + 1;
         }
-        req.setAttribute("products", products);
-        req.getSession().setAttribute("productTypes", productTypes);
-        req.setAttribute("page", page);
-        req.setAttribute("pagesCount", pageCount);
-        req.setAttribute("pageSize", pageSize);
-        LOG.info("Page number: {}. Page size: {}. Pages count: {}", page, pageSize, pageCount);
-        return new ActionResult("home");
+        req.setAttribute(PRODUCTS, products);
+        req.getSession().setAttribute(PRODUCT_TYPES, productTypes);
+        req.setAttribute(PAGE, page);
+        req.setAttribute(PAGES_COUNT, pageCount);
+        req.setAttribute(PAGE_SIZE, pageSize);
+        LOG.info(INFO, page, pageSize, pageCount);
+        return new ActionResult(HOME_PAGE);
     }
 }

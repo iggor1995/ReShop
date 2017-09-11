@@ -16,7 +16,7 @@ public class JDBCStorageDao extends JDBCAbstractDao<Storage> {
     private static final String INSERT_STORAGE = "INSERT INTO electronics.user(name, description_RU," +
             "description_EN) VALUES (?, ?, ?)";
     private static final String UPDATE_STORAGE_BY_ID = "UPDATE electronics.user SET name = ?," +
-            "SET description_RU = ?, SET description_EN = ? WHERE id = ?";
+            "SET description_RU = ?, description_EN = ? WHERE id = ?";
     @Override
     protected Storage getObjectFromResultSet(ResultSet rs) throws DaoException {
         Storage storage = new Storage();

@@ -18,12 +18,11 @@ import java.io.IOException;
 /**
  * Created by User on 14.08.2017.
  */
-@WebServlet(name = "ReShopServlet", urlPatterns = "/do/*")
+//@WebServlet(name = "ReShopServlet", urlPatterns = "/do/*")
 @MultipartConfig(maxFileSize = 104_857_600)
 public class ReShopServlet extends HttpServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(ReShopServlet.class);
-
     @Override
     public void init() throws ServletException {
     }

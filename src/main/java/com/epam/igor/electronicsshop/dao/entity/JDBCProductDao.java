@@ -18,7 +18,7 @@ public class JDBCProductDao extends JDBCAbstractDao<Product> {
     private static final String INSERT_PRODUCT = "INSERT INTO electronics.product(name, price, type_id, " +
             "description_RU, description_EN) VALUES(?, ?, ?, ?, ?)";
     private static final String UPDATE_PRODUCT_BY_ID = "UPDATE electronics.product" +
-            "SET name = ?, SET price = ?, SET type_id = ?, SET description_RU = ?, SET description_EN" +
+            "SET name = ?, price = ?, type_id = ?, description_RU = ?, description_EN" +
             "WHERE id = ?";
     @Override
     protected Product getObjectFromResultSet(ResultSet rs) throws DaoException {
@@ -27,8 +27,7 @@ public class JDBCProductDao extends JDBCAbstractDao<Product> {
             product.setId(rs.getInt("id"));
             product.setName(rs.getString("name"));
             product.setPrice(Money.of(CurrencyUnit.getInstance("KZT"), rs.getBigDecimal("price")));
-            ProductType type = new ProductType();
-            type.setId(rs.getInt("type_id"));
+            ProductType type = new ProductType(rs.getInt("type_id"));
             product.setType(type);
             product.setRuDescription(rs.getString("description_RU"));
             product.setEnDescription(rs.getString("description_EN"));

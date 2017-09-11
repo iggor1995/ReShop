@@ -13,15 +13,22 @@ import java.util.Locale;
  * Created by User on 12.08.2017.
  */
 public class SelectLocaleAction implements Action {
+
     public static final Logger LOG = LoggerFactory.getLogger(SelectLocaleAction.class);
+    private static final String LOCALE = "locale";
+    private static final String LOGGED_USER = "loggedUser";
+    private static final String REFERER = "loggedUser";
+    private static final int MAX_AGE = 24 * 60 * 60;
+    private static final String CHANGED = "{} changed language to {}";
+
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) {
-        String language = req.getParameter("locale");
+        String language = req.getParameter(LOCALE);
         Config.set(req.getSession(), Config.FMT_LOCALE, new Locale(language));
-        Cookie cookie = new Cookie("locale", language);
-        cookie.setMaxAge(24 * 60 * 60);
+        Cookie cookie = new Cookie(LOCALE, language);
+        cookie.setMaxAge(MAX_AGE);
         res.addCookie(cookie);
-        LOG.info("{} changed language to {}", req.getSession(false).getAttribute("loggedUser"), language);
-        return new ActionResult(req.getHeader("referer"), true);
+        LOG.info(CHANGED, req.getSession(false).getAttribute(LOGGED_USER), language);
+        return new ActionResult(req.getHeader(REFERER), true);
     }
 }
