@@ -8,10 +8,11 @@ import org.slf4j.LoggerFactory;
  */
 public class DaoException extends Exception {
     private static final Logger LOG = LoggerFactory.getLogger(DaoException.class);
+    public static final String DAO_EXCEPTION = "Dao exception has been caught";
 
     public DaoException(String message) {
         super(message);
-        LOG.error("Dao exception has been caught", message);
+        LOG.error(DAO_EXCEPTION, message);
     }
 
     public DaoException(String message, Exception e) {

@@ -16,19 +16,30 @@ public class JDBCAddressDao extends JDBCAbstractDao<Address> {
     private static final String UPDATE_ADDRESS_BY_ID = "UPDATE electronics.address " +
             "SET country = ?, city = ?, street = ?, building_number = ?, " +
             "apartment_number = ? WHERE id = ?";
+    private static final String ID = "id";
+    private static final String COUNTRY = "country";
+    private static final String CITY = "city";
+    private static final String STREET = "street";
+    private static final String BUILDING_NUMBER = "building_number";
+    private static final String APARTMENT_NUMBER = "apartment_number";
+    private static final String DELETED = "deleted";
+    private static final String CANNOT_GET_ADDRESS= "Cannot get address from result set";
+    private static final String ADDRESS = "address";
+    private static final String COULDN_T_SET_ADDRESS = "Couldn't set address variables for prepared statement";
+
     @Override
     protected Address getObjectFromResultSet(ResultSet rs) throws DaoException {
         Address address = new Address();
         try {
-            address.setId(rs.getInt("id"));
-            address.setCountry(rs.getString("country"));
-            address.setCity(rs.getString("city"));
-            address.setStreet(rs.getString("street"));
-            address.setBuildingNumber(rs.getString("building_number"));
-            address.setApartmentNumber(rs.getString("apartment_number"));
-            address.setDeleted(rs.getBoolean("deleted"));
+            address.setId(rs.getInt(ID));
+            address.setCountry(rs.getString(COUNTRY));
+            address.setCity(rs.getString(CITY));
+            address.setStreet(rs.getString(STREET));
+            address.setBuildingNumber(rs.getString(BUILDING_NUMBER));
+            address.setApartmentNumber(rs.getString(APARTMENT_NUMBER));
+            address.setDeleted(rs.getBoolean(DELETED));
         } catch (SQLException e) {
-            throw  new DaoException("Cannot get address from result set", e);
+            throw  new DaoException(CANNOT_GET_ADDRESS, e);
         }
         return address;
     }
@@ -45,7 +56,7 @@ public class JDBCAddressDao extends JDBCAbstractDao<Address> {
 
     @Override
     protected String getTableName() {
-        return "address";
+        return ADDRESS;
     }
 
     @Override
@@ -57,7 +68,7 @@ public class JDBCAddressDao extends JDBCAbstractDao<Address> {
             ps.setString(4, address.getBuildingNumber());
             ps.setString(5, address.getApartmentNumber());
         } catch (SQLException e) {
-            throw  new DaoException("Couldn't set address variables for prepared statement", e);
+            throw  new DaoException(COULDN_T_SET_ADDRESS, e);
         }
     }
 }

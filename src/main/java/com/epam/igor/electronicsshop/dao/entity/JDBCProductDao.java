@@ -20,20 +20,32 @@ public class JDBCProductDao extends JDBCAbstractDao<Product> {
     private static final String UPDATE_PRODUCT_BY_ID = "UPDATE electronics.product" +
             "SET name = ?, price = ?, type_id = ?, description_RU = ?, description_EN" +
             "WHERE id = ?";
+    private static final String ID = "id";
+    private static final String NAME = "name";
+    private static final String KZT = "KZT";
+    private static final String PRICE = "price";
+    private static final String TYPE_ID = "type_id";
+    private static final String DESCRIPTION_RU = "description_RU";
+    private static final String DESCRIPTION_EN = "description_EN";
+    private static final String DELETED = "deleted";
+    private static final String CANNOT_GET_PRODUCT= "Cannot get product from result set";
+    private static final String PRODUCT = "product";
+    private static final String COULDN_T_SET_PRODUCT = "Couldn't set product variables for prepared statement";
+
     @Override
     protected Product getObjectFromResultSet(ResultSet rs) throws DaoException {
         Product product = new Product();
         try {
-            product.setId(rs.getInt("id"));
-            product.setName(rs.getString("name"));
-            product.setPrice(Money.of(CurrencyUnit.getInstance("KZT"), rs.getBigDecimal("price")));
-            ProductType type = new ProductType(rs.getInt("type_id"));
+            product.setId(rs.getInt(ID));
+            product.setName(rs.getString(NAME));
+            product.setPrice(Money.of(CurrencyUnit.getInstance(KZT), rs.getBigDecimal(PRICE)));
+            ProductType type = new ProductType(rs.getInt(TYPE_ID));
             product.setType(type);
-            product.setRuDescription(rs.getString("description_RU"));
-            product.setEnDescription(rs.getString("description_EN"));
-            product.setDeleted(rs.getBoolean("deleted"));
+            product.setRuDescription(rs.getString(DESCRIPTION_RU));
+            product.setEnDescription(rs.getString(DESCRIPTION_EN));
+            product.setDeleted(rs.getBoolean(DELETED));
         } catch (SQLException e) {
-            throw new DaoException("Cannot get product from result set");
+            throw new DaoException(CANNOT_GET_PRODUCT);
         }
         return product;
     }
@@ -50,7 +62,7 @@ public class JDBCProductDao extends JDBCAbstractDao<Product> {
 
     @Override
     protected String getTableName() {
-        return "product";
+        return PRODUCT;
     }
 
     @Override
@@ -62,7 +74,7 @@ public class JDBCProductDao extends JDBCAbstractDao<Product> {
             ps.setString(4, product.getRuDescription());
             ps.setString(5, product.getEnDescription());
         } catch (SQLException e) {
-            throw new DaoException("Couldn't set product variables for prepared statement");
+            throw new DaoException(COULDN_T_SET_PRODUCT);
         }
     }
 }

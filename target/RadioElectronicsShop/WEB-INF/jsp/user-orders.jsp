@@ -10,6 +10,7 @@
     <fmt:message key="common.product" var="product"/>
     <fmt:message key="common.quantity" var="quantity"/>
     <fmt:message key="common.price" var="price"/>
+    <fmt:message key="common.created" var="created"/>
     <fmt:message key="common.total" var="total"/>
     <fmt:message key="button.remove" var="remove"/>
     <fmt:message key="common.description" var="description"/>
@@ -36,10 +37,12 @@
                 <c:otherwise>
                     <table class="table table-bordered">
                         <thead>
-                            <tr>${created}</tr>
-                            <tr>${description}</tr>
-                            <tr>${price}</tr>
-                            <tr>${status}</tr>
+                            <tr>
+                                <th>${created}</th>
+                                <th>${description}</th>
+                                <th>${price}</th>
+                                <th>${status}</th>
+                            </tr>
                         </thead>
                         <tbody>
                             <c:forEach items="${orders}" var="order">

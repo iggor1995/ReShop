@@ -57,10 +57,12 @@
                     <h4>${orderLabel}</h4>
                     <table class="table table-bordered">
                         <thead>
-                            <tr>${product}</tr>
-                            <tr>${price}</tr>
-                            <tr>${quantity}</tr>
-                            <tr>${total}</tr>
+                            <tr>
+                                <th>${product}</th>
+                                <th>${price}</th>
+                                <th>${quantity}</th>
+                                <th>${total}</th>
+                            </tr>
                         </thead>
                         <tbody>
                             <c:forEach items="${order.orderingItems}" var="item">

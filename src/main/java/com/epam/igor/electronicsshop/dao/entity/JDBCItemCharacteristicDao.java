@@ -17,9 +17,16 @@ public class JDBCItemCharacteristicDao extends JDBCAbstractDao<ItemCharacteristi
             "(price, characteristic_id, product_id) VALUES(?, ?, ?)";
     private static final String UPDATE_ITEM_CHARACTERISTIC_BY_ID = " UPDATE electronics.item_characteristic" +
             "SET price = ?, SET characteristic_id = ?, SET product_id  = ?";
+    public static final String ITEM_CHARACTERISTIC = "item_characteristic";
+    public static final String ID = "id";
+    public static final String CHARACTERISTIC_ID = "characteristic_id";
+    public static final String PRODUCT_ID = "product_id";
+    public static final String PRICE = "price";
+    public static final String CANNOT_GET_ITEM_CHARACTERISTIC_FROM_RESULT_SET = "Cannot get item characteristic from result set";
+
     @Override
     protected String getTableName() {
-        return "item_characteristic";
+        return ITEM_CHARACTERISTIC;
     }
 
     @Override
@@ -36,14 +43,14 @@ public class JDBCItemCharacteristicDao extends JDBCAbstractDao<ItemCharacteristi
     protected ItemCharacteristic getObjectFromResultSet(ResultSet rs) throws DaoException {
         ItemCharacteristic itemCharacteristic = new ItemCharacteristic();
         try {
-            itemCharacteristic.setId(rs.getInt("id"));
-            Characteristic characteristic = new Characteristic(rs.getInt("characteristic_id"));
+            itemCharacteristic.setId(rs.getInt(ID));
+            Characteristic characteristic = new Characteristic(rs.getInt(CHARACTERISTIC_ID));
             itemCharacteristic.setCharacteristic(characteristic);
-            Product product = new Product(rs.getInt("product_id"));
+            Product product = new Product(rs.getInt(PRODUCT_ID));
             itemCharacteristic.setProduct(product);
-            itemCharacteristic.setPrice(rs.getString("price"));
+            itemCharacteristic.setPrice(rs.getString(PRICE));
         } catch (SQLException e) {
-            throw new DaoException("Cannot get item characteristic from result set", e);
+            throw new DaoException(CANNOT_GET_ITEM_CHARACTERISTIC_FROM_RESULT_SET, e);
         }
         return itemCharacteristic;
     }

@@ -2,6 +2,7 @@ package com.epam.igor.electronicsshop.action;
 
 import com.epam.igor.electronicsshop.entity.Product;
 import com.epam.igor.electronicsshop.entity.ProductType;
+import com.epam.igor.electronicsshop.entity.User;
 import com.epam.igor.electronicsshop.service.ServiceException;
 import com.epam.igor.electronicsshop.service.ShopService;
 import org.slf4j.Logger;
@@ -26,9 +27,15 @@ public class ShowHomePageAction implements Action {
     private static final String PRODUCT_TYPES = "productTypes";
     private static final String ERROR = "Couldn't fill content at home page";
     private static final String INFO = "Page number: {}. Page size: {}. Pages count: {}";
+    public static final String WELCOME = "welcome";
+    public static final String LOGGED_USER = "loggedUser";
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
+        User loggedUser = (User)req.getSession().getAttribute(LOGGED_USER);
+        if(loggedUser == null){
+            return new ActionResult(WELCOME);
+        }
         List<Product> products;
         List<ProductType> productTypes;
         String page = req.getParameter(PAGE);

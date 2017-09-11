@@ -20,21 +20,31 @@ public class JDBCOrderDao extends JDBCAbstractDao<Order> {
             " status_id) VALUES(?, ?, ?, ?)";
     private static final String UPDATE_ORDER_BY_ID = "UPDATE electronics.order SET user_id = ?," +
             "SET created = ?, description = ?, status = ? WHERE id = ?";
+    public static final String ID = "id";
+    public static final String USER_ID = "user_id";
+    public static final String CREATED = "created";
+    public static final String DESCRIPTION = "description";
+    public static final String STATUS_ID = "status_id";
+    public static final String DELETED = "deleted";
+    public static final String CANNOT_GET_ORDER = "Cannot get order from result set";
+    public static final String ELECTRONICS_ORDER = "electronics.order";
+    public static final String COULDN_T_SET_ORDER = "Couldn't set order variables for prepared statement";
+
     @Override
     protected Order getObjectFromResultSet(ResultSet rs) throws DaoException {
         Order order = new Order();
         try {
-            order.setId(rs.getInt("id"));
-            User user = new User(rs.getInt("user_id"));
+            order.setId(rs.getInt(ID));
+            User user = new User(rs.getInt(USER_ID));
             order.setUser(user);
-            order.setCreationTime(new DateTime(rs.getTimestamp("created")));
-            order.setDescription(rs.getString("description"));
-            OrderStatus status = new OrderStatus(rs.getInt("status_id"));
+            order.setCreationTime(new DateTime(rs.getTimestamp(CREATED)));
+            order.setDescription(rs.getString(DESCRIPTION));
+            OrderStatus status = new OrderStatus(rs.getInt(STATUS_ID));
             order.setStatus(status);
-            order.setDeleted(rs.getBoolean("deleted"));
+            order.setDeleted(rs.getBoolean(DELETED));
 
         } catch (SQLException e) {
-            throw new DaoException("Cannot get order from result set");
+            throw new DaoException(CANNOT_GET_ORDER);
         }
         return order;
     }
@@ -51,7 +61,7 @@ public class JDBCOrderDao extends JDBCAbstractDao<Order> {
 
     @Override
     protected String getTableName() {
-        return "electronics.order";
+        return ELECTRONICS_ORDER;
     }
 
     @Override
@@ -62,7 +72,7 @@ public class JDBCOrderDao extends JDBCAbstractDao<Order> {
             ps.setString(3, order.getDescription());
             ps.setInt(4, order.getStatus().getId());
         } catch (SQLException e) {
-            throw new DaoException("Couldn't set order variables for prepared statement", e);
+            throw new DaoException(COULDN_T_SET_ORDER, e);
         }
     }
 }

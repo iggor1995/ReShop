@@ -26,6 +26,7 @@
         <my:user user="${loggedUser}"/>
         <div class="col-lg-10" align="center">
             <my:pagination url="/do/manage/storage" pagesCount="${pagesCount}"/>
+            <form action="<c:url value="/do/edit/storage/item"/>" method="post">
             <table class="table table-bordered" style="font-size: 14px">
                 <thead>
                 <tr>
@@ -39,6 +40,7 @@
                 <tbody>
                 <c:forEach items="${storageItems}" var="storageItem" varStatus="itemRow">
                     <tr>
+                        <td>${storageItem.id}</td>
                         <td>${storageItem.storage.name}</td>
                         <td>${storageItem.product.name}</td>
                         <td>
@@ -63,6 +65,7 @@
             </table>
             <input hidden name="rowsCount" value="${storageItems.size()}">
             <button value="submit" class="btn btn-default">${save}</button>
+            </form>
         </div>
     </div>
 </my:page-pattern>

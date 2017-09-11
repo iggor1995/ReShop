@@ -17,7 +17,7 @@ public class SelectLocaleAction implements Action {
     public static final Logger LOG = LoggerFactory.getLogger(SelectLocaleAction.class);
     private static final String LOCALE = "locale";
     private static final String LOGGED_USER = "loggedUser";
-    private static final String REFERER = "loggedUser";
+    private static final String REFERER = "referer";
     private static final int MAX_AGE = 24 * 60 * 60;
     private static final String CHANGED = "{} changed language to {}";
 

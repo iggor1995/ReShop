@@ -22,7 +22,7 @@ public class BuyCartAction implements Action {
     private static final String NOT_ENOUGH = "notEnough";
     private static final String LOGGED_USER = "loggedUser";
     private static final String USER_PROFILE_PAGE = "user/profile";
-    private static final String USER_ORDERS_PAGE = "user-orders";
+    private static final String USER_ORDERS_PAGE = "user/orders";
     private static final String ERROR_PLACING = "Couldn't place order";
     private static final String BOUGHT_ORDER = "{} has been bought by - {}";
     private static final String CART = "cart";
@@ -44,7 +44,7 @@ public class BuyCartAction implements Action {
             req.getSession().setAttribute(LOGGED_USER, loggedUser);
             req.getSession(false).removeAttribute(CART);
             LOG.info(BOUGHT_ORDER, order, loggedUser);
-            return new ActionResult(USER_ORDERS_PAGE);
+            return new ActionResult(USER_ORDERS_PAGE, true);
         } catch (ServiceException e) {
             throw new ActionException(ERROR_PLACING, e);
         }

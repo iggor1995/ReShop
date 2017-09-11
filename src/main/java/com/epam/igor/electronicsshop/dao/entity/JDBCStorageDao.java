@@ -17,16 +17,23 @@ public class JDBCStorageDao extends JDBCAbstractDao<Storage> {
             "description_EN) VALUES (?, ?, ?)";
     private static final String UPDATE_STORAGE_BY_ID = "UPDATE electronics.user SET name = ?," +
             "SET description_RU = ?, description_EN = ? WHERE id = ?";
+    private static final String NAME = "name";
+    private static final String DESCRIPTION_RU = "description_RU";
+    private static final String DESCRIPTION_EN = "description_EN";
+    private static final String DELETED = "deleted";
+    private static final String CANNOT_SET_STORAGE = "Cannot set storage variables for prepared statement";
+    private static final String ELECTRONICS_STORAGE = "electronics.storage";
+
     @Override
     protected Storage getObjectFromResultSet(ResultSet rs) throws DaoException {
         Storage storage = new Storage();
         try {
-            storage.setName(rs.getString("name"));
-            storage.setRuDescription(rs.getString("description_RU"));
-            storage.setEnDescription(rs.getString("description_EN"));
-            storage.setDeleted(rs.getBoolean("deleted"));
+            storage.setName(rs.getString(NAME));
+            storage.setRuDescription(rs.getString(DESCRIPTION_RU));
+            storage.setEnDescription(rs.getString(DESCRIPTION_EN));
+            storage.setDeleted(rs.getBoolean(DELETED));
         } catch (SQLException e) {
-            throw new DaoException("Cannot set storage variables for prepared statement", e);
+            throw new DaoException(CANNOT_SET_STORAGE, e);
         }
         return storage;
     }
@@ -43,7 +50,7 @@ public class JDBCStorageDao extends JDBCAbstractDao<Storage> {
 
     @Override
     protected String getTableName() {
-        return "electronics.storage";
+        return ELECTRONICS_STORAGE;
     }
 
     @Override

@@ -16,6 +16,24 @@ import static com.epam.igor.electronicsshop.dao.DaoFactory.getDaoFactory;
  * Created by User on 03.08.2017.
  */
 public class UserService {
+
+    private static final String EMAIL = "email";
+    private static final String COULD_NOT_CHECK_EMAIL = "Could not check email";
+    private static final String COULDN_T_REGISTER_USER = "Couldn't register user";
+    private static final String COULDN_T_INITIALIZE_FACTORY = "Couldn't initialize factory";
+    private static final String COULDN_T_GET_USER_ADDRESS = "Couldn't get user address";
+    private static final String COULDN_T_GET_USER_ADDRESS1 = "Couldn't get user address";
+    private static final String COULDN_T_GET_USER = "Couldn't get user";
+    private static final String COULDN_T_UPDATE_USER = "Couldn't update user";
+    private static final String KZT = "KZT";
+    private static final String COULDN_T_REFILL_USER_S_MONEY = "Couldn't refill user's money";
+    private static final String COULDN_T_INITIALIZE_FACTORY1 = "Couldn't initialize factory";
+    private static final String USER_ID = "user_id";
+    private static final String ORDER_ID = "order_id";
+    private static final String COULDN_T_GET_USER_S_ORDERS_LIST = "Couldn't get user's orders list";
+    private static final String COULDN_T_UPDATE_USER_S_ADDRESS = "Couldn't update user's address";
+    private static final String COULDN_T_GET_FILLED_USER_BY_ID = "Couldn't get filled user by id";
+
     public UserService(){}
 
     public User performUserLogin(String email, String password) throws ServiceException{
@@ -36,10 +54,10 @@ public class UserService {
     public boolean checkEmail(String email) throws ServiceException{
         try (DaoFactory jdbcDaoFactory = new JDBCDaoFactory()) {
             GenericDaoInterface<User> userDao = jdbcDaoFactory.getDao(User.class);
-            List<User> usersWithCurrentEmail = userDao.findAllByParams(Collections.singletonMap("email", email));
+            List<User> usersWithCurrentEmail = userDao.findAllByParams(Collections.singletonMap(EMAIL, email));
             return usersWithCurrentEmail.isEmpty();
         } catch (DaoException e) {
-            throw new ServiceException(e, "Could not check email");
+            throw new ServiceException(e, COULD_NOT_CHECK_EMAIL);
         }
     }
     public User registerUser(User user, Address address) throws ServiceException{
@@ -56,29 +74,27 @@ public class UserService {
             }
             catch (DaoException e){
                 jdbcDaoFactory.rollbackTransaction();
-                throw new ServiceException(e, "Couldn't register user");
+                throw new ServiceException(e, COULDN_T_REGISTER_USER);
             }
         } catch (DaoException e) {
-            throw new ServiceException(e, "Couldn't initialize factory");
+            throw new ServiceException(e, COULDN_T_INITIALIZE_FACTORY);
         }
         return registeredUser;
     }
     public Address getUserAddress(User user) throws ServiceException{
         try(DaoFactory jdbcDaoFactory = new JDBCDaoFactory()) {
             GenericDaoInterface<Address> addressDao = jdbcDaoFactory.getDao(Address.class);
-            Address address = addressDao.findByPK(user.getAddress().getId());
-            return address;
+            return addressDao.findByPK(user.getAddress().getId());
         } catch (DaoException e) {
-            throw new ServiceException(e, "Couldn't get user address");
+            throw new ServiceException(e, COULDN_T_GET_USER_ADDRESS);
         }
     }
     public Gender getUserGender(User user) throws ServiceException{
         try(DaoFactory jdbcDaoFactory = new JDBCDaoFactory()) {
             GenericDaoInterface<Gender> genderDao = jdbcDaoFactory.getDao(Gender.class);
-            Gender gender = genderDao.findByPK(user.getGender().getId());
-            return gender;
+            return genderDao.findByPK(user.getGender().getId());
         } catch (DaoException e) {
-            throw new ServiceException(e, "Couldn't get user address");
+            throw new ServiceException(e, COULDN_T_GET_USER_ADDRESS1);
         }
     }
     public User getUserById(int id)throws ServiceException{
@@ -91,7 +107,7 @@ public class UserService {
             user.setAddress(addressDao.findByPK(user.getAddress().getId()));
             user.setGender(genderDao.findByPK(user.getGender().getId()));
         } catch (DaoException e) {
-            throw new ServiceException(e, "Coulldn't get user");
+            throw new ServiceException(e, COULDN_T_GET_USER);
         }
         return user;
     }
@@ -100,7 +116,7 @@ public class UserService {
             GenericDaoInterface<User> userDao = jdbcDaoFactory.getDao(User.class);
             userDao.update(user);
         } catch (DaoException e) {
-            throw new ServiceException(e, "Couldn't update user");
+            throw new ServiceException(e, COULDN_T_UPDATE_USER);
         }
         return user;
     }
@@ -111,17 +127,17 @@ public class UserService {
                 jdbcDaoFactory.startTransaction();
                 GenericDaoInterface<User> userDao = jdbcDaoFactory.getDao(User.class);
                 user = userDao.findByPK(id);
-                Money totalCash = user.getCash().plus(Money.parse("KZT" + cash));
+                Money totalCash = user.getCash().plus(Money.parse(KZT + cash));
                 user.setCash(totalCash);
                 userDao.update(user);
                 jdbcDaoFactory.commitTransaction();
             }
             catch (DaoException e){
                 jdbcDaoFactory.rollbackTransaction();
-                throw new ServiceException(e, "Couldn't refill user's money");
+                throw new ServiceException(e, COULDN_T_REFILL_USER_S_MONEY);
             }
         } catch (DaoException e) {
-            throw new ServiceException(e, "Couldn't initialize factory");
+            throw new ServiceException(e, COULDN_T_INITIALIZE_FACTORY1);
         }
         return user;
     }
@@ -132,17 +148,17 @@ public class UserService {
             GenericDaoInterface<OrderStatus> orderStatusDao = jdbcDaoFactory.getDao(OrderStatus.class);
             GenericDaoInterface<OrderingItem> orderItemDao = jdbcDaoFactory.getDao(OrderingItem.class);
             GenericDaoInterface<Product> productDao = jdbcDaoFactory.getDao(Product.class);
-            orders = orderDao.findAllByParams(Collections.singletonMap("user_id", String.valueOf(id)));
+            orders = orderDao.findAllByParams(Collections.singletonMap(USER_ID, String.valueOf(id)));
             for(Order order : orders){
                 order.setStatus(orderStatusDao.findByPK(order.getStatus().getId()));
-                List<OrderingItem> orderingItems = orderItemDao.findAllByParams(Collections.singletonMap("order_id", String.valueOf(order.getId())));
+                List<OrderingItem> orderingItems = orderItemDao.findAllByParams(Collections.singletonMap(ORDER_ID, String.valueOf(order.getId())));
                 for(OrderingItem item : orderingItems){
                     item.setProduct(productDao.findByPK(item.getProduct().getId()));
                 }
                 order.setOrderingItems(orderingItems);
             }
         } catch (DaoException e) {
-            throw new ServiceException(e, "Couldn't get user's orders list");
+            throw new ServiceException(e, COULDN_T_GET_USER_S_ORDERS_LIST);
         }
         return orders;
     }
@@ -151,7 +167,7 @@ public class UserService {
             GenericDaoInterface<Address> addressDao = jdbcDaoFactory.getDao(Address.class);
             addressDao.update(address);
         } catch (DaoException e) {
-            throw new ServiceException(e, "Couldn't update user's address");
+            throw new ServiceException(e, COULDN_T_UPDATE_USER_S_ADDRESS);
         }
         return address;
     }
@@ -165,7 +181,7 @@ public class UserService {
             user.setGender(genderDao.findByPK(user.getGender().getId()));
             user.setAddress(addressDao.findByPK(user.getAddress().getId()));
         } catch (DaoException e) {
-            throw new ServiceException(e, "Couldn't get filled user by id");
+            throw new ServiceException(e, COULDN_T_GET_FILLED_USER_BY_ID);
         }
         return user;
     }

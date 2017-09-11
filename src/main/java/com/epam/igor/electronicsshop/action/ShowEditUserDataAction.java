@@ -23,7 +23,7 @@ public class ShowEditUserDataAction implements Action {
     private static final String GENDERS = "genders";
     private static final String USER = "user";
     private static final String USER_INFO = "{} - user";
-    private static final String EDIT_USER_DATA_PAGE = "edit-user-data-page";
+    private static final String EDIT_USER_DATA_PAGE = "edit-user-data";
     private static final String ERROR = "Couldn't show edit user page";
 
     @Override

@@ -20,17 +20,23 @@ public class JDBCGenderDao extends JDBCAbstractDao<Gender> {
     private static final String UPDATE_GENDER_BY_ID = "UPDATE electronics.gender" +
             "SET name_ru = ?, name_en = ? WHERE id = ?";
     private static final Logger LOG = LoggerFactory.getLogger(JDBCGenderDao.class);
+    public static final String ID = "id";
+    public static final String NAME_RU = "name_ru";
+    public static final String NAME_EN = "name_en";
+    public static final String COULD_NOT_GET_GENDER = "Could not get gender from result set";
+    public static final String GENDER = "gender";
+    public static final String COULDN_T_SET_GENDER = "Couldn't set gender variables for prepared statement";
 
     @Override
     protected Gender getObjectFromResultSet(ResultSet rs) throws DaoException {
         Gender gender = new Gender();
         LOG.info("123");
         try {
-            gender.setId(rs.getInt("id"));
-            gender.setEnName(rs.getString("name_ru"));
-            gender.setRuName(rs.getString("name_en"));
+            gender.setId(rs.getInt(ID));
+            gender.setEnName(rs.getString(NAME_RU));
+            gender.setRuName(rs.getString(NAME_EN));
         } catch (SQLException e) {
-            throw new DaoException("Could not get object from result set", e);
+            throw new DaoException(COULD_NOT_GET_GENDER, e);
         }
         return gender;
     }
@@ -47,7 +53,7 @@ public class JDBCGenderDao extends JDBCAbstractDao<Gender> {
 
     @Override
     protected String getTableName() {
-        return "gender";
+        return GENDER;
     }
 
     @Override
@@ -56,7 +62,7 @@ public class JDBCGenderDao extends JDBCAbstractDao<Gender> {
             ps.setString(1, gender.getRuName());
             ps.setString(2, gender.getEnName());
         } catch (SQLException e) {
-            throw new DaoException("Couldn't set gender variables for prepared statement");
+            throw new DaoException(COULDN_T_SET_GENDER);
         }
     }
 }

@@ -29,7 +29,7 @@ public class RefillUserBalanceAction implements Action {
     private static final String REFILL_ERROR = "Couldn't refill balance";
     private static final String PROPERTIES_ERROR = "Cannot load properties";
     private static final String MONEY_REGEX = "money.regex";
-    private static final String VALIDATION_PROPERTIES = "money.regex";
+    private static final String VALIDATION_PROPERTIES = "validation.properties";
     private boolean INVALID;
     private Properties properties = new Properties();
 

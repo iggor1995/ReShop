@@ -16,18 +16,25 @@ public class JDBCProductTypeDao extends JDBCAbstractDao<ProductType> {
             "VALUES(?, ?)";
     private static final String UPDATE_PRODUCT_TYPE_BY_ID = "UPDATE electronics.product_type" +
             "SET name_ru = ?, name_en = ?";
+    private static final String ID = "id";
+    private static final String NAME_RU = "name_ru";
+    private static final String NAME_EN = "name_en";
+    private static final String DELETED = "deleted";
+    private static final String CANNOT_CREATE_PRODUCT_TYPE = "Cannot create productType from result set";
+    private static final String PRODUCT_TYPE = "product_type";
+    private static final String COULDN_T_SET_PRODUCT_TYPE = "Couldn't set product type variables for prepared statement";
 
     @Override
     protected ProductType getObjectFromResultSet(ResultSet rs) throws DaoException {
         ProductType productType = new ProductType();
 
         try {
-            productType.setId(rs.getInt("id"));
-            productType.setRuName(rs.getString("name_ru"));
-            productType.setEnName(rs.getString("name_en"));
-            productType.setDeleted(rs.getBoolean("deleted"));
+            productType.setId(rs.getInt(ID));
+            productType.setRuName(rs.getString(NAME_RU));
+            productType.setEnName(rs.getString(NAME_EN));
+            productType.setDeleted(rs.getBoolean(DELETED));
         } catch (SQLException e) {
-            throw new DaoException("Cannot create productType from result set");
+            throw new DaoException(CANNOT_CREATE_PRODUCT_TYPE);
         }
         return productType;
     }
@@ -44,7 +51,7 @@ public class JDBCProductTypeDao extends JDBCAbstractDao<ProductType> {
 
     @Override
     protected String getTableName() {
-        return "product_type";
+        return PRODUCT_TYPE;
     }
 
     @Override
@@ -53,7 +60,7 @@ public class JDBCProductTypeDao extends JDBCAbstractDao<ProductType> {
             ps.setString(1, productType.getRuName());
             ps.setString(2, productType.getEnName());
         } catch (SQLException e) {
-            throw new DaoException("Couldn't set product type variables for prepared statement", e);
+            throw new DaoException(COULDN_T_SET_PRODUCT_TYPE, e);
         }
     }
 }
