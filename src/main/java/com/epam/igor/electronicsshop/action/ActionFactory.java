@@ -1,5 +1,16 @@
 package com.epam.igor.electronicsshop.action;
 
+import com.epam.igor.electronicsshop.action.cart.AddProductToCartAction;
+import com.epam.igor.electronicsshop.action.cart.BuyCartAction;
+import com.epam.igor.electronicsshop.action.cart.ClearCartAction;
+import com.epam.igor.electronicsshop.action.order.*;
+import com.epam.igor.electronicsshop.action.product.*;
+import com.epam.igor.electronicsshop.action.storage.DeleteStorageItemAction;
+import com.epam.igor.electronicsshop.action.storage.EditStorageItemAction;
+import com.epam.igor.electronicsshop.action.storage.ShowManageStoragePageAction;
+import com.epam.igor.electronicsshop.action.user.*;
+import com.epam.igor.electronicsshop.action.util.*;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,6 +45,7 @@ public class ActionFactory {
         actions.put("GET/delete/orderingItem", new DeleteOrderingItemAction());
         actions.put("GET/delete/storageItem", new DeleteStorageItemAction());
         actions.put("GET/edit/user", new ShowEditUserPageAction());
+        actions.put("GET/edit/product", new ShowEditProductPageAction());
         actions.put("GET/edit/userData", new ShowEditUserDataAction());
         actions.put("GET/edit/userAddress", new ShowEditAddressAction());
         actions.put("GET/refill/user", new ShowRefillPageAction());
@@ -43,6 +55,7 @@ public class ActionFactory {
         actions.put("POST/edit/storage/item", new EditStorageItemAction());
         actions.put("POST/refill/user", new RefillUserBalanceAction());
         actions.put("POST/edit/user", new EditUserAction());
+        actions.put("POST/edit/product", new EditProductAction());
         actions.put("POST/edit/userData", new EditUserDataAction());
         actions.put("POST/edit/userAddress", new EditUserAddressAction());
         actions.put("POST/login", new LoginAction());

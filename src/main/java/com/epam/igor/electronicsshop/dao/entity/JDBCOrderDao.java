@@ -19,16 +19,16 @@ public class JDBCOrderDao extends JDBCAbstractDao<Order> {
     private static final String INSERT_ORDER = "INSERT INTO electronics.order(user_id, created, description," +
             " status_id) VALUES(?, ?, ?, ?)";
     private static final String UPDATE_ORDER_BY_ID = "UPDATE electronics.order SET user_id = ?," +
-            "SET created = ?, description = ?, status = ? WHERE id = ?";
-    public static final String ID = "id";
-    public static final String USER_ID = "user_id";
-    public static final String CREATED = "created";
-    public static final String DESCRIPTION = "description";
-    public static final String STATUS_ID = "status_id";
-    public static final String DELETED = "deleted";
-    public static final String CANNOT_GET_ORDER = "Cannot get order from result set";
-    public static final String ELECTRONICS_ORDER = "electronics.order";
-    public static final String COULDN_T_SET_ORDER = "Couldn't set order variables for prepared statement";
+            " created = ?, description = ?, status_id = ? WHERE id = ?";
+    private static final String ID = "id";
+    private static final String USER_ID = "user_id";
+    private static final String CREATED = "created";
+    private static final String DESCRIPTION = "description";
+    private static final String STATUS_ID = "status_id";
+    private static final String DELETED = "deleted";
+    private static final String CANNOT_GET_ORDER = "Cannot get order from result set";
+    private static final String ELECTRONICS_ORDER = "electronics.order";
+    private static final String COULDN_T_SET_ORDER = "Couldn't set order variables for prepared statement";
 
     @Override
     protected Order getObjectFromResultSet(ResultSet rs) throws DaoException {

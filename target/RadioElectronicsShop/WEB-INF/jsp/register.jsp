@@ -17,9 +17,16 @@
     <fmt:message key="common.apartmentNumber" var="apartment_label"/>
     <fmt:message key="common.gender_title" var="gender_title"/>
     <fmt:message key="error.emailUsed" var="email_used_message"/>
+    <fmt:message key="error.firstName" var="firstName_error_message"/>
+    <fmt:message key="error.email" var="email_error_message"/>
+    <fmt:message key="error.lastName" var="lastName_error_message"/>
+    <fmt:message key="error.country" var="country_error_message"/>
+    <fmt:message key="error.phoneNumber" var="phoneNumer_error_message"/>
+    <fmt:message key="error.city" var="city_error_message"/>
     <fmt:message key="error.password" var="password_error_message"/>
-    <fmt:message key="error.email" var="invalid_error_message"/>
-    <fmt:message key="error.phoneNumber" var="phoneNumber_error_message"/>
+    <fmt:message key="error.street" var="street_error_message"/>
+    <fmt:message key="error.buildingNumber" var="building_error_message"/>
+    <fmt:message key="error.apartmentNumber" var="apartment_error_message"/>
     <fmt:message key="register" var="register"/>
     <fmt:message key="button.cancel" var="cancel"/>
 </fmt:bundle>
@@ -39,7 +46,7 @@
                         <input type="text" class="form-control" placeholder="${email_label}" name="email"
                                value="${email}">
                         <c:if test="${emailError.equals('true')}">
-                            <p class="text-danger" style="height: 20px;font-size: 12px;">${invalid_error_message}</p>
+                            <p class="text-danger" style="height: 20px;font-size: 12px;">${email_error_message}</p>
                         </c:if>
                         <c:if test="${emailError.equals('used')}">
                             <p class="text-danger" style="height: 20px;font-size: 12px;">${email_used_message}</p>
@@ -56,14 +63,14 @@
                         <input type="text" class="form-control" placeholder="${firstname_label}" name="firstName"
                                value="${firstName}">
                         <c:if test="${not empty firstNameError}">
-                            <p class="text-danger" style="height: 20px;font-size: 12px;">${invalid_error_message}</p>
+                            <p class="text-danger" style="height: 20px;font-size: 12px;">${firstName_error_message}</p>
                         </c:if>
                     </div>
                     <div class="form-group input-group">
                         <input type="text" class="form-control" placeholder="${lastname_label}" name="lastName"
                                value="${lastName}">
                         <c:if test="${not empty lastNameError}">
-                            <p class="text-danger" style="height: 20px;font-size: 12px;">${invalid_error_message}</p>
+                            <p class="text-danger" style="height: 20px;font-size: 12px;">${lastName_error_message}</p>
                         </c:if>
                     </div>
                     <div class="form-group input-group">
@@ -71,7 +78,7 @@
                                value="${phoneNumber}">
                         <c:if test="${not empty phoneNumberError}">
                             <p class="text-danger"
-                               style="height: 20px;font-size: 12px;">${phoneNumber_error_message}</p>
+                               style="height: 20px;font-size: 12px;">${phoneNumer_error_message}</p>
                         </c:if>
                     </div>
                 </div>
@@ -80,35 +87,35 @@
                         <input type="text" class="form-control" placeholder="${country_label}" name="country"
                                value="${country}">
                         <c:if test="${not empty countryError}">
-                            <p class="text-danger" style="height: 20px;font-size: 12px;">${invalid_error_message}</p>
+                            <p class="text-danger" style="height: 20px;font-size: 12px;">${country_error_message}</p>
                         </c:if>
                     </div>
                     <div class="form-group input-group">
                         <input type="text" class="form-control" placeholder="${city_label}" name="city"
                                value="${city}">
                         <c:if test="${not empty cityError}">
-                            <p class="text-danger" style="height: 20px;font-size: 12px;">${invalid_error_message}</p>
+                            <p class="text-danger" style="height: 20px;font-size: 12px;">${city_error_message}</p>
                         </c:if>
                     </div>
                     <div class="form-group input-group">
                         <input type="text" class="form-control" placeholder="${street_label}" name="street"
                                value="${street}">
                         <c:if test="${not empty streetError}">
-                            <p class="text-danger" style="height: 20px;font-size: 12px;">${invalid_error_message}</p>
+                            <p class="text-danger" style="height: 20px;font-size: 12px;">${street_error_message}</p>
                         </c:if>
                     </div>
                     <div class="form-group input-group">
                         <input type="text" class="form-control" placeholder="${building_label}" name="buildingNumber"
                                value="${buildingNumber}">
                         <c:if test="${not empty buildingNumberError}">
-                            <p class="text-danger" style="height: 20px;font-size: 12px;">${invalid_error_message}</p>
+                            <p class="text-danger" style="height: 20px;font-size: 12px;">${building_error_message}</p>
                         </c:if>
                     </div>
                     <div class="form-group input-group">
                         <input type="text" class="form-control" placeholder="${apartment_label}" name="apartmentNumber"
                                value="${apartmentNumber}">
                         <c:if test="${not empty apartmentNumberError}">
-                            <p class="text-danger" style="height: 20px;font-size: 12px;">${invalid_error_message}</p>
+                            <p class="text-danger" style="height: 20px;font-size: 12px;">${apartment_error_message}</p>
                         </c:if>
                     </div>
                 </div>

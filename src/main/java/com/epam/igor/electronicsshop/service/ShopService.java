@@ -40,10 +40,14 @@ public class ShopService {
     private static final String COULDN_T_DELETE_PRODUCT = "Couldn't delete product";
     private static final String COULDN_T_DELETE_USER = "Couldn't delete user";
     private static final String COULDN_T_DELETE_STORAGE_ITEM = "Couldn't delete storage item";
-    private static String COULDN_T_UPDATE_STORAGE_ITEM_AMOUNT = "Couldn't update storage item amount";
+    private static final String COULDN_T_UPDATE_STORAGE_ITEM_AMOUNT = "Couldn't update storage item amount";
 
-    public ShopService() {
-    }
+    /**
+     * getting order by id, setting orders user, status, items
+     * @param id order id
+     * @return found order
+     * @throws ServiceException
+     */
     public Order getOrder(int id) throws ServiceException{
         Order order;
         try(DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)) {
@@ -66,6 +70,12 @@ public class ShopService {
         }
         return order;
     }
+
+    /**
+     * getting all genders list
+     * @return gender List
+     * @throws ServiceException
+     */
     public List<Gender> getAllGenders() throws ServiceException{
         List<Gender> genders;
         try(DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)) {
@@ -76,6 +86,12 @@ public class ShopService {
         }
         return genders;
     }
+
+    /**
+     * getting all products types
+     * @return product types List
+     * @throws ServiceException
+     */
     public List<ProductType> getAllProductTypes() throws ServiceException{
         List<ProductType> productTypes;
         try(DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)) {
@@ -88,6 +104,14 @@ public class ShopService {
         }
         return productTypes;
     }
+
+    /**
+     * Page has limited size. Depending on page size and page number get products list
+     * @param pageSize
+     * @param pageNumber
+     * @return products list
+     * @throws ServiceException
+     */
     public List<Product> getAllProductsOnPage(int pageSize, int pageNumber) throws ServiceException{
         List<Product> products;
         try(DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)) {
@@ -102,8 +126,13 @@ public class ShopService {
         }
         return products;
     }
+
+    /**
+     * getting products quantity.
+     * @return products quantity
+     * @throws ServiceException
+     */
     public int getProductsCount() throws ServiceException{
-        int productsCount;
         try(DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)) {
             GenericDaoInterface<Product> productDao = jdbcDaoFactory.getDao(Product.class);
             return productDao.getNotDeletedCount();
@@ -111,6 +140,14 @@ public class ShopService {
             throw new ServiceException(e, COULDN_T_GET_PRODUCTS_COUNT);
         }
     }
+
+    /**
+     * Buy cart: order status has to be changed, user has to spend money
+     * items has to be added in order database
+     * @param order
+     * @return user which has bought cart
+     * @throws ServiceException in case Dao exception throw service exception and do rollback transaction
+     */
     public User buyCart(Order order) throws ServiceException{
         User user;
         try(DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)) {
@@ -139,6 +176,14 @@ public class ShopService {
         }
         return user;
     }
+
+    /**
+     * Page has limited size. Based on page number and page size, get users list
+     * @param pageNumber
+     * @param pageSize
+     * @return users list
+     * @throws ServiceException
+     */
     public List<User> getAllUsersOnPage(int pageNumber, int pageSize) throws ServiceException{
         List<User> users;
         try(DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)) {
@@ -153,6 +198,12 @@ public class ShopService {
         }
         return users;
     }
+
+    /**
+     * get users quantity
+     * @return users quantity
+     * @throws ServiceException
+     */
     public int getUsersCount() throws ServiceException{
         int usersCount;
         try(DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)) {
@@ -163,6 +214,15 @@ public class ShopService {
         }
         return usersCount;
     }
+
+    /**
+     * Page has limited size. Based on page number and page size, get orders list
+     * Orders has to be filled with users, and items
+     * @param pageSize
+     * @param pageNumber
+     * @return orders list
+     * @throws ServiceException
+     */
     public List<Order> getAllOrdersOnPage(int pageSize, int pageNumber) throws ServiceException{
         List<Order> orders;
         try(DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)) {
@@ -187,6 +247,15 @@ public class ShopService {
         }
         return orders;
     }
+
+    /**
+     * Page has limited size. Based on page number and page size, get storage items list
+     * Orders has to be filled with storage
+     * @param pageSize
+     * @param pageNumber
+     * @return storage items list
+     * @throws ServiceException
+     */
     public List<StorageItem> getAllStorageItemsOnPage(int pageSize, int pageNumber) throws ServiceException{
         List<StorageItem> storageItems;
         try(DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)) {
@@ -203,6 +272,12 @@ public class ShopService {
         }
         return storageItems;
     }
+
+    /**
+     * get orders quantity
+     * @return orders quantity
+     * @throws ServiceException
+     */
     public int getOrdersCount() throws ServiceException{
         int ordersCount;
         try(DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)) {
@@ -213,6 +288,12 @@ public class ShopService {
         }
         return ordersCount;
     }
+
+    /**
+     * get storage items quantity
+     * @return storage items quantity
+     * @throws ServiceException
+     */
     public int getStorageItemsCount() throws ServiceException{
         int storageItemsCount;
         try(DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)) {
@@ -223,6 +304,13 @@ public class ShopService {
         }
         return storageItemsCount;
     }
+
+    /**
+     * get all orders statuses
+     * orders has to be not deleted
+     * @return order statuses list
+     * @throws ServiceException
+     */
     public List<OrderStatus> getAllOrderStatuses() throws ServiceException{
         List<OrderStatus> orderStatuses;
         try(DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)) {
@@ -234,6 +322,13 @@ public class ShopService {
         }
         return orderStatuses;
     }
+
+    /**
+     * after changes order status has to be updated in database
+     * @param orderId
+     * @param statusId
+     * @throws ServiceException
+     */
     public void updateOrderStatus(String orderId, String statusId) throws ServiceException{
         try(DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)) {
             GenericDaoInterface<Order> orderDao = jdbcDaoFactory.getDao(Order.class);
@@ -244,6 +339,12 @@ public class ShopService {
             throw new ServiceException(e, COULDN_T_UPDATE_ORDER_STATUS);
         }
     }
+
+    /**
+     * deletting order by order's ID
+     * @param id
+     * @throws ServiceException
+     */
     public void deleteOrderById(String id) throws ServiceException{
         try(DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)){
             GenericDaoInterface<Order> orderDao = jdbcDaoFactory.getDao(Order.class);
@@ -252,6 +353,12 @@ public class ShopService {
             throw new ServiceException(e, COULDN_T_DELETE_ORDER);
         }
     }
+
+    /**
+     * deletting product by product's ID
+     * @param id
+     * @throws ServiceException
+     */
     public void deleteProductById(String id) throws ServiceException{
         try(DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)){
             GenericDaoInterface<Product> productDao = jdbcDaoFactory.getDao(Product.class);
@@ -260,6 +367,12 @@ public class ShopService {
             throw new ServiceException(e, COULDN_T_DELETE_PRODUCT);
         }
     }
+
+    /**
+     * Deletting user by user's ID
+     * @param id
+     * @throws ServiceException
+     */
     public void deleteUserById(String id) throws ServiceException{
         try(DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)){
             GenericDaoInterface<User> userDao = jdbcDaoFactory.getDao(User.class);
@@ -268,6 +381,12 @@ public class ShopService {
             throw new ServiceException(e, COULDN_T_DELETE_USER);
         }
     }
+
+    /**
+     * Deletting storage item by storage item's ID
+     * @param id
+     * @throws ServiceException
+     */
     public void deleteStorageItemById(String id) throws ServiceException{
         try(DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)){
             GenericDaoInterface<StorageItem> storageItemDao = jdbcDaoFactory.getDao(StorageItem.class);
@@ -276,6 +395,13 @@ public class ShopService {
             throw new ServiceException(e, COULDN_T_DELETE_STORAGE_ITEM);
         }
     }
+
+    /**
+     * After changes storage item has to be updated in database
+     * @param itemId
+     * @param amount
+     * @throws ServiceException
+     */
     public void updateStorageItem(String itemId, String amount) throws ServiceException{
         try(DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)) {
             GenericDaoInterface<StorageItem> storageItemDao = jdbcDaoFactory.getDao(StorageItem.class);

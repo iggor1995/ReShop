@@ -61,7 +61,7 @@ public class ConnectionPool {
             Driver driver = new FabricMySQLDriver();
             DriverManager.registerDriver(driver);
         } catch (SQLException e) {
-            throw  new ConnectionPoolException(e, "Canot create driver");
+            throw  new ConnectionPoolException(e, "Cannot create driver");
         }
     }
     private void initializePool() throws ConnectionPoolException{

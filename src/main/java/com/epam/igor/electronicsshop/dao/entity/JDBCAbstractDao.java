@@ -163,8 +163,7 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
 
     @Override
     public void delete(Integer id) throws DaoException {
-        try {
-            Statement st = connection.createStatement();
+        try(Statement st = connection.createStatement();) {
             st.executeUpdate(UPDATE + getTableName() + SET_DELETED + WHERE_ID + id);
             LOG.debug(OBJECT_WITH_ID_DELETED_FROM_TABLE, id, getTableName());
         } catch (SQLException e) {
@@ -174,8 +173,7 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
 
     @Override
     public int getNotDeletedCount() throws DaoException {
-        try {
-            Statement st = connection.createStatement();
+        try(Statement st = connection.createStatement();) {
             ResultSet rs = st.executeQuery(SELECT_COUNT_FROM + getTableName() + WHERE_NOT_DELETED);
             rs.next();
             int count = rs.getInt(1);

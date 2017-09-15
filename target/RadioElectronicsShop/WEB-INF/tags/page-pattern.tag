@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@attribute name="pagetitle" required="true" %>
+<%@attribute name="footer" fragment="true" %>
 
 <%--@elvariable id="cart" type="com.epam.igor.electronicsshop.entity.Order"--%>
 <%--@elvariable id="type" type="com.epam.igor.electronicsshop.entity.ProductType"--%>
@@ -16,6 +17,7 @@
     <fmt:message key="profile.myprofile" var="myprofile"/>
     <fmt:message key="common.products" var="products"/>
     <fmt:message key="common.empty" var="emptyLabel"/>
+    <fmt:message key="author" var="author"/>
 
 </fmt:bundle>
 
@@ -30,7 +32,7 @@
 </head>
 <body>
 <div id="header">
-    <div align="center" style="width: 1200px;margin: auto">
+    <div align="center" style="width: 1200px;margin: auto;">
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -40,20 +42,21 @@
                         <a class="navbar-brand" href="<c:url value="/do/logout"/>"><span
                                 class="glyphicon glyphicon-exclamation-sign"></span></a>
                     </c:if>
-
                 </div>
                 <ul class="nav navbar-nav">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                           aria-expanded="false">${products}<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <c:forEach items="${productTypes}" var="type">
-                                <li>
-                                    <a href="<c:url value="/do/catalog?type=${type.id}"/>">${type.getName(locale)}</a>
-                                </li>
-                            </c:forEach>
-                        </ul>
-                    </li>
+                    <c:if test="${loggedUser.role == 'user' || loggedUser.role == 'admin'}">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                               aria-expanded="false">${products}<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <c:forEach items="${productTypes}" var="type">
+                                    <li>
+                                        <a href="<c:url value="/do/catalog?type=${type.id}"/>">${type.getName(locale)}</a>
+                                    </li>
+                                </c:forEach>
+                            </ul>
+                        </li>
+                    </c:if>
                     <div class="col-lg-1" align="right">
                         <li class="dropdown-menu-right" style="min-width: 60px">
                             <a href="<c:url value="/do/locale?locale=ru"/>" class="language"><img
@@ -84,13 +87,7 @@
 <div id="body" style="height: 100%">
     <jsp:doBody/>
 </div>
+<hr style="margin-top: 50px">
 
-<div id="footer" style="flex: 0 0 auto">
-    <footer class="modal-footer" style="height: 80px; position: relative;">
-        <ruby>Lapin Igor
-            <rt>Author</rt>
-        </ruby>
-    </footer>
-</div>
+
 </body>
-</html>

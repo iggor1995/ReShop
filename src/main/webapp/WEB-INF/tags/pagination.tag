@@ -8,7 +8,6 @@
 
 <fmt:bundle basename="i18n">
     <fmt:message key="common.pageNumber" var="pageNumber"/>
-    <fmt:message key="common.page.size" var="size"/>
 </fmt:bundle>
 <%--@elvariable id="page" type="java.lang.Integer"--%>
 <%--@elvariable id="pageSize" type="java.lang.Integer"--%>
@@ -16,15 +15,14 @@
     <ul class="pagination">
         <c:if test="${pagesCount>1}">
             <c:forEach begin="1" end="${pagesCount}" varStatus="loop">
-                <li                    <c:if test="${page==loop.count}">class="active"</c:if>>
+                <li <c:if test="${page==loop.count}">class="active" </c:if>>
                     <a href="<c:url value="${url}">
-                        <c:if test="${not empty attributeName && not empty attributeValue}">
-                            <c:param name="${attributeValue}" value="${attributeValue}"/>
-                        </c:if>
-                        <c:param name="page" value="${loop.count}"/>
-                        <c:param name="pageSize" value="${pageSize}"/>
-                        </c:url>" title="${pageNumber}">${loop.count}
-                    </a>
+                <c:if test="${not empty attributeName && not empty attributeValue}">
+                    <c:param name="${attributeName}" value="${attributeValue}"/>
+                    </c:if>
+                    <c:param name="page" value="${loop.count}"/>
+                    <c:param name="pageSize" value="${pageSize}"/>
+                    </c:url>" title="${pageNumber}">${loop.count}</a>
                 </li>
             </c:forEach>
         </c:if>
@@ -32,11 +30,11 @@
             <c:if test="${not empty attributeName && not empty attributeValue}">
                 <input hidden name="${attributeName}" value="${attributeValue}">
             </c:if>
-            <select style="margin-top: 10px" name="pageSize" onchange="this.form.submit()" title="${pageSize}">
-                <option value="3" <c:if test="${pageSize==3}"> selected </c:if>>3</option>
-                <option value="6" <c:if test="${pageSize==6}"> selected </c:if>>6</option>
-                <option value="12" <c:if test="${pageSize==12}"> selected </c:if>>12</option>
-                <option value="15" <c:if test="${pageSize==15}"> selected </c:if>>15</option>
+            <select style="margin-top: 10px" name="pageSize" onchange="this.form.submit()" title="${size}">
+                <option value="2" <c:if test="${pageSize==2}"> selected </c:if>>2</option>
+                <option value="4" <c:if test="${pageSize==4}"> selected </c:if>>4</option>
+                <option value="8" <c:if test="${pageSize==8}"> selected </c:if>>8</option>
+                <option value="16" <c:if test="${pageSize==16}"> selected </c:if>>16</option>
             </select>
         </form>
     </ul>

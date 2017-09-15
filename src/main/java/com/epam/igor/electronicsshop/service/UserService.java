@@ -23,7 +23,6 @@ public class UserService {
     private static final String COULDN_T_INITIALIZE_FACTORY = "Couldn't initialize factory";
     private static final String COULDN_T_GET_USER_ADDRESS = "Couldn't get user address";
     private static final String COULDN_T_GET_USER_ADDRESS1 = "Couldn't get user address";
-    private static final String COULDN_T_GET_USER = "Couldn't get user";
     private static final String COULDN_T_UPDATE_USER = "Couldn't update user";
     private static final String KZT = "KZT";
     private static final String COULDN_T_REFILL_USER_S_MONEY = "Couldn't refill user's money";
@@ -34,8 +33,13 @@ public class UserService {
     private static final String COULDN_T_UPDATE_USER_S_ADDRESS = "Couldn't update user's address";
     private static final String COULDN_T_GET_FILLED_USER_BY_ID = "Couldn't get filled user by id";
 
-    public UserService(){}
-
+    /**
+     * Performing user login. If user's params don't match, return null
+     * @param email
+     * @param password
+     * @return user
+     * @throws ServiceException
+     */
     public User performUserLogin(String email, String password) throws ServiceException{
         try(DaoFactory jdbcDaofactory = new JDBCDaoFactory();) {
             Map<String, String> params = new HashMap<>();
@@ -51,6 +55,14 @@ public class UserService {
             }
         return null;
     }
+
+    /**
+     * Email has to be unique in user's database, so before storing it into database
+     * email has to be checked if it already exists
+     * @param email
+     * @return false, if no same email found, or return true otherwise
+     * @throws ServiceException
+     */
     public boolean checkEmail(String email) throws ServiceException{
         try (DaoFactory jdbcDaoFactory = new JDBCDaoFactory()) {
             GenericDaoInterface<User> userDao = jdbcDaoFactory.getDao(User.class);
@@ -60,6 +72,14 @@ public class UserService {
             throw new ServiceException(e, COULD_NOT_CHECK_EMAIL);
         }
     }
+
+    /**
+     * Registering user. Inserting new user and new user's address in database
+     * @param user
+     * @param address
+     * @return new registered user
+     * @throws ServiceException if dao exception caught throw Service exception adn do rollback transaction
+     */
     public User registerUser(User user, Address address) throws ServiceException{
         User registeredUser;
         try(DaoFactory jdbcDaoFactory = new JDBCDaoFactory()) {
@@ -81,6 +101,13 @@ public class UserService {
         }
         return registeredUser;
     }
+
+    /**
+     * get user's address by user
+     * @param user
+     * @return address
+     * @throws ServiceException
+     */
     public Address getUserAddress(User user) throws ServiceException{
         try(DaoFactory jdbcDaoFactory = new JDBCDaoFactory()) {
             GenericDaoInterface<Address> addressDao = jdbcDaoFactory.getDao(Address.class);
@@ -89,6 +116,13 @@ public class UserService {
             throw new ServiceException(e, COULDN_T_GET_USER_ADDRESS);
         }
     }
+
+    /**
+     * get user's gender by user
+     * @param user
+     * @return gender
+     * @throws ServiceException
+     */
     public Gender getUserGender(User user) throws ServiceException{
         try(DaoFactory jdbcDaoFactory = new JDBCDaoFactory()) {
             GenericDaoInterface<Gender> genderDao = jdbcDaoFactory.getDao(Gender.class);
@@ -97,20 +131,13 @@ public class UserService {
             throw new ServiceException(e, COULDN_T_GET_USER_ADDRESS1);
         }
     }
-    public User getUserById(int id)throws ServiceException{
-        User user;
-        try(DaoFactory jdbcDaoFactory = new JDBCDaoFactory()) {
-            GenericDaoInterface<User> userDao = jdbcDaoFactory.getDao(User.class);
-            GenericDaoInterface<Address> addressDao = jdbcDaoFactory.getDao(Address.class);
-            GenericDaoInterface<Gender> genderDao = jdbcDaoFactory.getDao(Gender.class);
-            user = userDao.findByPK(id);
-            user.setAddress(addressDao.findByPK(user.getAddress().getId()));
-            user.setGender(genderDao.findByPK(user.getGender().getId()));
-        } catch (DaoException e) {
-            throw new ServiceException(e, COULDN_T_GET_USER);
-        }
-        return user;
-    }
+
+    /**
+     * if user has been changed, it has to be updated in database
+     * @param user
+     * @return
+     * @throws ServiceException
+     */
     public User updateUser(User user) throws ServiceException{
         try(DaoFactory jdbcDaoFactory = new JDBCDaoFactory()) {
             GenericDaoInterface<User> userDao = jdbcDaoFactory.getDao(User.class);
@@ -120,6 +147,14 @@ public class UserService {
         }
         return user;
     }
+
+    /**
+     * refilling users cash
+     * @param id
+     * @param cash
+     * @return updated user
+     * @throws ServiceException
+     */
     public User refillCash(int id, String cash) throws ServiceException {
         User user;
         try (DaoFactory jdbcDaoFactory = new JDBCDaoFactory()) {
@@ -141,6 +176,13 @@ public class UserService {
         }
         return user;
     }
+
+    /**
+     * get user's orders. Set order's status, items. Set item's product
+     * @param id
+     * @return
+     * @throws ServiceException
+     */
     public List<Order> getUserOrders (int id) throws ServiceException{
         List<Order> orders;
         try(DaoFactory jdbcDaoFactory = new JDBCDaoFactory()) {
@@ -162,6 +204,13 @@ public class UserService {
         }
         return orders;
     }
+
+    /**
+     * if address has been changed, it has to be updated in database
+     * @param address
+     * @return updated address
+     * @throws ServiceException
+     */
     public Address updateUserAddress(Address address) throws ServiceException {
         try (DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)) {
             GenericDaoInterface<Address> addressDao = jdbcDaoFactory.getDao(Address.class);
@@ -171,6 +220,13 @@ public class UserService {
         }
         return address;
     }
+
+    /**
+     * get user by user's ID filled with address, gender
+     * @param id
+     * @return
+     * @throws ServiceException
+     */
     public User getFilledUserById(int id) throws ServiceException{
         User user;
         try(DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)) {

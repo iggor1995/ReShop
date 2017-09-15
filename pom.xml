@@ -53,9 +53,18 @@
       <version>1.2</version>
     </dependency>
   </dependencies>
+
   <build>
     <finalName>RadioElectronicsShop</finalName>
     <plugins>
+      <plugin>
+        <groupId>org.apache.tomcat.maven</groupId>
+        <artifactId>tomcat7-maven-plugin</artifactId>
+        <version>2.2</version>
+        <configuration>
+          <path>/${project.build.finalName}</path>
+        </configuration>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -66,4 +75,6 @@
       </plugin>
     </plugins>
   </build>
+
 </project>
+

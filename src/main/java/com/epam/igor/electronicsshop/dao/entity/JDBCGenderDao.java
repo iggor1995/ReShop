@@ -1,8 +1,6 @@
 package com.epam.igor.electronicsshop.dao.entity;
 
-import com.epam.igor.electronicsshop.action.RegisterAction;
 import com.epam.igor.electronicsshop.dao.DaoException;
-import com.epam.igor.electronicsshop.dao.entity.JDBCAbstractDao;
 import com.epam.igor.electronicsshop.entity.Gender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

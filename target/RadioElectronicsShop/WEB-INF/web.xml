@@ -7,7 +7,7 @@
 
   <servlet>
     <servlet-name>ReShopServlet</servlet-name>
-    <servlet-class>com.epam.igor.electronicsshop.servlet.ReShopServlet</servlet-class>
+    <servlet-class>com.epam.igor.electronicsshop.web.servlet.ReShopServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
@@ -17,7 +17,7 @@
 
   <servlet>
     <servlet-name>ImageServlet</servlet-name>
-    <servlet-class>com.epam.igor.electronicsshop.servlet.ImageServlet</servlet-class>
+    <servlet-class>com.epam.igor.electronicsshop.web.servlet.ImageServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
@@ -27,7 +27,7 @@
 
   <filter>
     <filter-name>LocaleFilter</filter-name>
-    <filter-class>com.epam.igor.electronicsshop.filter.LocaleFilter</filter-class>
+    <filter-class>com.epam.igor.electronicsshop.web.filter.LocaleFilter</filter-class>
     <init-param>
       <param-name>active</param-name>
       <param-value>true</param-value>
@@ -42,7 +42,7 @@
   <filter>
 
     <filter-name>EncodingFilter</filter-name>
-    <filter-class>com.epam.igor.electronicsshop.filter.EncodingFilter</filter-class>
+    <filter-class>com.epam.igor.electronicsshop.web.filter.EncodingFilter</filter-class>
 
     <init-param>
       <param-name>encoding</param-name>
@@ -53,6 +53,36 @@
 
   <filter-mapping>
     <filter-name>EncodingFilter</filter-name>
+    <url-pattern>/do/*</url-pattern>
+  </filter-mapping>
+
+  <filter>
+
+    <filter-name>FlashScopeFilter</filter-name>
+    <filter-class>com.epam.igor.electronicsshop.web.filter.FlashScopeFilter</filter-class>
+
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+
+  </filter>
+
+  <filter-mapping>
+    <filter-name>SecurityFilter</filter-name>
+    <url-pattern>/do/*</url-pattern>
+  </filter-mapping>
+
+  <filter>
+
+    <filter-name>SecurityFilter</filter-name>
+    <filter-class>com.epam.igor.electronicsshop.web.filter.SecurityFilter</filter-class>
+
+
+  </filter>
+
+  <filter-mapping>
+    <filter-name>SecurityFilter</filter-name>
     <url-pattern>/do/*</url-pattern>
   </filter-mapping>
 
