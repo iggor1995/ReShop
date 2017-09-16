@@ -7,6 +7,7 @@ import com.epam.igor.electronicsshop.entity.Address;
 import com.epam.igor.electronicsshop.entity.User;
 import com.epam.igor.electronicsshop.service.ServiceException;
 import com.epam.igor.electronicsshop.service.UserService;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,14 +19,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by User on 08.09.2017.
- */
+ * For saving user changes to database
+ * @author Igor Lapin
+ * */
 public class EditUserAction implements Action {
     private static final String NOT_EMPTY_TEXT = "not_empty_string.regex";
     private static final String NOT_EMPTY_NUMBER = "not_empty_digits.regex";
     private static final String EMAIL_REGEX = "email.regex";
-    private static final String PASSWORD_REGEX = "password.regex";
-    private static final String PASSWORD = "password";
+    private static final String PASS_WORD_REGEX = "password.regex";
+    private static final String PASS_WORD = "password";
     private static final String FIRST_NAME = "firstName";
     private static final String LAST_NAME = "lastName";
     private static final String PHONE_NUMBER = "phoneNumber";
@@ -55,8 +57,10 @@ public class EditUserAction implements Action {
     private static final String PROPERTIES_ERROR= "Cannot load properties";
     private static final String VALIDATION_PROPERTIES= "validation.properties";
     private static final Logger LOG = LoggerFactory.getLogger(EditUserAction.class);
-    private boolean INVALID;
-    Properties properties = new Properties();
+    private static final String FLASH = "flash.";
+    private static final String TRUE = "true";
+    private boolean invalid;
+    private Properties properties = new Properties();
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
@@ -71,8 +75,8 @@ public class EditUserAction implements Action {
         try {
             user = userService.getFilledUserById(Integer.valueOf(req.getParameter(USER_ID)));
             if(!userService.checkEmail(email)){
-                req.setAttribute(EMAIL_ERROR, "true");
-                INVALID = true;
+                req.setAttribute(EMAIL_ERROR, TRUE);
+                invalid = true;
                 LOG.error(EMAIL_TAKEN, email);
             }
             else {
@@ -81,7 +85,7 @@ public class EditUserAction implements Action {
         } catch (ServiceException e) {
             throw new ActionException(UNABLE_REGISTER, e);
         }
-        String password = req.getParameter(PASSWORD);
+        String password = req.getParameter(PASS_WORD);
         String firstName = req.getParameter(FIRST_NAME);
         String lastName = req.getParameter(LAST_NAME);
         String phoneNumber = req.getParameter(PHONE_NUMBER);
@@ -90,7 +94,7 @@ public class EditUserAction implements Action {
         String street = req.getParameter(STREET);
         String buildingNumber = req.getParameter(BUILDING_NUMBER);
         String apartmentNumber = req.getParameter(APARTMENT_NUMBER);
-        checkParameterByRegex(password, PASSWORD, properties.getProperty(PASSWORD_REGEX), req);
+        checkParameterByRegex(password, PASS_WORD, properties.getProperty(PASS_WORD_REGEX), req);
         checkParameterByRegex(firstName, FIRST_NAME, properties.getProperty(NOT_EMPTY_TEXT), req);
         checkParameterByRegex(lastName, LAST_NAME, properties.getProperty(NOT_EMPTY_TEXT), req);
         checkParameterByRegex(phoneNumber, PHONE_NUMBER, properties.getProperty(NOT_EMPTY_NUMBER), req);
@@ -99,9 +103,10 @@ public class EditUserAction implements Action {
         checkParameterByRegex(street, STREET, properties.getProperty(NOT_EMPTY_TEXT), req);
         checkParameterByRegex(buildingNumber, BUILDING_NUMBER, properties.getProperty(NOT_EMPTY_NUMBER), req);
         checkParameterByRegex(apartmentNumber, APARTMENT_NUMBER, properties.getProperty(NOT_EMPTY_NUMBER), req);
+        String md5HexPassword = DigestUtils.md5Hex(password);
 
-        if(INVALID){
-            INVALID = false;
+        if(invalid){
+            invalid = false;
             req.setAttribute(USER, user);
             req.setAttribute(ADDRESS, user.getAddress());
             return new ActionResult(EDIT_USER_PAGE);
@@ -109,7 +114,7 @@ public class EditUserAction implements Action {
 
         try {
             user.setEmail(email);
-            user.setPassword(password);
+            user.setPassword(md5HexPassword);
             user.setFirstName(firstName);
             user.setLastName(lastName);
             user.setPhoneNumber(phoneNumber);
@@ -120,7 +125,7 @@ public class EditUserAction implements Action {
             userAddress.setStreet(street);
             userAddress.setBuildingNumber(buildingNumber);
             userAddress.setApartmentNumber(apartmentNumber);
-            if (!req.getParameter("role").equals(user.getRole().name())) {
+            if (!req.getParameter(ROLE).equals(user.getRole().name())) {
                 user.setRole(User.Role.valueOf(req.getParameter(ROLE)));
             }
             userService.updateUserAddress(userAddress);
@@ -138,8 +143,8 @@ public class EditUserAction implements Action {
         Matcher matcher = pattern.matcher(parameter);
         if (!matcher.matches()) {
             LOG.debug(WRONG_PARAMETER, parameterName, parameter);
-            req.setAttribute("flash." + parameterName + ERROR, "true");
-            INVALID = true;
+            req.setAttribute(FLASH + parameterName + ERROR, TRUE);
+            invalid = true;
         }
     }
 }

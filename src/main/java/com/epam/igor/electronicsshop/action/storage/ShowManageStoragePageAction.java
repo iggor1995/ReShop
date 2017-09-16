@@ -14,10 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- * Created by User on 08.09.2017.
- */
+ *  Class sets necessary attributes for displaying manage storage page.
+ * @author Igor Lapin
+ * */
 public class ShowManageStoragePageAction implements Action {
-    private final static Logger LOG = LoggerFactory.getLogger(ShowManageStoragePageAction.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ShowManageStoragePageAction.class);
     private static final String FIRST_PAGE = "1";
     private static final String DEFAULT_SIZE = "2";
     private static final String PAGE = "page";

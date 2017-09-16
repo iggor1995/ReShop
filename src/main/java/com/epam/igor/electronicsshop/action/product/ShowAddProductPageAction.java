@@ -13,8 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- * Created by User on 27.08.2017.
- */
+ *  Class sets necessary attributes for displaying add product page.
+ * @author Igor Lapin
+ *  */
 public class ShowAddProductPageAction implements Action {
 
     private static final String TYPES = "types";

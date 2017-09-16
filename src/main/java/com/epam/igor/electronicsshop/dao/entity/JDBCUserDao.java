@@ -23,7 +23,7 @@ public class JDBCUserDao extends JDBCAbstractDao<User> {
             "cash = ?, gender_id = ? WHERE id = ?";
     private static final String ID = "id";
     private static final String EMAIL = "email";
-    private static final String PASSWORD = "password";
+    private static final String PASS_WORD = "password";
     private static final String ROLE = "role";
     private static final String FIRSTNAME = "firstname";
     private static final String LASTNAME = "lastname";
@@ -43,7 +43,7 @@ public class JDBCUserDao extends JDBCAbstractDao<User> {
         try {
             user.setId(rs.getInt(ID));
             user.setEmail(rs.getString(EMAIL));
-            user.setPassword(rs.getString(PASSWORD));
+            user.setPassword(rs.getString(PASS_WORD));
             user.setRole(User.Role.valueOf(rs.getString(ROLE)));
             user.setFirstName(rs.getString(FIRSTNAME));
             user.setLastName(rs.getString(LASTNAME));

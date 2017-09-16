@@ -41,14 +41,6 @@
                 </form>
             </div>
             <div class="col-lg-12">
-                <c:if test="${not empty product.characteristics}">
-                    <hr>
-                    <h4>${characteristicsLabel}</h4>
-                </c:if>
-                <c:forEach items="${product.characteristics}" var="itemCharacteristic">
-                    <p>${itemCharacteristic.characteristic.getName(locale)}: ${itemCharacteristic.price}</p>
-                </c:forEach>
-                <hr>
                 <h4>${descriptionLabel}</h4>
                 <p align="center">${product.getDescription(locale)}</p>
             </div>

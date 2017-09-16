@@ -23,15 +23,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by User on 27.08.2017.
- */
+ * For adding new product to database
+ * @author Igor Lapin
+ * */
 
 public class AddProductAction implements Action {
-    public static final String FLASH = "flash.";
-    public static final String ERROR = "Error";
+    private static final String FLASH = "flash.";
+    private static final String ERROR = "Error";
     private static Logger LOG = LoggerFactory.getLogger(AddProductAction.class);
     private static final String CHECK_PARAMETR = "Check parameter '{}' with value '{}' by regex '{}'";
-    private boolean INVALID;
+    private boolean invalid;
     private static final String WRONG_PARAMETR = "Parameter '{}' with value '{}' is unsuitable.";
     private static final String MONEY = "money";
     private static final String MONEY_REGEX = "money.regex";
@@ -47,14 +48,14 @@ public class AddProductAction implements Action {
     private static final String MANAGE_PRODUCTS_PAGE = "manage/products";
     private static final String CURRENCY_KZT = "KZT";
     private static final String IMAGE_PART = "image";
-    private static final String PROPERTIES = "validation.properties";
+    private static final String VALIDATION_PROPERTIES = "validation.properties";
     private static final String LOGGED_USER = "loggedUser";
     private static final String ADDED_PRODUCT = "{} inserted in db and added on central storage by {}";
     private Properties properties = new Properties();
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
         try {
-            properties.load(AddProductAction.class.getClassLoader().getResourceAsStream(PROPERTIES));
+            properties.load(AddProductAction.class.getClassLoader().getResourceAsStream(VALIDATION_PROPERTIES));
         } catch (IOException e) {
             throw new ActionException(ERROR_PROPERTIES , e);
         }
@@ -73,8 +74,8 @@ public class AddProductAction implements Action {
             product.setEnDescription(descriptionEN);
             product.setRuDescription(descriptionRU);
             checkParameterByRegex(price, MONEY, properties.getProperty(MONEY_REGEX), req);
-            if(INVALID){
-                INVALID = false;
+            if(invalid){
+                invalid = false;
                 req.setAttribute(ERROR_MONEY, "true");
                 req.setAttribute("product", product);
                 return new ActionResult(ADD_PRODUCT_PAGE);
@@ -108,7 +109,7 @@ public class AddProductAction implements Action {
         if (!matcher.matches()) {
             LOG.debug(WRONG_PARAMETR, parameterName, parameter);
             req.setAttribute(FLASH + parameterName + ERROR, "true");
-            INVALID = true;
+            invalid = true;
         }
     }
 }

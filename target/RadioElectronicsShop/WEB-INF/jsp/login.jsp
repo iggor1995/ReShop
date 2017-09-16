@@ -9,6 +9,7 @@
     <fmt:message key="common.password" var="password"/>
     <fmt:message key="login.error" var="error"/>
     <fmt:message key="login.getin" var="getin"/>
+    <fmt:message key="register" var="register_label"/>
 </fmt:bundle>
 <c:url var="login_url" value="/do/login"/>
 <c:url var="register_url" value="/do/register"/>
@@ -35,5 +36,8 @@
                 </button>
             </div>
         </form>
+        <a class="btn btn-default"
+           href="<c:url value="/do/register"/>"
+        >${register_label}</a>
     </div>
 </my:page-pattern>

@@ -4,6 +4,7 @@ import com.epam.igor.electronicsshop.action.*;
 import com.epam.igor.electronicsshop.entity.User;
 import com.epam.igor.electronicsshop.service.ServiceException;
 import com.epam.igor.electronicsshop.service.UserService;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,6 +15,10 @@ import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * For saving user's data changes to database
+ * @author Igor Lapin
+ */
 public class EditUserDataAction implements Action {
     private static final String PASS_WORD_REGEX = "password.regex";
     private static final String PASS_WORD = "password";
@@ -62,14 +67,14 @@ public class EditUserDataAction implements Action {
         checkParameterByRegex(firstName, FIRST_NAME, properties.getProperty(NOT_EMPTY_TEXT), req);
         checkParameterByRegex(lastName, LAST_NAME, properties.getProperty(NOT_EMPTY_TEXT), req);
         checkParameterByRegex(phoneNumber, PHONE_NUMBER, properties.getProperty(NOT_EMPTY_NUMBER), req);
-
+        String md5HexPassword = DigestUtils.md5Hex(password);
         if(invalid){
             invalid = false;
             req.setAttribute(USER, user);
             return new ActionResult(EDIT_USER_DATA_PAGE);
         }
         try {
-            user.setPassword(password);
+            user.setPassword(md5HexPassword);
             user.setFirstName(firstName);
             user.setLastName(lastName);
             user.setPhoneNumber(phoneNumber);

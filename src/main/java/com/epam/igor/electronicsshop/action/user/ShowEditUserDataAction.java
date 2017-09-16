@@ -17,11 +17,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- * Created by User on 09.09.2017.
+ * Class sets necessary attributes for displaying edit user data page
+ * @author Igor Lapin
  */
 public class ShowEditUserDataAction implements Action {
 
-    private final static Logger LOG = LoggerFactory.getLogger(ShowEditUserDataAction.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ShowEditUserDataAction.class);
     private static final String LOGGED_USER = "loggedUser";
     private static final String GENDERS = "genders";
     private static final String USER = "user";

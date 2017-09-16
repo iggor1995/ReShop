@@ -16,8 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- * Created by User on 11.09.2017.
- */
+ *  Class sets necessary attributes for displaying edit product page.
+ * @author Igor Lapin
+ * */
 public class ShowEditProductPageAction implements Action {
 
     private static final String ID = "id";

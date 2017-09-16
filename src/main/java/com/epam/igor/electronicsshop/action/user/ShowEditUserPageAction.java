@@ -16,8 +16,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+/**
+ * Class sets necessary attributes for displaying edit user page
+ * @author Igor Lapin
+ */
 public class ShowEditUserPageAction implements Action {
-    private final static Logger LOG = LoggerFactory.getLogger(ShowEditUserPageAction.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ShowEditUserPageAction.class);
     private static final String ID = "id";
     private static final String USER = "user";
     private static final String USER_INFO = "{} - user";

@@ -18,6 +18,10 @@ import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ *  For saving storage item changes to database
+ * @author Igor Lapin
+ */
 public class EditStorageItemAction implements Action {
 
     private static final Logger LOG = LoggerFactory.getLogger(EditStorageItemAction.class);

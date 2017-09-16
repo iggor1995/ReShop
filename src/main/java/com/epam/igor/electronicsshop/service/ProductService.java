@@ -15,7 +15,8 @@ import static com.epam.igor.electronicsshop.dao.DaoFactory.JDBC;
 import static com.epam.igor.electronicsshop.dao.DaoFactory.getDaoFactory;
 
 /**
- * Created by User on 10.08.2017.
+ * Set methods for working with products
+ * @author Igor Lapin
  */
 public class ProductService {
 

@@ -11,8 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by User on 03.09.2017.
- */
+ *  Class sets necessary attributes for displaying product page.
+ * @author Igor Lapin
+ * */
 public class ShowProductPageAction implements Action {
     private static final String ID = "id";
     private static final String PRODUCT = "product";

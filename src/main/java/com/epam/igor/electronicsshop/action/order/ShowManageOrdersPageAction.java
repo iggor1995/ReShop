@@ -15,19 +15,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- * Created by User on 06.09.2017.
+ * Class sets necessary attributes for displaying manage orders page
+ * @author Igor Lapin
  */
 public class ShowManageOrdersPageAction implements Action {
-    private final static Logger LOG = LoggerFactory.getLogger(ShowManageOrdersPageAction.class);
-    private final static String DEFAULT_SIZE = "2";
-    private final static String FIRST_PAGE = "1";
+    private static final  Logger LOG = LoggerFactory.getLogger(ShowManageOrdersPageAction.class);
+    private static final  String DEFAULT_SIZE = "2";
+    private static final  String FIRST_PAGE = "1";
     private static final String PAGE_SIZE = "pageSize";
     private static final String PAGE = "page";
     private static final String ORDERS = "orders";
     private static final String STATUSES = "statuses";
     private static final String PAGES_COUNT = "pagesCount";
     private static final String MANAGE_ORDERS_PAGE = "manage-orders";
-    private static final String PRODUCT_TYPES = "productTypes";
     private static final String ERROR = "Couldn't show manage orders page";
     private static final String INFO = "Page number: {}. Page size: {}. Pages count: {}";
 

@@ -1,8 +1,6 @@
 package com.epam.igor.electronicsshop.action;
 
-import com.epam.igor.electronicsshop.action.cart.AddProductToCartAction;
-import com.epam.igor.electronicsshop.action.cart.BuyCartAction;
-import com.epam.igor.electronicsshop.action.cart.ClearCartAction;
+import com.epam.igor.electronicsshop.action.cart.*;
 import com.epam.igor.electronicsshop.action.order.*;
 import com.epam.igor.electronicsshop.action.product.*;
 import com.epam.igor.electronicsshop.action.storage.DeleteStorageItemAction;
@@ -62,6 +60,9 @@ public class ActionFactory {
         actions.put("POST/add/product", new AddProductAction());
         actions.put("POST/cart/add", new AddProductToCartAction());
         actions.put("POST/edit/orderStatus", new EditOrderStatusAction());
+        actions.put("POST/cart/description", new AddCartDescriptionAction());
+        actions.put("POST/cart/recount", new RecountCartAction());
+
 
     }
 

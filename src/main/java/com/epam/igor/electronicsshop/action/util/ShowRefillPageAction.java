@@ -12,8 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by User on 10.09.2017.
+ * Class sets necessary attributes for displaying refill page
+ * @author Igor Lapin
  */
+
 public class ShowRefillPageAction implements Action {
 
     private static final String ID = "id";

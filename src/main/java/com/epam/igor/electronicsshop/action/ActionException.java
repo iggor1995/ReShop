@@ -4,7 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Created by User on 03.08.2017.
+ /**
+ * Class sets necessary attributes for displaying edit user page
+ * @author Igor Lapin
  */
 public class ActionException extends Exception {
     private static final Logger LOG = LoggerFactory.getLogger(ActionException.class);

@@ -15,8 +15,10 @@ import static com.epam.igor.electronicsshop.dao.DaoFactory.JDBC;
 import static com.epam.igor.electronicsshop.dao.DaoFactory.getDaoFactory;
 
 /**
- * Created by User on 12.08.2017.
+ * Set methods for working with shop
+ * @author Igor Lapin
  */
+
 public class ShopService {
 
     private static final String ORDER_ID = "order_id";

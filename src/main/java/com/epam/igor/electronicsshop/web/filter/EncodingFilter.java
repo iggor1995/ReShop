@@ -6,10 +6,15 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.*;
 import java.io.IOException;
 
+
+/**
+ * Class-filter for work with view's character encoding.
+ * @author Igor Lapin
+ */
 public class EncodingFilter implements Filter {
-    private final static Logger LOG = LoggerFactory.getLogger(EncodingFilter.class);
-    private final String ENCODING = "UTF-8";
-    private final String ENCODING_SET = "Character encoding set to UTF-8";
+    private static final Logger LOG = LoggerFactory.getLogger(EncodingFilter.class);
+    private static final String ENCODING = "UTF-8";
+    private static final String ENCODING_SET = "Character encoding set to UTF-8";
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

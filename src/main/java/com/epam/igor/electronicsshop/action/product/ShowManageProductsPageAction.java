@@ -15,8 +15,9 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 /**
- * Created by User on 27.08.2017.
- */
+ *  Class sets necessary attributes for displaying manage products page.
+ * @author Igor Lapin
+ * */
 public class ShowManageProductsPageAction implements Action {
     private static final Logger LOG = LoggerFactory.getLogger(ShowManageProductsPageAction.class);
     private static final String FIRST_PAGE = "1";

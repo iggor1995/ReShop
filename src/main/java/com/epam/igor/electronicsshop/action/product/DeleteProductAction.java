@@ -12,10 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by User on 08.09.2017.
- */
+ *  For deleting product.
+ * @author Igor Lapin
+ * */
 public class DeleteProductAction implements Action {
-    private final static Logger LOG = LoggerFactory.getLogger(DeleteProductAction.class);
+    private static final  Logger LOG = LoggerFactory.getLogger(DeleteProductAction.class);
     private static final String ID = "id";
     private static final String REFERER_PAGE = "referer";
     private static final String ERROR_DELETE = "Couldn't delete product by id";

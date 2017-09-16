@@ -18,7 +18,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by User on 09.09.2017.
+ *  For saving user's address changes to database
+ * @author Igor Lapin
  */
 public class EditUserAddressAction implements Action {
 

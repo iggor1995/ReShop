@@ -12,7 +12,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by User on 01.08.2017.
+ * Class for common dao methods
+ * @author Igor Lapin
  */
 public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDaoInterface<T> {
 
@@ -60,7 +61,13 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
 
     protected abstract void setVariablesForPreparedStatementExceptId(T t, PreparedStatement ps) throws DaoException;
 
-    public void setVariablesForPreparedStatement(T t, PreparedStatement ps) throws DaoException{
+    /**
+     * sets id
+     * @param t Entity
+     * @param ps prepared statement except id
+     * @throws DaoException
+     */
+    private void setVariablesForPreparedStatement(T t, PreparedStatement ps) throws DaoException{
         setVariablesForPreparedStatementExceptId(t, ps);
         int lastParameter;
         try {
@@ -71,6 +78,12 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
         }
     }
 
+    /**
+     * inserts entity
+     * @param t entity
+     * @return Entity
+     * @throws DaoException
+     */
     @Override
     public T insert(T t) throws DaoException {
         try {
@@ -87,6 +100,12 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
         return t;
     }
 
+    /**
+     * gets entity with such id
+     * @param id or primary key
+     * @return Entity
+     * @throws DaoException
+     */
     @Override
     public T findByPK(Integer id) throws DaoException {
         try(Statement st = connection.createStatement();) {
@@ -102,6 +121,12 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
         }
     }
 
+    /**
+     * get list of objects with such params
+     * @param params
+     * @return objects list
+     * @throws DaoException
+     */
     @Override
     public List<T> findAllByParams(Map<String, String> params) throws DaoException {
         List<T> objects = new ArrayList<>();
@@ -116,6 +141,12 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
         }
         return objects;
     }
+
+    /**
+     * gets all objects from table
+     * @return objects list
+     * @throws DaoException
+     */
     @Override
     public List<T> findAll() throws DaoException {
         List<T> objects = new ArrayList<>();
@@ -132,6 +163,13 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
         return objects;
     }
 
+    /**
+     * gets objects for page with certain size and number
+     * @param pageNumber
+     * @param pageSize
+     * @return objects list
+     * @throws DaoException
+     */
     @Override
     public List<T> findAll(int pageNumber, int pageSize) throws DaoException {
         List<T> objects = new ArrayList<>();
@@ -150,6 +188,11 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
         return objects;
     }
 
+    /**
+     * updates object in table
+     * @param t entity
+     * @throws DaoException
+     */
     @Override
     public void update(T t) throws DaoException {
         try(PreparedStatement ps = connection.prepareStatement(getQueryForUpdate());) {
@@ -161,6 +204,11 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
         }
     }
 
+    /**
+     * sets deleted column as true
+     * @param id
+     * @throws DaoException
+     */
     @Override
     public void delete(Integer id) throws DaoException {
         try(Statement st = connection.createStatement();) {
@@ -171,6 +219,11 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
         }
     }
 
+    /**
+     * get all objects from table if deleted column is false
+     * @return objects list
+     * @throws DaoException
+     */
     @Override
     public int getNotDeletedCount() throws DaoException {
         try(Statement st = connection.createStatement();) {
@@ -184,7 +237,11 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
         }
     }
 
-    public String createQueryForFindAllByParams(Map<String, String> params){
+    /**creates query for getting objects with certain params
+     * @param params
+     * @return query(String)
+     */
+    private String createQueryForFindAllByParams(Map<String, String> params){
         String resultQuery = SELECT_FROM + getTableName() + WHERE;
         for (Map.Entry<String, String> param : params.entrySet()) {
             if (params.size() == 1) {

@@ -16,8 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- * Created by User on 01.09.2017.
+ * Class sets necessary attributes for displaying home page
+ * @author Igor Lapin
  */
+
 public class ShowHomePageAction implements Action {
     private static final Logger LOG = LoggerFactory.getLogger(ShowHomePageAction.class);
     private static final String FIRST_PAGE = "1";

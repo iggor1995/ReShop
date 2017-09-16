@@ -57,8 +57,7 @@
                     </div>
                     <div class="form-control input-group">
                         <label for="password">${password}</label>
-                        <input type="password" class="form-control" id="password" name="password"
-                               value="${user.password}">
+                        <input type="password" class="form-control" id="password" name="password">
                         <c:if test="${not empty passwordError}">
                             <p class="text-danger"style="height: 10px;font-size: 12px;">${passwordErrorMessage}</p>
                         </c:if>

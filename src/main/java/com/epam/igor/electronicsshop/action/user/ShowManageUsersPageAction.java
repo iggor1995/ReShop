@@ -15,7 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- * Created by User on 06.09.2017.
+ * Class sets necessary attributes for displaying manage user page
+ * @author Igor Lapin
  */
 public class ShowManageUsersPageAction implements Action {
     private final static Logger LOG = LoggerFactory.getLogger(ShowManageProductsPageAction.class);

@@ -12,14 +12,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by User on 26.08.2017.
+ * Class sets necessary attributes for displaying user profile page
+ * @author Igor Lapin
  */
+
 public class ShowUserProfileAction implements Action {
 
     private static final String LOGGED_USER = "loggedUser";
     private static final String ADDRESS = "address";
     private static final String USER_PROFILE_PAGE = "user-profile";
     private static final String ERROR = "Couldn't show user profile page";
+
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
         Address address;

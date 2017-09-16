@@ -6,6 +6,7 @@ import com.epam.igor.electronicsshop.action.ActionResult;
 import com.epam.igor.electronicsshop.entity.User;
 import com.epam.igor.electronicsshop.service.ServiceException;
 import com.epam.igor.electronicsshop.service.UserService;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,13 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by User on 25.08.2017.
+ * For checking logging user parameters
+ * @author Igor Lapin
  */
 public class LoginAction implements Action {
 
-    private final static Logger LOG = LoggerFactory.getLogger(LoginAction.class);
+    private static final Logger LOG = LoggerFactory.getLogger(LoginAction.class);
     private static final String EMAIL = "email";
-    private static final String PASSWORD = "password";
+    private static final String PASS_WORD = "password";
     private static final String LOGGED_USER = "loggedUser";
     private static final String HOME_PAGE = "home";
     private static final String LOGIN_PAGE = "login";
@@ -33,12 +35,13 @@ public class LoginAction implements Action {
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
         String email = req.getParameter(EMAIL);
-        String password = req.getParameter(PASSWORD);
+        String password = req.getParameter(PASS_WORD);
+        String md5HexPassword = DigestUtils.md5Hex(password);
         User user;
 
         try {
             UserService userService = new UserService();
-            user = userService.performUserLogin(email, password);
+            user = userService.performUserLogin(email, md5HexPassword);
         } catch (ServiceException e) {
             throw new ActionException(SERVICE_ERROR, e);
         }

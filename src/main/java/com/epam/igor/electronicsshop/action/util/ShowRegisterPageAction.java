@@ -14,8 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- * Created by User on 23.08.2017.
+ * Class sets necessary attributes for displaying register page
+ * @author Igor Lapin
  */
+
 public class ShowRegisterPageAction implements Action {
     private static final String REGISTER_PAGE = "register";
     private static final String GENDERS = "genders";

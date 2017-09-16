@@ -12,11 +12,13 @@ import java.io.IOException;
 import java.util.Locale;
 
 /**
- * Created by User on 06.09.2017.
+ * Class-filter for work with page locale.
+ * @author Igor Lapin
  */
+
 public class LocaleFilter implements Filter {
 
-    private final static Logger LOG = LoggerFactory.getLogger(LocaleFilter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(LocaleFilter.class);
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

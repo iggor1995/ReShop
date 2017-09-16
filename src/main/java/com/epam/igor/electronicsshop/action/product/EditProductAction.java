@@ -22,8 +22,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by User on 11.09.2017.
- */
+ *  For saving product changes to database.
+ * @author Igor Lapin
+ *  */
 public class EditProductAction implements Action {
 
     private static final Logger LOG = LoggerFactory.getLogger(EditProductAction.class);

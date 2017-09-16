@@ -13,6 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+/**
+ *  Class sets necessary attributes for displaying catalog page.
+ * @author Igor Lapin
+ */
 public class ShowCatalogPageAction implements Action {
 
     private static final Logger LOG = LoggerFactory.getLogger(ShowManageProductsPageAction.class);

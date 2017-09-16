@@ -9,8 +9,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by User on 13.09.2017.
+ * Class-filter for work with specific scope attribute that can live through redirect.
+ *
+ * @author Igor Lapin
  */
+
 public class FlashScopeFilter implements Filter {
     private static final String FLASH_SESSION_KEY = "FLASH_SESSION_KEY";
 

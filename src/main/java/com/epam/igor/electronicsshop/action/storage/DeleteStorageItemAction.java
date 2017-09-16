@@ -12,10 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by User on 08.09.2017.
- */
+ *  For deleting storage item
+ * @author Igor Lapin
+ * */
 public class DeleteStorageItemAction implements Action {
-    private final static Logger LOG = LoggerFactory.getLogger(DeleteStorageItemAction.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DeleteStorageItemAction.class);
     private static final String ID = "id";
     private static final String REFERER_PAGE = "referer";
     private static final String DELETED_ITEM = "storage item - {} has been deleted";

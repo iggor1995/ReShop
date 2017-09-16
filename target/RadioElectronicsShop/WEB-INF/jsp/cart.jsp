@@ -107,7 +107,7 @@
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-default">${save}</button>
                                     <button type="button" class="btn btn-default" data-dismiss="modal">
-                                    ${save}</button>
+                                    ${close}</button>
                                 </div>
                             </form>
                         </div>

@@ -15,7 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by User on 05.09.2017.
+ * Class for buying cart and creating order
+ * @author Igor Lapin
  */
 public class BuyCartAction implements Action {
     private final static Logger LOG = LoggerFactory.getLogger(BuyCartAction.class);
@@ -52,4 +53,5 @@ public class BuyCartAction implements Action {
             throw new ActionException(ERROR_PLACING, e);
         }
     }
+
 }

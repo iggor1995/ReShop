@@ -12,7 +12,7 @@ import javax.servlet.jsp.jstl.core.Config;
 import java.util.Locale;
 
 /**
- * Created by User on 12.08.2017.
+ * For changing locale
  */
 public class SelectLocaleAction implements Action {
 

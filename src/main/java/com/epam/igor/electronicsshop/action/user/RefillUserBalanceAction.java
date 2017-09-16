@@ -17,11 +17,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by User on 10.09.2017.
+ * For refilling user's balance
+ * @author Igor Lapin
  */
 public class RefillUserBalanceAction implements Action {
 
-    private final static Logger LOG = LoggerFactory.getLogger(RefillUserBalanceAction.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RefillUserBalanceAction.class);
     private static final String WRONG_PARAMETER = "Parameter '{}' with value '{}' is unsuitable.";
     private static final String USER = "user";
     private static final String REFILL = "refill";
@@ -33,7 +34,7 @@ public class RefillUserBalanceAction implements Action {
     private static final String PROPERTIES_ERROR = "Cannot load properties";
     private static final String MONEY_REGEX = "money.regex";
     private static final String VALIDATION_PROPERTIES = "validation.properties";
-    private boolean INVALID;
+    private boolean invalid;
     private Properties properties = new Properties();
 
     @Override
@@ -52,8 +53,8 @@ public class RefillUserBalanceAction implements Action {
         try {
             User user = userService.getFilledUserById(Integer.valueOf(id));
             User updatedUser;
-            if (INVALID){
-                INVALID = false;
+            if (invalid){
+                invalid = false;
                 req.setAttribute(USER, user);
                 return new ActionResult(REFILL);
             }
@@ -65,14 +66,14 @@ public class RefillUserBalanceAction implements Action {
         }
     }
     private void checkParameterByRegex(String parameter, String parameterName, String regex, HttpServletRequest req) {
-        String CHECK_PARAMETER = "Check parameter '{}' with value '{}' by regex '{}'";
+        final String CHECK_PARAMETER = "Check parameter '{}' with value '{}' by regex '{}'";
         LOG.debug(CHECK_PARAMETER, parameterName, parameter, regex);
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(parameter);
         if (!matcher.matches()) {
             LOG.debug(WRONG_PARAMETER, parameterName, parameter);
             req.setAttribute(parameterName + "Error", "true");
-            INVALID = true;
+            invalid = true;
         }
     }
 }

@@ -12,7 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by User on 07.09.2017.
+ * For saving order status changes in database
+ * @author Igor Lapin
  */
 public class EditOrderStatusAction implements Action {
     private final static Logger LOG = LoggerFactory.getLogger(EditOrderStatusAction.class);

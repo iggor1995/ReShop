@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by User on 08.09.2017.
+ * For deleting item from order
+ * @author Igor Lapin
  */
 public class DeleteOrderingItemAction implements Action {
 

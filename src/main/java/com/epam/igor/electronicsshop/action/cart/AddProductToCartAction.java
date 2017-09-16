@@ -20,7 +20,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by User on 03.09.2017.
+ * Class for adding product to cart
+ * @author Igor Lapin
  */
 public class AddProductToCartAction implements Action {
     private static final String CHECK_PARAMETR = "Check parameter '{}' with value '{}' by regex '{}'";
@@ -35,23 +36,26 @@ public class AddProductToCartAction implements Action {
     private static final String AMOUNT_INCREASED = "Product amount in cart increased by - {}";
     private static final String PRODUCT_ADDED = "product - {} added in cart. Amount - {}";
     private static final String PROPERTY_PRODUCT_AMOUNT = "product.amount";
-    public static final String FLASH = "flash.";
-    public static final String ERROR = "Error";
-    private boolean INVALID;
-    private final static Logger LOG = LoggerFactory.getLogger(AddProductToCartAction.class);
+    private static final String FLASH = "flash.";
+    private static final String ERROR = "Error";
+    private static final String TRUE = "true";
+    private static final String CANNOT_LOAD_PROPERTIES = "Cannot load properties";
+    private static final String VALIDATION_PROPERTIES = "validation.properties";
+    private boolean invalid;
+    private static final Logger LOG = LoggerFactory.getLogger(AddProductToCartAction.class);
     private Properties properties = new Properties();
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
         try {
-            properties.load(RegisterAction.class.getClassLoader().getResourceAsStream("validation.properties"));
+            properties.load(RegisterAction.class.getClassLoader().getResourceAsStream(VALIDATION_PROPERTIES));
         } catch (IOException e) {
-            throw new ActionException("Cannot load properties", e);
+            throw new ActionException(CANNOT_LOAD_PROPERTIES, e);
         }
         String amount = req.getParameter(AMOUNT);
         checkParameterByRegex(amount, AMOUNT, properties.getProperty(PROPERTY_PRODUCT_AMOUNT), req);
-        if(INVALID){
-            INVALID = false;
+        if(invalid){
+            invalid = false;
             req.setAttribute(ERROR_AMOUNT, "true");
             LOG.info(INVALID_AMOUNT, amount);
             return new ActionResult(req.getHeader(REFERER_PAGE), true);
@@ -91,8 +95,8 @@ public class AddProductToCartAction implements Action {
         Matcher matcher = pattern.matcher(parameter);
         if (!matcher.matches()) {
             LOG.debug(WRONG_PARAMETR, parameterName, parameter);
-            req.setAttribute(FLASH + parameterName + ERROR, "true");
-            INVALID = true;
+            req.setAttribute(FLASH + parameterName + ERROR, TRUE);
+            invalid = true;
         }
     }
 }

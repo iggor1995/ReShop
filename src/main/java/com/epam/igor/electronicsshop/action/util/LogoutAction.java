@@ -9,7 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by User on 09.09.2017.
+ * For deleting logged user from session
+ * @author Igor Lapin
  */
 public class LogoutAction implements Action {
     public static final Logger LOG = LoggerFactory.getLogger(LogoutAction.class);

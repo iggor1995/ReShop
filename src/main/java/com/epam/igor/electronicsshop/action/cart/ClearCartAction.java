@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by User on 08.09.2017.
+ * Class for deleting cart from session
+ * @author Igor Lapin
  */
 public class ClearCartAction implements Action {
     private final static Logger LOG = LoggerFactory.getLogger(ClearCartAction.class);

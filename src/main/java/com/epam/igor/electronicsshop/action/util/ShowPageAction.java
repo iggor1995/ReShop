@@ -7,8 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by User on 17.08.2017.
+ * For creating new action result
+ * @author Igor Lapin
  */
+
 public class ShowPageAction implements Action {
     private ActionResult result;
 

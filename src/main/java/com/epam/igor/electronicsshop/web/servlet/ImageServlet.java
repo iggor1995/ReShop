@@ -15,9 +15,15 @@ import java.io.IOException;
 import java.io.InputStream;
 
 
+/**
+ * Class handles and does necessary work with images
+ * @author Igor Lapin
+ */
 public class ImageServlet extends HttpServlet {
     private static final Logger LOG = LoggerFactory.getLogger(ImageServlet.class);
     private static final int DEFAULT_SIZE = 1024;
+    private static final String PRODUCT_ID_IMAGE_LOADED = "Product (id = {}) image loaded. {}";
+    private static final String COULDN_T_LOAD_IMAGE = "Couldn't load image";
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -33,10 +39,10 @@ public class ImageServlet extends HttpServlet {
             while ((length = content.read(buffer)) != -1){
                 sos.write(buffer, 0, length);
             }
-            LOG.debug("Product (id = {}) image loaded. {}", productId, productImage);
+            LOG.debug(PRODUCT_ID_IMAGE_LOADED, productId, productImage);
 
         } catch (ServiceException e) {
-            throw new ServletException("Couldn't load image", e);
+            throw new ServletException(COULDN_T_LOAD_IMAGE, e);
         }
     }
 }
