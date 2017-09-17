@@ -20,7 +20,7 @@ public class User extends BaseEntity {
 
     public User() {
         this.role = Role.user;
-        this.cash = Money.zero(CurrencyUnit.getInstance("KZT"));
+        this.cash = Money.parse("KZT5000");
     }
     public User(int id){
         setId(id);

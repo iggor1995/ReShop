@@ -1,3 +1,8 @@
+# MySQL server variables are temporarily set to enable faster SQL import by the server.
+SET @OLD_UNIQUE_CHECKS = @@UNIQUE_CHECKS, UNIQUE_CHECKS = 0;
+SET @OLD_FOREIGN_KEY_CHECKS = @@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS = 0;
+SET @OLD_SQL_MODE = @@SQL_MODE, SQL_MODE = 'TRADITIONAL,ALLOW_INVALID_DATES';
+SET GLOBAL max_allowed_packet=104857600;
 
 # Table `gender`
 CREATE TABLE IF NOT EXISTS `gender` (
@@ -188,127 +193,218 @@ CREATE TABLE IF NOT EXISTS `image` (
 )
   ENGINE = InnoDB;
 
+# Server variables are reset at the end of the script
+SET SQL_MODE = @OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS = @OLD_UNIQUE_CHECKS;
+
+SET @@GLOBAL.wait_timeout=86400;
 # Init default data
 INSERT INTO gender (name_ru, name_en) VALUES ('Мужчина', 'Male');
 INSERT INTO gender (name_ru, name_en) VALUES ('Женщина', 'Female');
 
-INSERT INTO user (email, password, role, firstname, lastname, phonenumber, gender_id, cash, address_id)
-VALUES ('lapin1995@mail.ru', 'ig-gor', 'admin', 'Alexandr', 'Li', '+77051794745', 2, 0, 1);
-INSERT INTO user (email, password, role, first_name, last_name, phone_number, gender_id, cash, address_id)
-VALUES ('muzikant_1990@mail.ru', '123456', 'user', 'Александр', 'Ли', '+77001794745', 2, 800000, 2);
+INSERT INTO user (email, password, firstname, lastname, address_id, phonenumber, role, cash, gender_id)
+VALUES ('lapin1995@mail.ru', 'd6b2f0af433a27cb8ed917f13cfe0d4a', 'Igor', 'Lapin', 1, '87472151228','admin', 50000, 1);
+INSERT INTO user (email, password, firstname, lastname, address_id, phonenumber, role, cash, gender_id)
+VALUES ('supermacho@mail.ru', 'd6b2f0af433a27cb8ed917f13cfe0d4a', 'Igor', 'Lapin', 3, '87472151230','user', 200000, 1);
+INSERT INTO user (email, password, firstname, lastname, address_id, phonenumber, role, cash, gender_id)
+VALUES ('ermrodion@mail.ru', 'd6b2f0af433a27cb8ed917f13cfe0d4a', 'Rodion', 'Ermolin', 2, '87473643644','user', 150000, 1);
 
 INSERT INTO address (country, city, street, building_number, apartment_number)
-VALUES ('Kazakhstan', 'Karaganda', 'Alihanov', '34/2', '37');
+VALUES ('Kazakhstan', 'Karaganda', 'Stepnoi', '4', '98');
 INSERT INTO address (country, city, street, building_number, apartment_number)
-VALUES ('Kazakhstan', 'Karaganda', 'Ermekov', '81', '47');
+VALUES ('Kazakhstan', 'Karaganda', 'Vostok', '5', '13');
 INSERT INTO address (country, city, street, building_number, apartment_number)
-VALUES ('Kazakhstan', 'Almaty', 'Abai', '53', '11');
+VALUES ('Kazakhstan', 'Astana', 'Kunanbaev', '45', '12');
 
-INSERT INTO product_type (name_ru, name_en) VALUES ('Маркеры', 'Markers');
-INSERT INTO product_type (name_ru, name_en) VALUES ('Фидеры', 'Hoppers');
-INSERT INTO product_type (name_ru, name_en) VALUES ('Маски', 'Goggles');
+INSERT INTO product_type (name_ru, name_en) VALUES ('Диоды', 'Diodes');
+INSERT INTO product_type (name_ru, name_en) VALUES ('Резисторы', 'Resistors');
+INSERT INTO product_type (name_ru, name_en) VALUES ('Датчики', 'Sensors');
+INSERT INTO product_type (name_ru, name_en) VALUES ('Двигатели', 'Motors');
+INSERT INTO product_type (name_ru, name_en) VALUES ('Светодиоды и индикаторы', 'LED and indicators');
 
-INSERT INTO characteristic (name_ru, name_en, product_type_id) VALUES ('Тип', 'Type', 1);
-INSERT INTO characteristic (name_ru, name_en, product_type_id) VALUES ('Цвет', 'Color', 1);
-INSERT INTO characteristic (name_ru, name_en, product_type_id) VALUES ('Ствол', 'Barrels', 1);
-INSERT INTO characteristic (name_ru, name_en, product_type_id) VALUES ('Тип', 'Type', 2);
-INSERT INTO characteristic (name_ru, name_en, product_type_id) VALUES ('Цвет', 'Color', 2);
-INSERT INTO characteristic (name_ru, name_en, product_type_id) VALUES ('Вместимость', 'Ball capacity', 2);
-INSERT INTO characteristic (name_ru, name_en, product_type_id) VALUES ('Модель', 'Model', 3);
-INSERT INTO characteristic (name_ru, name_en, product_type_id) VALUES ('Цвет', 'Color', 3);
-INSERT INTO characteristic (name_ru, name_en, product_type_id) VALUES ('Линза', 'Lens', 3);
-
-INSERT INTO product (name, price, description_ru, description_en, product_type_id) VALUES ('M2 RASTA', 490000,
-                                                                                           'Компания Dye имеет 12-летний опыт в изготовлении инновационных маркеров, и новый Dye M2 ― воплощение продвинутых технологий и красоты.',
-                                                                                           'Refined over 12 years of paintball marker manufacturing, innovation, and experience, DYE’s M2 marker is the new benchmark for performance and beauty.',
-                                                                                           1);
-INSERT INTO product (name, price, description_ru, description_en, product_type_id) VALUES ('M2 TIGER', 490000,
-                                                                                           'Компания Dye имеет 12-летний опыт в изготовлении инновационных маркеров, и новый Dye M2 ― воплощение продвинутых технологий и красоты.',
-                                                                                           'Refined over 12 years of paintball marker manufacturing, innovation, and experience, DYE’s M2 marker is the new benchmark for performance and beauty.',
-                                                                                           1);
-INSERT INTO product (name, price, description_ru, description_en, product_type_id) VALUES ('M2 WOODY', 490000,
-                                                                                           'Компания Dye имеет 12-летний опыт в изготовлении инновационных маркеров, и новый Dye M2 ― воплощение продвинутых технологий и красоты.',
-                                                                                           'Refined over 12 years of paintball marker manufacturing, innovation, and experience, DYE’s M2 marker is the new benchmark for performance and beauty.',
-                                                                                           1);
-INSERT INTO product (name, price, description_ru, description_en, product_type_id) VALUES ('R2 RASTA', 79000,
-                                                                                           'R2™ сочетает в себе простоту вместе с взрывной скоростью подачи, надёжностью и регулируемой ёмкостью.',
-                                                                                           'The R2™ fuses simplicity with mind-blowing feed rates, reliability and capacity flexibility.',
-                                                                                           2);
-INSERT INTO product (name, price, description_ru, description_en, product_type_id) VALUES ('R2 TIGER', 79000,
-                                                                                           'R2™ сочетает в себе простоту вместе с взрывной скоростью подачи, надёжностью и регулируемой ёмкостью.',
-                                                                                           'The R2™ fuses simplicity with mind-blowing feed rates, reliability and capacity flexibility.',
-                                                                                           2);
-INSERT INTO product (name, price, description_ru, description_en, product_type_id) VALUES ('R2 WOODY', 79000,
-                                                                                           'R2™ сочетает в себе простоту вместе с взрывной скоростью подачи, надёжностью и регулируемой ёмкостью.',
-                                                                                           'The R2™ fuses simplicity with mind-blowing feed rates, reliability and capacity flexibility.',
-                                                                                           2);
-INSERT INTO product (name, price, description_ru, description_en, product_type_id) VALUES ('i4 RASTA', 63500,
-                                                                                           'Одна из самых легких масок с широчайшим углом обзора и низким профилем.',
-                                                                                           'One of the smallest profile, lightest, and best field of vision goggle system currently available.',
+INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('7 segment indicator', 125,
+                                                                                           'Семисегментный индикатор, служит для отображения информации. Управляется цифровыми сигналами.',
+                                                                                           '7-segment indicator serves for displaying information. Controlled by digital signals.',
+                                                                                           5);
+INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('10 segment indicator', 250,
+                                                                                   'Десятисегментный индикатор, служит для отображения информации. Управляется цифровыми сигналами.',
+                                                                                   '10-segment indicator serves for displaying information. Controlled by digital signals.',
+                                                                                   5);
+INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('Laser 650nm', 500,
+                                                                                           'Лазер с длинной волны 650нм. Красный диапазон',
+                                                                                           ' Laser with wavelength 650nm. Red range',
+                                                                                           5);
+INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('Digital Hole sensor', 450,
+                                                                                           'Датчик Холла. Служит для измерения скорости вращения в бесщеточных двигателях',
+                                                                                           'Hole sensor. Serves for speed measurement in non-brush motors',
+                                                                                           4);
+INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('LED red-green', 79000,
+                                                                                           'Светодиод 5мм, с общим анодом. Цвета: красный и зеленый.',
+                                                                                           'LED 5mm, with common anod. Colors: red and green.',
+                                                                                           5);
+INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('Thermistor', 240,
+                                                                                           'Датчик температуры. Термистор. 0 - 70.',
+                                                                                           'Temperature sensor. Thermistor 0 - 70.',
                                                                                            3);
-INSERT INTO product (name, price, description_ru, description_en, product_type_id) VALUES ('i4 TIGER', 63500,
-                                                                                           'Одна из самых легких масок с широчайшим углом обзора и низким профилем.',
-                                                                                           'One of the smallest profile, lightest, and best field of vision goggle system currently available.',
+INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('Motor driver', 1000,
+                                                                                           'Драйвер шагового двигателя. Аналоговый, 5В.',
+                                                                                           'Step motor driver. Analog, 5V.',
+                                                                                           4);
+INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('Driver TB6560', 4500,
+                                                                                           'Драйвер шагового двигателя, 3А. Напряжение 24В.',
+                                                                                           'Step motor driver, 3A. Voltage 24V.',
+                                                                                           4);
+INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('Photoresistor', 150,
+                                                                                           'Фоторезистор. Датчик света.',
+                                                                                           'Photoresistor. Light sensor.',
                                                                                            3);
-INSERT INTO product (name, price, description_ru, description_en, product_type_id) VALUES ('i4 WOODY', 63500,
-                                                                                           'Одна из самых легких масок с широчайшим углом обзора и низким профилем.',
-                                                                                           'One of the smallest profile, lightest, and best field of vision goggle system currently available.',
-                                                                                           3);
+INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('LED Lamp', 400,
+                                                                                           'Светодиодная лампа, 5Вт.',
+                                                                                           'LED lamp. 5W.',
+                                                                                   5);
+INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('Step motor', 700,
+                                                                                           'Шаговый двигатель 1А.',
+                                                                                           'Step motor 1A.',
+                                                                                   4);
+INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('Step motor', 800,
+                                                                                           'Шаговый двигатель 2А. С платой управления.',
+                                                                                           'Step motor 2A. With control board.',
+                                                                                   4);
+INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('Step motor', 600,
+                                                                                           'Шаговый двигатель 24В.',
+                                                                                           'Step motor 24V.',
+                                                                                   4);
+INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('LED color lens', 330,
+                                                                                           'Цветная светодиодная линза.',
+                                                                                           'LED color lence',
+                                                                                   5);
+INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('LED-rect', 100,
+                                                                                           'Светодиод прямоугольный, 5В.',
+                                                                                           'LED rectangle, 5V.',
+                                                                                   5);
+INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('Infrared reflector', 280,
+                                                                                           'Инфракрасный отражатель. Датчик наличия.',
+                                                                                           'Infrared reflector. Availability sensor.',
+                                                                                   3);
+INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('Servo', 280,
+                                                                                         'Сервопривод с лопостями.',
+                                                                                         'Servo driver vanes.',
+                                                                                   4);
+INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('SMD-0805', 2400,
+                                                                                         'Чип (SMD) резисторы 0805, комплект (1700 штук)',
+                                                                                         'Chip (SMD) resistors 0805, pack (1700 pieces)',
+                                                                                   2);
+INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('Metal foil resistors', 50,
+                                                                                         'Металлофольговый резисторы, 0,25Вт.',
+                                                                                         'Metal foil resistors, 0,25W.',
+                                                                                   2);
+INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('Alternate resistors', 150,
+                                                                                         'Переменные резисторы, потенциометры. 20мм.',
+                                                                                         'Alternate resistors, potentiometers. 20mm.',
+                                                                                   2);
+INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('KBL610 ', 240,
+                                                                                         'Диодный мост.',
+                                                                                         'Diode bridge.',
+                                                                                   1);
+INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('SMA4007 ', 70,
+                                                                                         'Диод, 1А.',
+                                                                                         'Diode, 1A.',
+                                                                                   1);
+INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('KBPC3504 ', 635,
+                                                                                         'Диодный мост. 35А.',
+                                                                                         'Diode bridge. 35A.',
+                                                                                   1);
 
-INSERT INTO characteristic_item (value, characteristic_id, product_id) VALUES ('Electronic', 1, 1);
-INSERT INTO characteristic_item (value, characteristic_id, product_id) VALUES ('Electronic', 1, 2);
-INSERT INTO characteristic_item (value, characteristic_id, product_id) VALUES ('Electronic', 1, 3);
-INSERT INTO characteristic_item (value, characteristic_id, product_id) VALUES ('Rasta', 2, 1);
-INSERT INTO characteristic_item (value, characteristic_id, product_id) VALUES ('Tiger', 2, 2);
-INSERT INTO characteristic_item (value, characteristic_id, product_id) VALUES ('Woody', 2, 3);
-INSERT INTO characteristic_item (value, characteristic_id, product_id) VALUES ('Two piece', 3, 1);
-INSERT INTO characteristic_item (value, characteristic_id, product_id) VALUES ('Two piece', 3, 2);
-INSERT INTO characteristic_item (value, characteristic_id, product_id) VALUES ('Two piece', 3, 3);
-INSERT INTO characteristic_item (value, characteristic_id, product_id) VALUES ('Agitating', 4, 4);
-INSERT INTO characteristic_item (value, characteristic_id, product_id) VALUES ('Agitating', 4, 5);
-INSERT INTO characteristic_item (value, characteristic_id, product_id) VALUES ('Agitating', 4, 6);
-INSERT INTO characteristic_item (value, characteristic_id, product_id) VALUES ('Rasta', 5, 4);
-INSERT INTO characteristic_item (value, characteristic_id, product_id) VALUES ('Tiger', 5, 5);
-INSERT INTO characteristic_item (value, characteristic_id, product_id) VALUES ('Woody', 5, 6);
-INSERT INTO characteristic_item (value, characteristic_id, product_id) VALUES ('200/260', 6, 4);
-INSERT INTO characteristic_item (value, characteristic_id, product_id) VALUES ('200/260', 6, 5);
-INSERT INTO characteristic_item (value, characteristic_id, product_id) VALUES ('200/260', 6, 6);
-INSERT INTO characteristic_item (value, characteristic_id, product_id) VALUES ('i4', 7, 7);
-INSERT INTO characteristic_item (value, characteristic_id, product_id) VALUES ('i4', 7, 8);
-INSERT INTO characteristic_item (value, characteristic_id, product_id) VALUES ('i4', 7, 9);
-INSERT INTO characteristic_item (value, characteristic_id, product_id) VALUES ('Rasta', 8, 7);
-INSERT INTO characteristic_item (value, characteristic_id, product_id) VALUES ('Tiger', 8, 8);
-INSERT INTO characteristic_item (value, characteristic_id, product_id) VALUES ('Woody', 8, 9);
-INSERT INTO characteristic_item (value, characteristic_id, product_id) VALUES ('Thermal', 9, 7);
-INSERT INTO characteristic_item (value, characteristic_id, product_id) VALUES ('Thermal', 9, 8);
-INSERT INTO characteristic_item (value, characteristic_id, product_id) VALUES ('Thermal', 9, 9);
 
 INSERT INTO storage (name, description_ru, description_en)
-VALUES ('Central', 'Центральный склад на Каскадной площади', 'Central storage on cascade square');
+VALUES ('Central', 'Центральный склад. Город Карагадна.', 'Central storage. Karaganda city.');
 
-INSERT INTO storage_item (amount, storage_id, product_id) VALUES (2, 1, 1);
-INSERT INTO storage_item (amount, storage_id, product_id) VALUES (3, 1, 2);
-INSERT INTO storage_item (amount, storage_id, product_id) VALUES (1, 1, 3);
-INSERT INTO storage_item (amount, storage_id, product_id) VALUES (5, 1, 4);
-INSERT INTO storage_item (amount, storage_id, product_id) VALUES (0, 1, 5);
-INSERT INTO storage_item (amount, storage_id, product_id) VALUES (4, 1, 6);
-INSERT INTO storage_item (amount, storage_id, product_id) VALUES (11, 1, 7);
-INSERT INTO storage_item (amount, storage_id, product_id) VALUES (0, 1, 8);
-INSERT INTO storage_item (amount, storage_id, product_id) VALUES (9, 1, 9);
+INSERT INTO storage_item (storage_id, product_id, amount) VALUES (1, 1, 5);
+INSERT INTO storage_item (storage_id, product_id, amount) VALUES (1, 2, 10);
+INSERT INTO storage_item (storage_id, product_id, amount) VALUES (1, 3, 11);
+INSERT INTO storage_item (storage_id, product_id, amount) VALUES (1, 4, 100);
+INSERT INTO storage_item (storage_id, product_id, amount) VALUES (1, 5, 12);
+INSERT INTO storage_item (storage_id, product_id, amount) VALUES (1, 6, 13);
+INSERT INTO storage_item (storage_id, product_id, amount) VALUES (1, 7, 17);
+INSERT INTO storage_item (storage_id, product_id, amount) VALUES (1, 8, 28);
+INSERT INTO storage_item (storage_id, product_id, amount) VALUES (1, 9, 3);
+INSERT INTO storage_item (storage_id, product_id, amount) VALUES (1, 10, 8);
+INSERT INTO storage_item (storage_id, product_id, amount) VALUES (1, 11, 10);
+INSERT INTO storage_item (storage_id, product_id, amount) VALUES (1, 12, 10);
+INSERT INTO storage_item (storage_id, product_id, amount) VALUES (1, 13, 16);
+INSERT INTO storage_item (storage_id, product_id, amount) VALUES (1, 14, 8);
+INSERT INTO storage_item (storage_id, product_id, amount) VALUES (1, 15, 7);
+INSERT INTO storage_item (storage_id, product_id, amount) VALUES (1, 16, 9);
+INSERT INTO storage_item (storage_id, product_id, amount) VALUES (1, 17, 12);
+INSERT INTO storage_item (storage_id, product_id, amount) VALUES (1, 18, 18);
+INSERT INTO storage_item (storage_id, product_id, amount) VALUES (1, 19, 150);
+INSERT INTO storage_item (storage_id, product_id, amount) VALUES (1, 20, 60);
+INSERT INTO storage_item (storage_id, product_id, amount) VALUES (1, 21, 45);
+INSERT INTO storage_item (storage_id, product_id, amount) VALUES (1, 22, 33);
+INSERT INTO storage_item (storage_id, product_id, amount) VALUES (1, 23, 9);
 
 INSERT INTO order_status (name_ru, name_en) VALUES ('Не обработан', 'Not processed');
 INSERT INTO order_status (name_ru, name_en) VALUES ('В обработке', 'Processing');
 INSERT INTO order_status (name_ru, name_en) VALUES ('Доставлен', 'Delivered');
 INSERT INTO order_status (name_ru, name_en) VALUES ('Закрыт', 'Closed');
 
-INSERT INTO `order` (created, user_id, description, order_status_id) VALUES (NOW(), 2, 'I want to buy this!', 1);
-INSERT INTO `order` (created, user_id, description, order_status_id)
-VALUES (NOW(), 2, 'This is exactly what I am searching for!', 2);
+INSERT INTO `order` (user_id, created, description, status_id) VALUES (2, NOW(),'I want to buy this!', 1);
+INSERT INTO `order` (user_id, created, description, status_id) VALUES (3, NOW(),'I want to buy this!', 1);
+INSERT INTO `order` (user_id, created, description, status_id) VALUES (1, NOW(),'For EXCM-ST-42', 1);
 
-INSERT INTO order_item (amount, order_id, product_id) VALUES (1, 1, 1);
-INSERT INTO order_item (amount, order_id, product_id) VALUES (1, 1, 4);
-INSERT INTO order_item (amount, order_id, product_id) VALUES (1, 1, 7);
-INSERT INTO order_item (amount, order_id, product_id) VALUES (2, 2, 2);
-INSERT INTO order_item (amount, order_id, product_id) VALUES (2, 2, 5);
-INSERT INTO order_item (amount, order_id, product_id) VALUES (2, 2, 8);
+INSERT INTO ordering_item ( order_id, product_id, amount) VALUES (1, 1, 5);
+INSERT INTO ordering_item ( order_id, product_id, amount) VALUES (1, 4, 2);
+INSERT INTO ordering_item ( order_id, product_id, amount) VALUES (2, 3, 1);
+INSERT INTO ordering_item ( order_id, product_id, amount) VALUES (2, 5, 3);
+INSERT INTO ordering_item ( order_id, product_id, amount) VALUES (2, 6, 4);
+INSERT INTO ordering_item ( order_id, product_id, amount) VALUES (3, 12, 7);
+
+INSERT INTO image (name, product_id, content, date_modified)
+VALUES ('7-segment-indicator', 1, LOAD_FILE('C:\Users\User\Desktop\photo\7-segmentnyj-cifrovoj-led-indikator.jpg'), NOW());
+INSERT INTO image (name, product_id, content, date_modified)
+VALUES ('7-segment-indicator', 2, LOAD_FILE('.src\\main\\resources\\database\\test_photo\\10-segmentnyj-zelenyj-svetodiodnyj-indikator.jpg'), NOW());
+INSERT INTO image (name, product_id, content, date_modified)
+VALUES ('7-segment-indicator', 3, LOAD_FILE('.src/main/resources/database/test_photo/650nm-lazer-5mvt.jpg'), NOW());
+INSERT INTO image (name, product_id, content, date_modified)
+VALUES ('7-segment-indicator', 4, LOAD_FILE('.src|main|resources|database|test_photo|chip-smd-rezistory-0805-komplekt-5-1700-shtuk.jpg'), NOW());
+INSERT INTO image (name, product_id, content, date_modified)
+VALUES ('7-segment-indicator', 5, LOAD_FILE('.src\main\resources\database\test_photo\cifrovoj-datchik-kholla-ss41f.jpg'), NOW());
+INSERT INTO image (name, product_id, content, date_modified)
+VALUES ('7-segment-indicator', 6, LOAD_FILE('.src\main\resources\database\test_photo\datchik-temperatury-termistor-ntc-mf52-103-3435.jpg'), NOW());
+INSERT INTO image (name, product_id, content, date_modified)
+VALUES ('7-segment-indicator', 7, LOAD_FILE('.src\main\resources\database\test_photo\drajver-dvigatelej-analog-l298n.jpg'), NOW());
+INSERT INTO image (name, product_id, content, date_modified)
+VALUES ('7-segment-indicator', 8, LOAD_FILE('.src\main\resources\database\test_photo\drajver-shagovogo-dvigatelya-tb6600-4a.jpg'), NOW());
+INSERT INTO image (name, product_id, content, date_modified)
+VALUES ('7-segment-indicator', 9, LOAD_FILE('.src\main\resources\database\test_photo\fotorezistor-gl5516.jpg'), NOW());
+INSERT INTO image (name, product_id, content, date_modified)
+VALUES ('7-segment-indicator', 10, LOAD_FILE('.src\main\resources\database\test_photo\kbl610-dioidnyj-most-kbl.jpg'), NOW());
+INSERT INTO image (name, product_id, content, date_modified)
+VALUES ('7-segment-indicator', 11, LOAD_FILE('.src\main\resources\database\test_photo\led-lampochka-5w-svetodiodnaya.jpg'), NOW());
+INSERT INTO image (name, product_id, content, date_modified)
+VALUES ('7-segment-indicator', 12, LOAD_FILE('.src\main\resources\database\test_photo\metallofolgovye-rezistory-025vt-1.jpg'), NOW());
+INSERT INTO image (name, product_id, content, date_modified)
+VALUES ('7-segment-indicator', 13, LOAD_FILE('.src\main\resources\database\test_photo\rezistor-peremennyj-potenciometr-wh148-1a.jpg'), NOW());
+INSERT INTO image (name, product_id, content, date_modified)
+VALUES ('7-segment-indicator', 14, LOAD_FILE('.src\main\resources\database\test_photo\shagovyj-dvigatel-17hd3404-23d-12v-24v-13a-026nm.jpg'), NOW());
+INSERT INTO image (name, product_id, content, date_modified)
+VALUES ('7-segment-indicator', 15, LOAD_FILE('.src\main\resources\database\test_photo\shagovyj-dvigatel-28byj-48-s-platoj-upravleniya.jpg'), NOW());
+INSERT INTO image (name, product_id, content, date_modified)
+VALUES ('7-segment-indicator', 16, LOAD_FILE('.src\main\resources\database\test_photo\svetodiod-3-mm-s-cvetnoj-linzoj.jpg'), NOW());
+INSERT INTO image (name, product_id, content, date_modified)
+VALUES ('7-segment-indicator', 17, LOAD_FILE('.src\main\resources\database\test_photo\svetodiodnaya-matrica-50vt-6000k-3500lm-35v.jpg'), NOW());
+INSERT INTO image (name, product_id, content, date_modified)
+VALUES ('7-segment-indicator', 18, LOAD_FILE('.src\main\resources\database\test_photo\svetodiod-pryamougolnyj-257.jpg'), NOW());
+INSERT INTO image (name, product_id, content, date_modified)
+VALUES ('7-segment-indicator', 19, LOAD_FILE('.src\main\resources\database\test_photo\tcrt5000-infrakrasnyj-otrazhatel.jpg'), NOW());
+INSERT INTO image (name, product_id, content, date_modified)
+VALUES ('7-segment-indicator', 20, LOAD_FILE('.src\main\resources\database\test_photo\towerpro-mg995-servoprivod.jpg'), NOW());
+INSERT INTO image (name, product_id, content, date_modified)
+VALUES ('7-segment-indicator', 21, LOAD_FILE('.src\main\resources\database\test_photo\ultrazvukovoj-dalnomer-us-100-s-interfejsom-uart.jpg'), NOW());
+INSERT INTO image (name, product_id, content, date_modified)
+VALUES ('7-segment-indicator', 22, LOAD_FILE('.src\main\resources\database\test_photo\universalnyj-zvukovoj-datchik-analog-i-cifra.jpg'), NOW());
+INSERT INTO image (name, product_id, content, date_modified)
+VALUES ('7-segment-indicator', 23, LOAD_FILE('.src\main\resources\database\test_photo\universalnyj-zvukovoj-datchik-analog-i-cifra.jpg'), NOW());
+
 

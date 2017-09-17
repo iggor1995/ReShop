@@ -69,15 +69,17 @@
                     </div>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="<c:url value="/do/cart"/>"><span class="glyphicon glyphicon-shopping-cart"></span>
-                            <c:choose>
-                                <c:when test="${empty cart.orderingItems || cart.orderingItems.size()==0}">
-                                    (${emptyLabel})</c:when>
-                                <c:otherwise>${cartLabel} (${cart.orderingItems.size()})</c:otherwise>
-                            </c:choose>
-                        </a>
-                    </li>
+                    <c:if test="${loggedUser.role == 'user' || loggedUser.role == 'admin'}">
+                        <li>
+                            <a href="<c:url value="/do/cart"/>"><span class="glyphicon glyphicon-shopping-cart"></span>
+                                <c:choose>
+                                    <c:when test="${empty cart.orderingItems || cart.orderingItems.size()==0}">
+                                        (${emptyLabel})</c:when>
+                                    <c:otherwise>${cartLabel} (${cart.orderingItems.size()})</c:otherwise>
+                                </c:choose>
+                            </a>
+                        </li>
+                    </c:if>
                 </ul>
             </div>
         </nav>

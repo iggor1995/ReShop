@@ -59,8 +59,8 @@
                         <thead>
                             <tr>
                                 <th>${product}</th>
-                                <th>${price}</th>
                                 <th>${quantity}</th>
+                                <th>${price}</th>
                                 <th>${total}</th>
                             </tr>
                         </thead>
