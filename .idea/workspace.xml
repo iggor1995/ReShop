@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="60dd5797-30f4-4642-9ec4-72bd0959b447" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ReadMe.txt" afterPath="$PROJECT_DIR$/ReadMe.txt" />
-    </list>
+    <list default="true" id="60dd5797-30f4-4642-9ec4-72bd0959b447" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -1256,12 +1254,12 @@
       <workItem from="1505304631400" duration="11259000" />
       <workItem from="1505375757241" duration="18087000" />
       <workItem from="1505455098394" duration="39478000" />
-      <workItem from="1505657752558" duration="10016000" />
+      <workItem from="1505657752558" duration="10161000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="452159000" />
+    <option name="totallyTimeSpent" value="452304000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
