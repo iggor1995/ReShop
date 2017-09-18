@@ -48,7 +48,7 @@ public class AddProductToCartAction implements Action {
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
         try {
-            properties.load(RegisterAction.class.getClassLoader().getResourceAsStream(VALIDATION_PROPERTIES));
+            properties.load(AddProductToCartAction.class.getClassLoader().getResourceAsStream(VALIDATION_PROPERTIES));
         } catch (IOException e) {
             throw new ActionException(CANNOT_LOAD_PROPERTIES, e);
         }

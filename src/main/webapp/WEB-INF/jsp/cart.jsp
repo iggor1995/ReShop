@@ -53,8 +53,9 @@
                                 <c:forEach items="${cart.orderingItems}" var="item" varStatus="itemRow">
                                     <tr>
                                         <td>${item.product.name}</td>
-                                        <td><input type="number" min="1" max="999" value="${item.amount}"
-                                                   style="width:100px">
+                                        <td><input type="number" min="1" max="9999" value="${item.amount}"
+                                                   style="width: 100px"
+                                                   name="item${itemRow.index}" onchange="this.form.submit()">
                                             <c:if test="${errorMap.get(itemRow.index).equals('true')}">
                                                 <p class="text-danger"
                                                    style="height: 20px;font-size: 12px;">${amount_error_message}</p>

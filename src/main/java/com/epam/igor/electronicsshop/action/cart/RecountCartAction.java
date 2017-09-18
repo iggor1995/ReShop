@@ -33,12 +33,13 @@ public class RecountCartAction implements Action {
     private static final String AMOUNT_SET_TO = "{} amount set to {}";
     private static final String FLASH_ERROR_MAP = "flash.errorMap";
     private static final String CART = "cart";
+    private static final String CANNOT_LOAD_PROPERTIES = "Cannot load properties";
     private static final String REFERER = "referer";
     private static final String TRUE = "true";
     private static final String ITEM = "item";
     private static final String STORAGE_AMOUNT_REGEXP = "storage.amount.regexp";
     private boolean invalid;
-    private Properties properties;
+    private Properties properties = new Properties();
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
@@ -46,9 +47,9 @@ public class RecountCartAction implements Action {
         List<OrderingItem> orderItems = cart.getOrderingItems();
         Map<Integer, String> errorMap = new HashMap<>();
         try {
-            properties.load(RegisterAction.class.getClassLoader().getResourceAsStream(VALIDATION_PROPERTIES));
+           properties.load(AddProductToCartAction.class.getClassLoader().getResourceAsStream(VALIDATION_PROPERTIES));
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new ActionException(CANNOT_LOAD_PROPERTIES, e);
         }
         for (int i = 0; i < orderItems.size(); i++) {
             String amount = req.getParameter(ITEM + i);

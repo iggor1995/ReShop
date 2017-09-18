@@ -187,7 +187,7 @@ INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUE
                                                                                    'Датчик Холла. Служит для измерения скорости вращения в бесщеточных двигателях',
                                                                                    'Hole sensor. Serves for speed measurement in non-brush motors',
                                                                                    4);
-INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('LED red-green', 79000,
+INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('LED red-green', 790,
                                                                                    'Светодиод 5мм, с общим анодом. Цвета: красный и зеленый.',
                                                                                    'LED 5mm, with common anod. Colors: red and green.',
                                                                                    5);
