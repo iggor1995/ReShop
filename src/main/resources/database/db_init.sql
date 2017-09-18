@@ -310,50 +310,50 @@ INSERT INTO ordering_item ( order_id, product_id, amount) VALUES (2, 6, 4);
 INSERT INTO ordering_item ( order_id, product_id, amount) VALUES (3, 12, 7);
 
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 1, LOAD_FILE('C:\Users\User\Desktop\photo\7-segmentnyj-cifrovoj-led-indikator.jpg'), NOW());
+VALUES ('7-segment-indicator', 1, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 2, LOAD_FILE('.src\\main\\resources\\database\\test_photo\\10-segmentnyj-zelenyj-svetodiodnyj-indikator.jpg'), NOW());
+VALUES ('7-segment-indicator', 2, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 3, LOAD_FILE('.src/main/resources/database/test_photo/650nm-lazer-5mvt.jpg'), NOW());
+VALUES ('7-segment-indicator', 3, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 4, LOAD_FILE('.src|main|resources|database|test_photo|chip-smd-rezistory-0805-komplekt-5-1700-shtuk.jpg'), NOW());
+VALUES ('7-segment-indicator', 4, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 5, LOAD_FILE('.src\main\resources\database\test_photo\cifrovoj-datchik-kholla-ss41f.jpg'), NOW());
+VALUES ('7-segment-indicator', 5, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 6, LOAD_FILE('.src\main\resources\database\test_photo\datchik-temperatury-termistor-ntc-mf52-103-3435.jpg'), NOW());
+VALUES ('7-segment-indicator', 6, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 7, LOAD_FILE('.src\main\resources\database\test_photo\drajver-dvigatelej-analog-l298n.jpg'), NOW());
+VALUES ('7-segment-indicator', 7, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 8, LOAD_FILE('.src\main\resources\database\test_photo\drajver-shagovogo-dvigatelya-tb6600-4a.jpg'), NOW());
+VALUES ('7-segment-indicator', 8, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 9, LOAD_FILE('.src\main\resources\database\test_photo\fotorezistor-gl5516.jpg'), NOW());
+VALUES ('7-segment-indicator', 9, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 10, LOAD_FILE('.src\main\resources\database\test_photo\kbl610-dioidnyj-most-kbl.jpg'), NOW());
+VALUES ('7-segment-indicator', 10, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 11, LOAD_FILE('.src\main\resources\database\test_photo\led-lampochka-5w-svetodiodnaya.jpg'), NOW());
+VALUES ('7-segment-indicator', 11, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 12, LOAD_FILE('.src\main\resources\database\test_photo\metallofolgovye-rezistory-025vt-1.jpg'), NOW());
+VALUES ('7-segment-indicator', 12, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 13, LOAD_FILE('.src\main\resources\database\test_photo\rezistor-peremennyj-potenciometr-wh148-1a.jpg'), NOW());
+VALUES ('7-segment-indicator', 13, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 14, LOAD_FILE('.src\main\resources\database\test_photo\shagovyj-dvigatel-17hd3404-23d-12v-24v-13a-026nm.jpg'), NOW());
+VALUES ('7-segment-indicator', 14, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 15, LOAD_FILE('.src\main\resources\database\test_photo\shagovyj-dvigatel-28byj-48-s-platoj-upravleniya.jpg'), NOW());
+VALUES ('7-segment-indicator', 15, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 16, LOAD_FILE('.src\main\resources\database\test_photo\svetodiod-3-mm-s-cvetnoj-linzoj.jpg'), NOW());
+VALUES ('7-segment-indicator', 16, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 17, LOAD_FILE('.src\main\resources\database\test_photo\svetodiodnaya-matrica-50vt-6000k-3500lm-35v.jpg'), NOW());
+VALUES ('7-segment-indicator', 17, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 18, LOAD_FILE('.src\main\resources\database\test_photo\svetodiod-pryamougolnyj-257.jpg'), NOW());
+VALUES ('7-segment-indicator', 18, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 19, LOAD_FILE('.src\main\resources\database\test_photo\tcrt5000-infrakrasnyj-otrazhatel.jpg'), NOW());
+VALUES ('7-segment-indicator', 19, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 20, LOAD_FILE('.src\main\resources\database\test_photo\towerpro-mg995-servoprivod.jpg'), NOW());
+VALUES ('7-segment-indicator', 20, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 21, LOAD_FILE('.src\main\resources\database\test_photo\ultrazvukovoj-dalnomer-us-100-s-interfejsom-uart.jpg'), NOW());
+VALUES ('7-segment-indicator', 21, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 22, LOAD_FILE('.src\main\resources\database\test_photo\universalnyj-zvukovoj-datchik-analog-i-cifra.jpg'), NOW());
+VALUES ('7-segment-indicator', 22, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 23, LOAD_FILE('.src\main\resources\database\test_photo\universalnyj-zvukovoj-datchik-analog-i-cifra.jpg'), NOW());
+VALUES ('7-segment-indicator', 23, LOAD_FILE(''), NOW());
 
 

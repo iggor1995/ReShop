@@ -74,8 +74,8 @@ public class Order extends BaseEntity {
 
     public Money getPrice() {
         Money totalPrice = Money.zero(CurrencyUnit.getInstance("KZT"));
-        for (OrderingItem orderingItem : orderingItems) {
-            totalPrice = totalPrice.plus(orderingItem.getPrice());
+        for (OrderingItem orderItem : orderingItems) {
+            totalPrice = totalPrice.plus(orderItem.getPrice());
         }
         return totalPrice;
     }

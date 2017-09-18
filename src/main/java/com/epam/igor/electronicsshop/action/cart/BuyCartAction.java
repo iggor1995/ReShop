@@ -44,8 +44,8 @@ public class BuyCartAction implements Action {
         }
         try {
             ShopService shopService = new ShopService();
-            shopService.buyCart(order);
-            req.getSession().setAttribute(LOGGED_USER, loggedUser);
+            User user =  shopService.buyCart(order);
+            req.getSession().setAttribute(LOGGED_USER, user);
             req.getSession(false).removeAttribute(CART);
             LOG.info(BOUGHT_ORDER, order, loggedUser);
             return new ActionResult(USER_ORDERS_PAGE, true);

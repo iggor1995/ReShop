@@ -30,13 +30,7 @@ CREATE TABLE `user` (
   `deleted`      TINYINT(1)     NOT NULL DEFAULT '0',
 
   PRIMARY KEY (`id`),
-  UNIQUE KEY `email_UNIQUE` (`email`),
-  KEY `fk_user_gender_idx` (`gender_id`),
-  KEY `fk_user_address_idx` (`address_id`),
-  CONSTRAINT `fk_user_address` FOREIGN KEY (`address_id`) REFERENCES `address` (`id`),
-  CONSTRAINT `fk_user_gender` FOREIGN KEY (`gender_id`) REFERENCES `gender` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
+  UNIQUE KEY `email_UNIQUE` (`email`)
 )
   ENGINE = InnoDB;
 
@@ -69,21 +63,9 @@ CREATE TABLE IF NOT EXISTS `order` (
   `user_id`         INT          NOT NULL,
   `created`         DATETIME     NOT NULL,
   `description`     VARCHAR(255) NULL,
-  `order_status_id` INT          NOT NULL,
+  `status_id` INT          NOT NULL,
   `deleted`         TINYINT(1)   NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`, `user_id`),
-  INDEX `fk_orders_users_idx` (`user_id` ASC),
-  INDEX `fk_order_order_status_idx` (`order_status_id` ASC),
-  CONSTRAINT `fk_orders_users`
-  FOREIGN KEY (`user_id`)
-  REFERENCES `user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_order_order_status`
-  FOREIGN KEY (`order_status_id`)
-  REFERENCES `order_status` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
+  PRIMARY KEY (`id`, `user_id`)
 )
   ENGINE = InnoDB;
 
@@ -108,13 +90,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   `description_RU`  VARCHAR(255) NULL,
   `description_EN`  VARCHAR(255) NULL,
   `deleted`         TINYINT(1)   NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`),
-  INDEX `fk_product_product_type_idx` (`type_id` ASC),
-  CONSTRAINT `fk_product_product_type`
-  FOREIGN KEY (`type_id`)
-  REFERENCES `product_type` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
+  PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB;
 
@@ -125,19 +101,9 @@ CREATE TABLE IF NOT EXISTS `ordering_item` (
   `product_id` INT        NOT NULL,
   `amount`     INT        NOT NULL,
   `deleted`    TINYINT(1) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`, `order_id`, `product_id`),
-  INDEX `fk_order_item_orders_idx` (`order_id` ASC),
-  INDEX `fk_order_item_product_idx` (`product_id` ASC),
-  CONSTRAINT `fk_order_item_orders`
-  FOREIGN KEY (`order_id`)
-  REFERENCES `order` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_order_item_product`
-  FOREIGN KEY (`product_id`)
-  REFERENCES `product` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
+  PRIMARY KEY (`id`)
+
+
 )
   ENGINE = InnoDB;
 
@@ -159,19 +125,7 @@ CREATE TABLE IF NOT EXISTS `storage_item` (
   `product_id` INT        NOT NULL,
   `amount`     INT        NOT NULL,
   `deleted`    TINYINT(1) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`, `storage_id`, `product_id`),
-  INDEX `fk_storage_items_storages_idx` (`storage_id` ASC),
-  INDEX `fk_storage_item_product_idx` (`product_id` ASC),
-  CONSTRAINT `fk_storage_items_storages`
-  FOREIGN KEY (`storage_id`)
-  REFERENCES `storage` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_storage_item_product`
-  FOREIGN KEY (`product_id`)
-  REFERENCES `product` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
+  PRIMARY KEY (`id`, `storage_id`, `product_id`)
 )
   ENGINE = InnoDB;
 
@@ -180,16 +134,10 @@ CREATE TABLE IF NOT EXISTS `image` (
   `id`           INT         NOT NULL AUTO_INCREMENT,
   `name`         VARCHAR(45) NOT NULL,
   `product_id`   INT         NOT NULL,
-  `content`      LONGBLOB    NOT NULL,
+  `content`      LONGBLOB,
   `date_modified`     DATETIME    NOT NULL,
   `deleted`      TINYINT(1)  NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`, `product_id`),
-  INDEX `fk_image_product_idx` (`product_id` ASC),
-  CONSTRAINT `fk_image_product`
-  FOREIGN KEY (`product_id`)
-  REFERENCES `product` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
+  PRIMARY KEY (`id`, `product_id`)
 )
   ENGINE = InnoDB;
 
@@ -224,96 +172,96 @@ INSERT INTO product_type (name_ru, name_en) VALUES ('Двигатели', 'Motor
 INSERT INTO product_type (name_ru, name_en) VALUES ('Светодиоды и индикаторы', 'LED and indicators');
 
 INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('7 segment indicator', 125,
-                                                                                           'Семисегментный индикатор, служит для отображения информации. Управляется цифровыми сигналами.',
-                                                                                           '7-segment indicator serves for displaying information. Controlled by digital signals.',
-                                                                                           5);
+                                                                                   'Семисегментный индикатор, служит для отображения информации. Управляется цифровыми сигналами.',
+                                                                                   '7-segment indicator serves for displaying information. Controlled by digital signals.',
+                                                                                   5);
 INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('10 segment indicator', 250,
                                                                                    'Десятисегментный индикатор, служит для отображения информации. Управляется цифровыми сигналами.',
                                                                                    '10-segment indicator serves for displaying information. Controlled by digital signals.',
                                                                                    5);
 INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('Laser 650nm', 500,
-                                                                                           'Лазер с длинной волны 650нм. Красный диапазон',
-                                                                                           ' Laser with wavelength 650nm. Red range',
-                                                                                           5);
+                                                                                   'Лазер с длинной волны 650нм. Красный диапазон',
+                                                                                   ' Laser with wavelength 650nm. Red range',
+                                                                                   5);
 INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('Digital Hole sensor', 450,
-                                                                                           'Датчик Холла. Служит для измерения скорости вращения в бесщеточных двигателях',
-                                                                                           'Hole sensor. Serves for speed measurement in non-brush motors',
-                                                                                           4);
+                                                                                   'Датчик Холла. Служит для измерения скорости вращения в бесщеточных двигателях',
+                                                                                   'Hole sensor. Serves for speed measurement in non-brush motors',
+                                                                                   4);
 INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('LED red-green', 79000,
-                                                                                           'Светодиод 5мм, с общим анодом. Цвета: красный и зеленый.',
-                                                                                           'LED 5mm, with common anod. Colors: red and green.',
-                                                                                           5);
+                                                                                   'Светодиод 5мм, с общим анодом. Цвета: красный и зеленый.',
+                                                                                   'LED 5mm, with common anod. Colors: red and green.',
+                                                                                   5);
 INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('Thermistor', 240,
-                                                                                           'Датчик температуры. Термистор. 0 - 70.',
-                                                                                           'Temperature sensor. Thermistor 0 - 70.',
-                                                                                           3);
+                                                                                   'Датчик температуры. Термистор. 0 - 70.',
+                                                                                   'Temperature sensor. Thermistor 0 - 70.',
+                                                                                   3);
 INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('Motor driver', 1000,
-                                                                                           'Драйвер шагового двигателя. Аналоговый, 5В.',
-                                                                                           'Step motor driver. Analog, 5V.',
-                                                                                           4);
+                                                                                   'Драйвер шагового двигателя. Аналоговый, 5В.',
+                                                                                   'Step motor driver. Analog, 5V.',
+                                                                                   4);
 INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('Driver TB6560', 4500,
-                                                                                           'Драйвер шагового двигателя, 3А. Напряжение 24В.',
-                                                                                           'Step motor driver, 3A. Voltage 24V.',
-                                                                                           4);
+                                                                                   'Драйвер шагового двигателя, 3А. Напряжение 24В.',
+                                                                                   'Step motor driver, 3A. Voltage 24V.',
+                                                                                   4);
 INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('Photoresistor', 150,
-                                                                                           'Фоторезистор. Датчик света.',
-                                                                                           'Photoresistor. Light sensor.',
-                                                                                           3);
+                                                                                   'Фоторезистор. Датчик света.',
+                                                                                   'Photoresistor. Light sensor.',
+                                                                                   3);
 INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('LED Lamp', 400,
-                                                                                           'Светодиодная лампа, 5Вт.',
-                                                                                           'LED lamp. 5W.',
+                                                                                   'Светодиодная лампа, 5Вт.',
+                                                                                   'LED lamp. 5W.',
                                                                                    5);
 INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('Step motor', 700,
-                                                                                           'Шаговый двигатель 1А.',
-                                                                                           'Step motor 1A.',
+                                                                                   'Шаговый двигатель 1А.',
+                                                                                   'Step motor 1A.',
                                                                                    4);
 INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('Step motor', 800,
-                                                                                           'Шаговый двигатель 2А. С платой управления.',
-                                                                                           'Step motor 2A. With control board.',
+                                                                                   'Шаговый двигатель 2А. С платой управления.',
+                                                                                   'Step motor 2A. With control board.',
                                                                                    4);
 INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('Step motor', 600,
-                                                                                           'Шаговый двигатель 24В.',
-                                                                                           'Step motor 24V.',
+                                                                                   'Шаговый двигатель 24В.',
+                                                                                   'Step motor 24V.',
                                                                                    4);
 INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('LED color lens', 330,
-                                                                                           'Цветная светодиодная линза.',
-                                                                                           'LED color lence',
+                                                                                   'Цветная светодиодная линза.',
+                                                                                   'LED color lence',
                                                                                    5);
 INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('LED-rect', 100,
-                                                                                           'Светодиод прямоугольный, 5В.',
-                                                                                           'LED rectangle, 5V.',
+                                                                                   'Светодиод прямоугольный, 5В.',
+                                                                                   'LED rectangle, 5V.',
                                                                                    5);
 INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('Infrared reflector', 280,
-                                                                                           'Инфракрасный отражатель. Датчик наличия.',
-                                                                                           'Infrared reflector. Availability sensor.',
+                                                                                   'Инфракрасный отражатель. Датчик наличия.',
+                                                                                   'Infrared reflector. Availability sensor.',
                                                                                    3);
 INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('Servo', 280,
-                                                                                         'Сервопривод с лопостями.',
-                                                                                         'Servo driver vanes.',
+                                                                                   'Сервопривод с лопостями.',
+                                                                                   'Servo driver vanes.',
                                                                                    4);
 INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('SMD-0805', 2400,
-                                                                                         'Чип (SMD) резисторы 0805, комплект (1700 штук)',
-                                                                                         'Chip (SMD) resistors 0805, pack (1700 pieces)',
+                                                                                   'Чип (SMD) резисторы 0805, комплект (1700 штук)',
+                                                                                   'Chip (SMD) resistors 0805, pack (1700 pieces)',
                                                                                    2);
 INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('Metal foil resistors', 50,
-                                                                                         'Металлофольговый резисторы, 0,25Вт.',
-                                                                                         'Metal foil resistors, 0,25W.',
+                                                                                   'Металлофольговый резисторы, 0,25Вт.',
+                                                                                   'Metal foil resistors, 0,25W.',
                                                                                    2);
 INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('Alternate resistors', 150,
-                                                                                         'Переменные резисторы, потенциометры. 20мм.',
-                                                                                         'Alternate resistors, potentiometers. 20mm.',
+                                                                                   'Переменные резисторы, потенциометры. 20мм.',
+                                                                                   'Alternate resistors, potentiometers. 20mm.',
                                                                                    2);
 INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('KBL610 ', 240,
-                                                                                         'Диодный мост.',
-                                                                                         'Diode bridge.',
+                                                                                   'Диодный мост.',
+                                                                                   'Diode bridge.',
                                                                                    1);
 INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('SMA4007 ', 70,
-                                                                                         'Диод, 1А.',
-                                                                                         'Diode, 1A.',
+                                                                                   'Диод, 1А.',
+                                                                                   'Diode, 1A.',
                                                                                    1);
 INSERT INTO product (name, price, description_RU, description_EN, type_id) VALUES ('KBPC3504 ', 635,
-                                                                                         'Диодный мост. 35А.',
-                                                                                         'Diode bridge. 35A.',
+                                                                                   'Диодный мост. 35А.',
+                                                                                   'Diode bridge. 35A.',
                                                                                    1);
 
 
@@ -344,14 +292,15 @@ INSERT INTO storage_item (storage_id, product_id, amount) VALUES (1, 21, 45);
 INSERT INTO storage_item (storage_id, product_id, amount) VALUES (1, 22, 33);
 INSERT INTO storage_item (storage_id, product_id, amount) VALUES (1, 23, 9);
 
+INSERT INTO `order` (user_id, created, description, status_id) VALUES (2, NOW(),'I want to buy this!', 1);
+INSERT INTO `order` (user_id, created, description, status_id) VALUES (3, NOW(),'I want to buy this!', 1);
+INSERT INTO `order` (user_id, created, description, status_id) VALUES (1, NOW(),'For EXCM-ST-42', 1);
+
 INSERT INTO order_status (name_ru, name_en) VALUES ('Не обработан', 'Not processed');
 INSERT INTO order_status (name_ru, name_en) VALUES ('В обработке', 'Processing');
 INSERT INTO order_status (name_ru, name_en) VALUES ('Доставлен', 'Delivered');
 INSERT INTO order_status (name_ru, name_en) VALUES ('Закрыт', 'Closed');
 
-INSERT INTO `order` (user_id, created, description, status_id) VALUES (2, NOW(),'I want to buy this!', 1);
-INSERT INTO `order` (user_id, created, description, status_id) VALUES (3, NOW(),'I want to buy this!', 1);
-INSERT INTO `order` (user_id, created, description, status_id) VALUES (1, NOW(),'For EXCM-ST-42', 1);
 
 INSERT INTO ordering_item ( order_id, product_id, amount) VALUES (1, 1, 5);
 INSERT INTO ordering_item ( order_id, product_id, amount) VALUES (1, 4, 2);
@@ -361,50 +310,50 @@ INSERT INTO ordering_item ( order_id, product_id, amount) VALUES (2, 6, 4);
 INSERT INTO ordering_item ( order_id, product_id, amount) VALUES (3, 12, 7);
 
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 1, LOAD_FILE('C:\Users\User\Desktop\photo\7-segmentnyj-cifrovoj-led-indikator.jpg'), NOW());
+VALUES ('7-segment-indicator', 1, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 2, LOAD_FILE('.src\\main\\resources\\database\\test_photo\\10-segmentnyj-zelenyj-svetodiodnyj-indikator.jpg'), NOW());
+VALUES ('7-segment-indicator', 2, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 3, LOAD_FILE('.src/main/resources/database/test_photo/650nm-lazer-5mvt.jpg'), NOW());
+VALUES ('7-segment-indicator', 3, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 4, LOAD_FILE('.src|main|resources|database|test_photo|chip-smd-rezistory-0805-komplekt-5-1700-shtuk.jpg'), NOW());
+VALUES ('7-segment-indicator', 4, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 5, LOAD_FILE('.src\main\resources\database\test_photo\cifrovoj-datchik-kholla-ss41f.jpg'), NOW());
+VALUES ('7-segment-indicator', 5, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 6, LOAD_FILE('.src\main\resources\database\test_photo\datchik-temperatury-termistor-ntc-mf52-103-3435.jpg'), NOW());
+VALUES ('7-segment-indicator', 6, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 7, LOAD_FILE('.src\main\resources\database\test_photo\drajver-dvigatelej-analog-l298n.jpg'), NOW());
+VALUES ('7-segment-indicator', 7, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 8, LOAD_FILE('.src\main\resources\database\test_photo\drajver-shagovogo-dvigatelya-tb6600-4a.jpg'), NOW());
+VALUES ('7-segment-indicator', 8, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 9, LOAD_FILE('.src\main\resources\database\test_photo\fotorezistor-gl5516.jpg'), NOW());
+VALUES ('7-segment-indicator', 9, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 10, LOAD_FILE('.src\main\resources\database\test_photo\kbl610-dioidnyj-most-kbl.jpg'), NOW());
+VALUES ('7-segment-indicator', 10, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 11, LOAD_FILE('.src\main\resources\database\test_photo\led-lampochka-5w-svetodiodnaya.jpg'), NOW());
+VALUES ('7-segment-indicator', 11, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 12, LOAD_FILE('.src\main\resources\database\test_photo\metallofolgovye-rezistory-025vt-1.jpg'), NOW());
+VALUES ('7-segment-indicator', 12, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 13, LOAD_FILE('.src\main\resources\database\test_photo\rezistor-peremennyj-potenciometr-wh148-1a.jpg'), NOW());
+VALUES ('7-segment-indicator', 13, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 14, LOAD_FILE('.src\main\resources\database\test_photo\shagovyj-dvigatel-17hd3404-23d-12v-24v-13a-026nm.jpg'), NOW());
+VALUES ('7-segment-indicator', 14, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 15, LOAD_FILE('.src\main\resources\database\test_photo\shagovyj-dvigatel-28byj-48-s-platoj-upravleniya.jpg'), NOW());
+VALUES ('7-segment-indicator', 15, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 16, LOAD_FILE('.src\main\resources\database\test_photo\svetodiod-3-mm-s-cvetnoj-linzoj.jpg'), NOW());
+VALUES ('7-segment-indicator', 16, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 17, LOAD_FILE('.src\main\resources\database\test_photo\svetodiodnaya-matrica-50vt-6000k-3500lm-35v.jpg'), NOW());
+VALUES ('7-segment-indicator', 17, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 18, LOAD_FILE('.src\main\resources\database\test_photo\svetodiod-pryamougolnyj-257.jpg'), NOW());
+VALUES ('7-segment-indicator', 18, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 19, LOAD_FILE('.src\main\resources\database\test_photo\tcrt5000-infrakrasnyj-otrazhatel.jpg'), NOW());
+VALUES ('7-segment-indicator', 19, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 20, LOAD_FILE('.src\main\resources\database\test_photo\towerpro-mg995-servoprivod.jpg'), NOW());
+VALUES ('7-segment-indicator', 20, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 21, LOAD_FILE('.src\main\resources\database\test_photo\ultrazvukovoj-dalnomer-us-100-s-interfejsom-uart.jpg'), NOW());
+VALUES ('7-segment-indicator', 21, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 22, LOAD_FILE('.src\main\resources\database\test_photo\universalnyj-zvukovoj-datchik-analog-i-cifra.jpg'), NOW());
+VALUES ('7-segment-indicator', 22, LOAD_FILE(''), NOW());
 INSERT INTO image (name, product_id, content, date_modified)
-VALUES ('7-segment-indicator', 23, LOAD_FILE('.src\main\resources\database\test_photo\universalnyj-zvukovoj-datchik-analog-i-cifra.jpg'), NOW());
+VALUES ('7-segment-indicator', 23, LOAD_FILE(''), NOW());
 
 
