@@ -3,7 +3,7 @@ package com.epam.igor.electronicsshop.action.user;
 import com.epam.igor.electronicsshop.action.Action;
 import com.epam.igor.electronicsshop.action.ActionException;
 import com.epam.igor.electronicsshop.action.ActionResult;
-import com.epam.igor.electronicsshop.entity.Address;
+import com.epam.igor.electronicsshop.constants.UserConstants;
 import com.epam.igor.electronicsshop.entity.Gender;
 import com.epam.igor.electronicsshop.entity.User;
 import com.epam.igor.electronicsshop.service.ServiceException;
@@ -18,13 +18,12 @@ import java.util.List;
 
 /**
  * Class sets necessary attributes for displaying edit user data page
+ *
  * @author Igor Lapin
  */
 public class ShowEditUserDataAction implements Action {
 
     private static final Logger LOG = LoggerFactory.getLogger(ShowEditUserDataAction.class);
-    private static final String LOGGED_USER = "loggedUser";
-    private static final String GENDERS = "genders";
     private static final String USER = "user";
     private static final String USER_INFO = "{} - user";
     private static final String EDIT_USER_DATA_PAGE = "edit-user-data";
@@ -34,14 +33,15 @@ public class ShowEditUserDataAction implements Action {
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
         try {
             UserService userService = new UserService();
-            User currentUser = (User)req.getSession().getAttribute(LOGGED_USER);
+            User currentUser = (User) req.getSession().getAttribute(UserConstants.LOGGED_USER);
             User user = userService.getFilledUserById(currentUser.getId());
             ShopService shopService = new ShopService();
             List<Gender> genders = shopService.getAllGenders();
             LOG.info(USER_INFO, user);
             req.setAttribute(USER, user);
-            req.getSession(false).setAttribute(GENDERS, genders);
+            req.getSession(false).setAttribute(UserConstants.GENDERS, genders);
         } catch (ServiceException e) {
+            LOG.info(ERROR, e);
             throw new ActionException(ERROR, e);
         }
         return new ActionResult(EDIT_USER_DATA_PAGE);

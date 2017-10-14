@@ -1,17 +1,17 @@
 package com.epam.igor.electronicsshop.dao.entity;
 
 import com.epam.igor.electronicsshop.dao.DaoException;
-import com.epam.igor.electronicsshop.dao.entity.JDBCAbstractDao;
 import com.epam.igor.electronicsshop.entity.ProductType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- * Created by User on 02.08.2017.
- */
 public class JDBCProductTypeDao extends JDBCAbstractDao<ProductType> {
+
+    private static final Logger LOG = LoggerFactory.getLogger(JDBCProductTypeDao.class);
     private static final String INSERT_PRODUCT_TYPE = "INSERT INTO electronics.product_type(name_ru, name_en)" +
             "VALUES(?, ?)";
     private static final String UPDATE_PRODUCT_TYPE_BY_ID = "UPDATE electronics.product_type" +
@@ -34,6 +34,7 @@ public class JDBCProductTypeDao extends JDBCAbstractDao<ProductType> {
             productType.setEnName(rs.getString(NAME_EN));
             productType.setDeleted(rs.getBoolean(DELETED));
         } catch (SQLException e) {
+            LOG.info(CANNOT_CREATE_PRODUCT_TYPE, e);
             throw new DaoException(CANNOT_CREATE_PRODUCT_TYPE);
         }
         return productType;
@@ -60,6 +61,7 @@ public class JDBCProductTypeDao extends JDBCAbstractDao<ProductType> {
             ps.setString(1, productType.getRuName());
             ps.setString(2, productType.getEnName());
         } catch (SQLException e) {
+            LOG.info(COULDN_T_SET_PRODUCT_TYPE, e);
             throw new DaoException(COULDN_T_SET_PRODUCT_TYPE, e);
         }
     }

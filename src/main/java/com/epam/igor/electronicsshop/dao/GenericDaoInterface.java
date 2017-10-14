@@ -5,9 +5,7 @@ import com.epam.igor.electronicsshop.entity.BaseEntity;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by User on 01.08.2017.
- */
+
 public interface GenericDaoInterface<T extends BaseEntity> {
 
     T insert(T t) throws DaoException;

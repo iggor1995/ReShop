@@ -14,9 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- *  Class sets necessary attributes for displaying manage storage page.
+ * Class sets necessary attributes for displaying manage storage page.
+ *
  * @author Igor Lapin
- * */
+ */
 public class ShowManageStoragePageAction implements Action {
     private static final Logger LOG = LoggerFactory.getLogger(ShowManageStoragePageAction.class);
     private static final String FIRST_PAGE = "1";
@@ -33,11 +34,11 @@ public class ShowManageStoragePageAction implements Action {
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
 
         String page = req.getParameter(PAGE);
-        if(page == null){
-            page= FIRST_PAGE;
+        if (page == null) {
+            page = FIRST_PAGE;
         }
         String pageSize = req.getParameter(PAGE_SIZE);
-        if(pageSize == null){
+        if (pageSize == null) {
             pageSize = DEFAULT_SIZE;
         }
         int pageInt = Integer.parseInt(page);
@@ -49,13 +50,13 @@ public class ShowManageStoragePageAction implements Action {
             storageItems = shopService.getAllStorageItemsOnPage(pageSizeInt, pageInt);
             storageItemsCount = shopService.getStorageItemsCount();
         } catch (ServiceException e) {
+            LOG.info(ERROR, e);
             throw new ActionException(ERROR, e);
         }
         int pageCount;
-        if(storageItemsCount % pageSizeInt == 0){
+        if (storageItemsCount % pageSizeInt == 0) {
             pageCount = storageItemsCount / pageSizeInt;
-        }
-        else {
+        } else {
             pageCount = storageItemsCount / pageSizeInt + 1;
         }
         req.setAttribute(PAGES_COUNT, pageCount);
@@ -63,6 +64,6 @@ public class ShowManageStoragePageAction implements Action {
         req.setAttribute(PAGE, page);
         req.setAttribute(STORAGE_ITEMS, storageItems);
         LOG.info(INFO, page, pageSize, pageCount);
-        return  new ActionResult(STORAGE);
+        return new ActionResult(STORAGE);
     }
 }

@@ -18,6 +18,7 @@ import java.util.List;
 
 /**
  * Class sets necessary attributes for displaying edit user page
+ *
  * @author Igor Lapin
  */
 public class ShowEditUserPageAction implements Action {
@@ -43,6 +44,7 @@ public class ShowEditUserPageAction implements Action {
             req.setAttribute(ADDRESS, address);
             req.getSession(false).setAttribute(GENDERS, genders);
         } catch (ServiceException e) {
+            LOG.info(ERROR, e);
             throw new ActionException(ERROR, e);
         }
         return new ActionResult(EDIT_USER_PAGE);

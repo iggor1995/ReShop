@@ -17,6 +17,7 @@ import java.io.IOException;
 /**
  * Class handles and does necessary work with all request and response except those which connected
  * with images
+ *
  * @author Igor Lapin
  */
 @MultipartConfig(maxFileSize = 104_857_600)
@@ -38,6 +39,7 @@ public class ReShopServlet extends HttpServlet {
     private static final String WEB_INF_JSP = "/WEB-INF/jsp/";
     private static final String JSP = ".jsp";
     private static final String PATH_FOR_FORWARD = "Path for 'forward' - ";
+    private static final String INIT_BY_KEY = "{} init by key: '{}'";
 
     @Override
     public void init() throws ServletException {
@@ -52,7 +54,7 @@ public class ReShopServlet extends HttpServlet {
             resp.sendError(HttpServletResponse.SC_NOT_FOUND, NOT_FOUND);
             return;
         }
-        LOG.debug("{} init by key: '{}'", action.getClass().getSimpleName(), actionName);
+        LOG.debug(INIT_BY_KEY, action.getClass().getSimpleName(), actionName);
         ActionResult result;
         try {
             result = action.execute(req, resp);

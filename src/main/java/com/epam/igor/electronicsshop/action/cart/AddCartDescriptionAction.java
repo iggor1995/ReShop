@@ -10,9 +10,6 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Created by User on 16.09.2017.
- */
 public class AddCartDescriptionAction implements Action {
 
     private static final Logger LOG = LoggerFactory.getLogger(AddCartDescriptionAction.class);

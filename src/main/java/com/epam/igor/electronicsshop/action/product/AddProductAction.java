@@ -3,6 +3,9 @@ package com.epam.igor.electronicsshop.action.product;
 import com.epam.igor.electronicsshop.action.Action;
 import com.epam.igor.electronicsshop.action.ActionException;
 import com.epam.igor.electronicsshop.action.ActionResult;
+import com.epam.igor.electronicsshop.action.Validation;
+import com.epam.igor.electronicsshop.constants.ProductConstants;
+import com.epam.igor.electronicsshop.constants.UserConstants;
 import com.epam.igor.electronicsshop.entity.Image;
 import com.epam.igor.electronicsshop.entity.Product;
 import com.epam.igor.electronicsshop.entity.ProductType;
@@ -24,92 +27,97 @@ import java.util.regex.Pattern;
 
 /**
  * For adding new product to database
+ *
  * @author Igor Lapin
- * */
+ */
 
 public class AddProductAction implements Action {
-    private static final String FLASH = "flash.";
-    private static final String ERROR = "Error";
-    private static Logger LOG = LoggerFactory.getLogger(AddProductAction.class);
-    private static final String CHECK_PARAMETR = "Check parameter '{}' with value '{}' by regex '{}'";
+    private static final Logger LOG = LoggerFactory.getLogger(AddProductAction.class);
+    private static final String COULDN_T_ADD_PRODUCT = "Couldn't add product";
+    private static final String TRUE = "true";
+    private static final String PRODUCT = "product";
+    private static final String INVALID_CONTENT_TYPE = "Invalid content type - {}";
     private boolean invalid;
-    private static final String WRONG_PARAMETR = "Parameter '{}' with value '{}' is unsuitable.";
     private static final String MONEY = "money";
     private static final String MONEY_REGEX = "money.regex";
-    private static final String PARAMETER_NAME = "name";
-    private static final String PARAMETER_TYPE_ID = "typeId";
-    private static final String PARAMETER_DESCRIPTION_RU = "descriptionRU";
-    private static final String PARAMETER_DESCRIPTION_EN = "descriptionEN";
-    private static final String PARAMETER_PRICE = "price";
     private static final String ERROR_MONEY = "moneyError";
     private static final String ERROR_IMAGE = "imageError";
     private static final String ERROR_PROPERTIES = "Couldn't get validation.properties";
-    private static final String ADD_PRODUCT_PAGE = "add-product";
+    private static final String ADD_PRODUCT_PAGE = "product-add";
     private static final String MANAGE_PRODUCTS_PAGE = "manage/products";
-    private static final String CURRENCY_KZT = "KZT";
-    private static final String IMAGE_PART = "image";
     private static final String VALIDATION_PROPERTIES = "validation.properties";
-    private static final String LOGGED_USER = "loggedUser";
     private static final String ADDED_PRODUCT = "{} inserted in db and added on central storage by {}";
     private Properties properties = new Properties();
+    private Validation validation = new Validation();
+    private String name;
+    private String type;
+    private String descriptionRU;
+    private String descriptionEN;
+    private String price;
+
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
         try {
             properties.load(AddProductAction.class.getClassLoader().getResourceAsStream(VALIDATION_PROPERTIES));
         } catch (IOException e) {
-            throw new ActionException(ERROR_PROPERTIES , e);
+            LOG.info(ERROR_PROPERTIES, e);
+            throw new ActionException(ERROR_PROPERTIES, e);
         }
+        name = req.getParameter(ProductConstants.NAME);
+        type = req.getParameter(ProductConstants.TYPE_ID);
+        descriptionEN = req.getParameter(ProductConstants.DESCRIPTION_EN);
+        descriptionRU = req.getParameter(ProductConstants.DESCRIPTION_RU);
+        price = req.getParameter(ProductConstants.PRICE);
 
-        String name = req.getParameter(PARAMETER_NAME);
-        String type = req.getParameter(PARAMETER_TYPE_ID);
-        String descriptionEN = req.getParameter(PARAMETER_DESCRIPTION_EN);
-        String descriptionRU = req.getParameter(PARAMETER_DESCRIPTION_RU);
-        String price = req.getParameter(PARAMETER_PRICE);
-
-        ProductService productService = new ProductService();
-        try{
-            Product product = new Product();
-            product.setName(name);
-            product.setType(new ProductType(Integer.valueOf(type)));
-            product.setEnDescription(descriptionEN);
-            product.setRuDescription(descriptionRU);
-            checkParameterByRegex(price, MONEY, properties.getProperty(MONEY_REGEX), req);
-            if(invalid){
+        try {
+            Product product = filledProduct();
+            invalid = validation.checkParameterByRegex(invalid, price, MONEY, properties.getProperty(MONEY_REGEX), req);
+            if (invalid) {
                 invalid = false;
-                req.setAttribute(ERROR_MONEY, "true");
-                req.setAttribute("product", product);
+                req.setAttribute(ERROR_MONEY, TRUE);
+                req.setAttribute(PRODUCT, product);
                 return new ActionResult(ADD_PRODUCT_PAGE);
             }
-            product.setPrice(Money.parse(CURRENCY_KZT + price));
-            Part imagePart = req.getPart(IMAGE_PART);
-            if(!imagePart.getContentType().startsWith(IMAGE_PART)){
-                req.setAttribute(ERROR_IMAGE, "true");
-                req.setAttribute("product", product);
-                LOG.error("Invalid content type - {}", imagePart.getContentType());
+            product.setPrice(Money.parse(ProductConstants.KZT + price));
+            if (fillImage(req, product)) {
                 return new ActionResult(ADD_PRODUCT_PAGE);
             }
-
-            Image image = new Image();
-            image.setName(name.replaceAll("\\s", "").toLowerCase());
-            image.setModifiedTime(DateTime.now());
-            image.setContentType(imagePart.getContentType());
-            image.setImageStream(imagePart.getInputStream());
-            Product newProduct = productService.addProduct(product, image);
-            productService.addProductToStorage(newProduct);
-            LOG.info(ADDED_PRODUCT, newProduct, req.getSession(false).getAttribute(LOGGED_USER));
         } catch (ServiceException | IOException | ServletException e) {
-            throw new ActionException("Couldn't add product", e);
+            LOG.info(COULDN_T_ADD_PRODUCT, e);
+            throw new ActionException(COULDN_T_ADD_PRODUCT, e);
         }
         return new ActionResult(MANAGE_PRODUCTS_PAGE, true);
     }
-    private void checkParameterByRegex(String parameter, String parameterName, String regex, HttpServletRequest req) {
-        LOG.debug(CHECK_PARAMETR, parameterName, parameter, regex);
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(parameter);
-        if (!matcher.matches()) {
-            LOG.debug(WRONG_PARAMETR, parameterName, parameter);
-            req.setAttribute(FLASH + parameterName + ERROR, "true");
-            invalid = true;
-        }
+
+    private Product filledProduct() {
+        Product filledProduct = new Product();
+        filledProduct.setName(name);
+        filledProduct.setType(new ProductType(Integer.valueOf(type)));
+        filledProduct.setEnDescription(descriptionEN);
+        filledProduct.setRuDescription(descriptionRU);
+        return filledProduct;
     }
+
+    private boolean fillImage(HttpServletRequest req, Product product) throws IOException, ServletException, ServiceException {
+        ProductService productService = new ProductService();
+        Part imagePart = req.getPart(ProductConstants.IMAGE);
+        if (!imagePart.getContentType().startsWith(ProductConstants.IMAGE)) {
+            req.setAttribute(ERROR_IMAGE, TRUE);
+            req.setAttribute(PRODUCT, product);
+            LOG.error(INVALID_CONTENT_TYPE, imagePart.getContentType());
+            return true;
+        }
+
+        Image image = new Image();
+        image.setName(name.replaceAll("\\s", "").toLowerCase());
+        image.setModifiedTime(DateTime.now());
+        image.setContentType(imagePart.getContentType());
+        image.setImageStream(imagePart.getInputStream());
+        Product newProduct = productService.addProduct(product, image);
+        productService.addProductToStorage(newProduct);
+        LOG.info(ADDED_PRODUCT, newProduct, req.getSession(false).getAttribute(UserConstants.LOGGED_USER));
+        return false;
+    }
+
+
 }

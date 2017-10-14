@@ -3,7 +3,7 @@ package com.epam.igor.electronicsshop.action.cart;
 import com.epam.igor.electronicsshop.action.Action;
 import com.epam.igor.electronicsshop.action.ActionException;
 import com.epam.igor.electronicsshop.action.ActionResult;
-import com.epam.igor.electronicsshop.action.user.RegisterAction;
+import com.epam.igor.electronicsshop.action.Validation;
 import com.epam.igor.electronicsshop.entity.Order;
 import com.epam.igor.electronicsshop.entity.OrderingItem;
 import com.epam.igor.electronicsshop.entity.Product;
@@ -16,16 +16,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Properties;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Class for adding product to cart
+ *
  * @author Igor Lapin
  */
 public class AddProductToCartAction implements Action {
-    private static final String CHECK_PARAMETR = "Check parameter '{}' with value '{}' by regex '{}'";
-    private static final String WRONG_PARAMETR = "Parameter '{}' with value '{}' is unsuitable.";
     private static final String AMOUNT = "amount";
     private static final String ERROR_AMOUNT = "amountError";
     private static final String ERROR_ADD = "Couldn't add product to cart";
@@ -36,47 +33,66 @@ public class AddProductToCartAction implements Action {
     private static final String AMOUNT_INCREASED = "Product amount in cart increased by - {}";
     private static final String PRODUCT_ADDED = "product - {} added in cart. Amount - {}";
     private static final String PROPERTY_PRODUCT_AMOUNT = "product.amount";
-    private static final String FLASH = "flash.";
-    private static final String ERROR = "Error";
     private static final String TRUE = "true";
     private static final String CANNOT_LOAD_PROPERTIES = "Cannot load properties";
     private static final String VALIDATION_PROPERTIES = "validation.properties";
     private boolean invalid;
     private static final Logger LOG = LoggerFactory.getLogger(AddProductToCartAction.class);
     private Properties properties = new Properties();
+    private String amount;
+    private Order cart;
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
         try {
             properties.load(AddProductToCartAction.class.getClassLoader().getResourceAsStream(VALIDATION_PROPERTIES));
         } catch (IOException e) {
+            LOG.info(CANNOT_LOAD_PROPERTIES, e);
             throw new ActionException(CANNOT_LOAD_PROPERTIES, e);
         }
-        String amount = req.getParameter(AMOUNT);
-        checkParameterByRegex(amount, AMOUNT, properties.getProperty(PROPERTY_PRODUCT_AMOUNT), req);
-        if(invalid){
+
+        if (checkAmount(req)) {
             invalid = false;
-            req.setAttribute(ERROR_AMOUNT, "true");
+            req.setAttribute(ERROR_AMOUNT, TRUE);
             LOG.info(INVALID_AMOUNT, amount);
             return new ActionResult(req.getHeader(REFERER_PAGE), true);
         }
-        Order cart = (Order)req.getSession(false).getAttribute(ATTRIBUTE_CART);
-        if(cart == null){
+
+        cart = (Order) req.getSession(false).getAttribute(ATTRIBUTE_CART);
+        if (cart == null) {
             cart = new Order();
         }
+        setOrderingItem(req);
+        return new ActionResult(req.getHeader(REFERER_PAGE), true);
+    }
+
+    private boolean checkAmount(HttpServletRequest req) {
+        amount = req.getParameter(AMOUNT);
+        Validation validation = new Validation();
+        invalid = validation.checkParameterByRegex(invalid, amount, AMOUNT,
+                properties.getProperty(PROPERTY_PRODUCT_AMOUNT), req);
+        if (invalid) {
+            req.setAttribute(ERROR_AMOUNT, TRUE);
+            LOG.info(INVALID_AMOUNT, amount);
+        }
+        return invalid;
+    }
+
+    private void setOrderingItem(HttpServletRequest req) throws ActionException {
+
         String productId = req.getParameter(PARAMETER_PRODUCT);
         Integer amountInt = Integer.parseInt(amount);
 
-        for(OrderingItem orderingItem : cart.getOrderingItems()){
-            if(orderingItem.getProduct().getId() == Integer.parseInt(productId)){
+        for (OrderingItem orderingItem : cart.getOrderingItems()) {                   //if already in cart
+            if (orderingItem.getProduct().getId() == Integer.parseInt(productId)) {
                 orderingItem.setAmount(orderingItem.getAmount() + amountInt);
                 req.getSession().setAttribute(ATTRIBUTE_CART, cart);
                 LOG.info(AMOUNT_INCREASED, amount);
-                return new ActionResult(req.getHeader(REFERER_PAGE), true);
             }
         }
-        OrderingItem orderingItem = new OrderingItem();
+        OrderingItem orderingItem = new OrderingItem();                 //else set new one
         orderingItem.setAmount(amountInt);
+
         try {
             ProductService productService = new ProductService();
             Product product = productService.getProductById(productId);
@@ -84,19 +100,10 @@ public class AddProductToCartAction implements Action {
             cart.addProduct(orderingItem);
             req.getSession().setAttribute(ATTRIBUTE_CART, cart);
             LOG.info(PRODUCT_ADDED, product, amount);
-            return new ActionResult(req.getHeader(REFERER_PAGE), true);
         } catch (ServiceException e) {
-            throw  new ActionException(ERROR_ADD, e);
+            LOG.info(ERROR_ADD, e);
+            throw new ActionException(ERROR_ADD, e);
         }
-    }
-    private void checkParameterByRegex(String parameter, String parameterName, String regex, HttpServletRequest req) {
-        LOG.debug(CHECK_PARAMETR, parameterName, parameter, regex);
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(parameter);
-        if (!matcher.matches()) {
-            LOG.debug(WRONG_PARAMETR, parameterName, parameter);
-            req.setAttribute(FLASH + parameterName + ERROR, TRUE);
-            invalid = true;
-        }
+
     }
 }

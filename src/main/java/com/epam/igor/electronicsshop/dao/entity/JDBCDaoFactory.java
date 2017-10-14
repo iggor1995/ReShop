@@ -12,10 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-/**
- * Created by User on 03.08.2017.
- */
-public class JDBCDaoFactory extends DaoFactory{
+public class JDBCDaoFactory extends DaoFactory {
     private static final Logger LOG = LoggerFactory.getLogger(DaoFactory.class);
     private static final String UNABLE_TO_GET_CONNECTION_FROM_THE_POOL = "Unable to get connection from the pool";
     private static final String CANNOT_BEGIN_TRANSACTION = "Cannot begin transaction";
@@ -34,41 +31,38 @@ public class JDBCDaoFactory extends DaoFactory{
         connectionPool = ConnectionPool.getInstance();
         try {
             connection = connectionPool.getConnection();
-        }
-        catch (ConnectionPoolException e){
+        } catch (ConnectionPoolException e) {
             LOG.error(UNABLE_TO_GET_CONNECTION_FROM_THE_POOL, e);
         }
     }
 
-
-
-    public void startTransaction() throws DaoException{
+    public void startTransaction() throws DaoException {
         try {
             connection.setAutoCommit(false);
         } catch (SQLException e) {
+            LOG.info(CANNOT_BEGIN_TRANSACTION, e);
             throw new DaoException(CANNOT_BEGIN_TRANSACTION, e);
         }
     }
-    public void commitTransaction() throws DaoException{
+
+    public void commitTransaction() throws DaoException {
         try {
             connection.commit();
             connection.setAutoCommit(true);
             LOG.debug(COMMIT_TRANSACTION);
         } catch (SQLException e) {
+            LOG.info(CANNOT_COMMIT_TRANSACTION, e);
             throw new DaoException(CANNOT_COMMIT_TRANSACTION);
         }
     }
 
     @Override
     public void rollbackTransaction() throws DaoException {
-
-    }
-
-    public void rollBackTransaction() throws DaoException{
         try {
             connection.rollback();
             LOG.debug(ROLLBACK_TRANSACTION);
         } catch (SQLException e) {
+            LOG.info(CANNOT_ROLLBACK_TRANSACTION, e);
             throw new DaoException(CANNOT_ROLLBACK_TRANSACTION);
         }
     }
@@ -82,6 +76,7 @@ public class JDBCDaoFactory extends DaoFactory{
             String resultClassName = String.format(FORMAT, packageName, inputClassName);
             daoObject = (JDBCAbstractDao<T>) Class.forName(resultClassName).newInstance();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            LOG.info(DAO_OBJECT_FOR + clazz + NOT_FOUND, e);
             throw new DaoException(DAO_OBJECT_FOR + clazz + NOT_FOUND, e);
         }
         daoObject.setConnection(connection);
@@ -92,8 +87,8 @@ public class JDBCDaoFactory extends DaoFactory{
     public void close() throws DaoException {
         try {
             connectionPool.closeConnection(connection);
-        }
-        catch (ConnectionPoolException e){
+        } catch (ConnectionPoolException e) {
+            LOG.info(CANNOT_CLOSE_CONNECTION, e);
             throw new DaoException(CANNOT_CLOSE_CONNECTION, e);
         }
     }

@@ -16,12 +16,13 @@ import java.util.List;
 
 /**
  * Class sets necessary attributes for displaying manage orders page
+ *
  * @author Igor Lapin
  */
 public class ShowManageOrdersPageAction implements Action {
-    private static final  Logger LOG = LoggerFactory.getLogger(ShowManageOrdersPageAction.class);
-    private static final  String DEFAULT_SIZE = "2";
-    private static final  String FIRST_PAGE = "1";
+    private static final Logger LOG = LoggerFactory.getLogger(ShowManageOrdersPageAction.class);
+    private static final String DEFAULT_SIZE = "2";
+    private static final String FIRST_PAGE = "1";
     private static final String PAGE_SIZE = "pageSize";
     private static final String PAGE = "page";
     private static final String ORDERS = "orders";
@@ -34,11 +35,11 @@ public class ShowManageOrdersPageAction implements Action {
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
         String page = req.getParameter(PAGE);
-        if(page == null){
-            page= FIRST_PAGE;
+        if (page == null) {
+            page = FIRST_PAGE;
         }
         String pageSize = req.getParameter(PAGE_SIZE);
-        if(pageSize == null){
+        if (pageSize == null) {
             pageSize = DEFAULT_SIZE;
         }
         List<Order> orders;
@@ -52,13 +53,13 @@ public class ShowManageOrdersPageAction implements Action {
             ordersCount = shopService.getOrdersCount();
             orderStatuses = shopService.getAllOrderStatuses();
         } catch (ServiceException e) {
+            LOG.info(ERROR, e);
             throw new ActionException(ERROR);
         }
         int pageCount;
-        if(ordersCount % pageSizeInt == 0){
+        if (ordersCount % pageSizeInt == 0) {
             pageCount = ordersCount / pageSizeInt;
-        }
-        else {
+        } else {
             pageCount = ordersCount / pageSizeInt + 1;
         }
         req.setAttribute(ORDERS, orders);

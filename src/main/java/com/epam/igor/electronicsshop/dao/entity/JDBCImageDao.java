@@ -1,20 +1,20 @@
 package com.epam.igor.electronicsshop.dao.entity;
 
 import com.epam.igor.electronicsshop.dao.DaoException;
-import com.epam.igor.electronicsshop.dao.entity.JDBCAbstractDao;
 import com.epam.igor.electronicsshop.entity.Image;
 import com.epam.igor.electronicsshop.entity.Product;
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
-/**
- * Created by User on 02.08.2017.
- */
 public class JDBCImageDao extends JDBCAbstractDao<Image> {
+
+    private static final Logger LOG = LoggerFactory.getLogger(JDBCImageDao.class);
     private static final String CONTENT = "content";
     private static final String INSERT_IMAGE = "INSERT INTO electronics.image(name, product_id, " +
             "content, date_modified) VALUES(?, ?, ?, ?)";
@@ -41,6 +41,7 @@ public class JDBCImageDao extends JDBCAbstractDao<Image> {
             image.setModifiedTime(new DateTime(rs.getTimestamp(DATE_MODIFIED)));
             image.setDeleted(rs.getBoolean(DELETED));
         } catch (SQLException e) {
+            LOG.info(CANNOT_GET_IMAGE, e);
             throw new DaoException(CANNOT_GET_IMAGE, e);
         }
         return image;
@@ -69,6 +70,7 @@ public class JDBCImageDao extends JDBCAbstractDao<Image> {
             ps.setBinaryStream(3, image.getImageStream());
             ps.setTimestamp(4, new Timestamp(image.getTimeModified().getMillis()));
         } catch (SQLException e) {
+            LOG.info(COULDN_T_SET_IMAGE, e);
             throw new DaoException(COULDN_T_SET_IMAGE);
         }
     }

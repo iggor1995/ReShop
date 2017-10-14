@@ -1,12 +1,8 @@
 package com.epam.igor.electronicsshop.entity;
 
-import com.epam.igor.electronicsshop.entity.BaseEntity;
-import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 
-/**
- * Created by User on 31.07.2017.
- */
+
 public class User extends BaseEntity {
     private String email;
     private Role role;
@@ -18,11 +14,18 @@ public class User extends BaseEntity {
     private Gender gender;
     private Money cash;
 
-    public User() {
+    private User(UserBuilder builder) {
+        this.firstName = builder.firstName;
+        this.lastName = builder.lastName;
+        this.gender = builder.gender;
+        this.phoneNumber = builder.phoneNumber;
+        this.password = builder.password;
+        this.email = builder.email;
         this.role = Role.user;
         this.cash = Money.parse("KZT5000");
     }
-    public User(int id){
+
+    public User(int id) {
         setId(id);
     }
 
@@ -102,8 +105,46 @@ public class User extends BaseEntity {
         this.cash = this.cash.minus(cashAmount);
     }
 
-    public enum Role{
+    public enum Role {
         admin,
         user
+    }
+
+    public static class UserBuilder {
+        private String email;
+        private String password;
+        private String firstName;
+        private String lastName;
+        private String phoneNumber;
+        private Gender gender;
+
+        public UserBuilder(String firstName, String lastName) {
+            this.firstName = firstName;
+            this.lastName = lastName;
+        }
+
+        public UserBuilder password(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public UserBuilder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public UserBuilder phoneNumber(String phoneNumber) {
+            this.phoneNumber = phoneNumber;
+            return this;
+        }
+
+        public UserBuilder gender(Gender gender) {
+            this.gender = gender;
+            return this;
+        }
+
+        public User build() {
+            return new User(this);
+        }
     }
 }

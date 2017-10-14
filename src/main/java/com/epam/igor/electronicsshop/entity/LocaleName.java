@@ -2,9 +2,6 @@ package com.epam.igor.electronicsshop.entity;
 
 import java.util.Locale;
 
-/**
- * Created by User on 31.07.2017.
- */
 public class LocaleName extends BaseEntity {
     private String ruName;
     private String enName;
@@ -33,10 +30,9 @@ public class LocaleName extends BaseEntity {
                 '}';
     }
 
-    public String getName(Locale locale){
-        if(locale != null && locale.getLanguage().equals("ru")){
+    public String getName(Locale locale) {
+        if (locale != null && locale.getLanguage().equals("ru")) {
             return ruName;
-        }
-        else return enName;
+        } else return enName;
     }
 }

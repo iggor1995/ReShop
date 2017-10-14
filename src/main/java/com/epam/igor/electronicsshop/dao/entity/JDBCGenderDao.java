@@ -1,5 +1,6 @@
 package com.epam.igor.electronicsshop.dao.entity;
 
+import com.epam.igor.electronicsshop.constants.UserConstants;
 import com.epam.igor.electronicsshop.dao.DaoException;
 import com.epam.igor.electronicsshop.entity.Gender;
 import org.slf4j.Logger;
@@ -9,10 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- * Created by User on 02.08.2017.
- */
 public class JDBCGenderDao extends JDBCAbstractDao<Gender> {
+
     private static final String INSERT_GENDER = "INSERT INTO electronics.gender(name_ru, name_en)" +
             "VALUES(?, ?)";
     private static final String UPDATE_GENDER_BY_ID = "UPDATE electronics.gender" +
@@ -22,7 +21,6 @@ public class JDBCGenderDao extends JDBCAbstractDao<Gender> {
     private static final String NAME_RU = "name_ru";
     private static final String NAME_EN = "name_en";
     private static final String COULD_NOT_GET_GENDER = "Could not get gender from result set";
-    private static final String GENDER = "gender";
     private static final String COULDN_T_SET_GENDER = "Couldn't set gender variables for prepared statement";
 
     @Override
@@ -34,6 +32,7 @@ public class JDBCGenderDao extends JDBCAbstractDao<Gender> {
             gender.setRuName(rs.getString(NAME_RU));
             gender.setEnName(rs.getString(NAME_EN));
         } catch (SQLException e) {
+            LOG.info(COULD_NOT_GET_GENDER, e);
             throw new DaoException(COULD_NOT_GET_GENDER, e);
         }
         return gender;
@@ -51,7 +50,7 @@ public class JDBCGenderDao extends JDBCAbstractDao<Gender> {
 
     @Override
     protected String getTableName() {
-        return GENDER;
+        return UserConstants.GENDER;
     }
 
     @Override
@@ -60,6 +59,7 @@ public class JDBCGenderDao extends JDBCAbstractDao<Gender> {
             ps.setString(1, gender.getRuName());
             ps.setString(2, gender.getEnName());
         } catch (SQLException e) {
+            LOG.info(COULDN_T_SET_GENDER, e);
             throw new DaoException(COULDN_T_SET_GENDER);
         }
     }

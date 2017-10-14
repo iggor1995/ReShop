@@ -13,18 +13,16 @@ import java.util.Map;
 
 /**
  * Class for common dao methods
+ *
  * @author Igor Lapin
  */
 public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDaoInterface<T> {
-
     private static final String SELECT_FROM = "SELECT * FROM ";
     private static final String SELECT_COUNT_FROM = "SELECT count(*) FROM ";
     private static final String WHERE_ID = " WHERE id = ";
     private static final String WHERE = " WHERE ";
     private static final String WHERE_NOT_DELETED = " WHERE deleted = 0 ";
-    private static final String UPDATE = "UPDATE ";
     private static final String ORDER_BY_ID = " ORDER BY id ";
-    private static final String SET_DELETED = " SET deleted = 1 ";
     private static final Logger LOG = LoggerFactory.getLogger(JDBCAbstractDao.class);
     private static final String OBJECT_WITH_ID_DELETED_FROM_TABLE = "Object with id - {} deleted from {} table";
     private static final String INSERTED = "{} inserted ";
@@ -42,6 +40,8 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
     private static final String RESULT_QUERY = "result query - {}";
     private static final String AND = "' AND ";
     private static final String COULD_NOT_FIND_OBJECT_WITH_THIS_PARAMS = "Could not find object with this params";
+    private static final String COULDN_T_SET_VARIABLES_FOR_PREPARED_STATEMENT = "Couldn't set variables for prepared statement";
+    private static final String COULDN_T_GET_OBJECT_LIST = "Couldn't get object list";
     private Connection connection;
 
     public JDBCAbstractDao() {
@@ -63,23 +63,26 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
 
     /**
      * sets id
-     * @param t Entity
+     *
+     * @param t  Entity
      * @param ps prepared statement except id
      * @throws DaoException
      */
-    private void setVariablesForPreparedStatement(T t, PreparedStatement ps) throws DaoException{
+    private void setVariablesForPreparedStatement(T t, PreparedStatement ps) throws DaoException {
         setVariablesForPreparedStatementExceptId(t, ps);
         int lastParameter;
         try {
             lastParameter = ps.getParameterMetaData().getParameterCount();
             ps.setInt(lastParameter, t.getId());
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.info(COULDN_T_SET_VARIABLES_FOR_PREPARED_STATEMENT, e);
+            throw new DaoException(COULDN_T_SET_VARIABLES_FOR_PREPARED_STATEMENT, e);
         }
     }
 
     /**
      * inserts entity
+     *
      * @param t entity
      * @return Entity
      * @throws DaoException
@@ -95,6 +98,7 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
             t.setId(rs.getInt(1));
             LOG.debug(INSERTED, t);
         } catch (SQLException e) {
+            LOG.info(COULDN_T_INSERT_OBJECT_TO_DB, e);
             throw new DaoException(COULDN_T_INSERT_OBJECT_TO_DB, e);
         }
         return t;
@@ -102,27 +106,30 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
 
     /**
      * gets entity with such id
+     *
      * @param id or primary key
      * @return Entity
      * @throws DaoException
      */
     @Override
     public T findByPK(Integer id) throws DaoException {
-        try(Statement st = connection.createStatement();) {
+        try (Statement st = connection.createStatement();
+             ResultSet rs = st.executeQuery(SELECT_FROM + getTableName() + WHERE_ID + id)) {
             LOG.info(SELECT_FROM + getTableName() + WHERE_ID + id);
-            ResultSet rs = st.executeQuery(SELECT_FROM + getTableName() + WHERE_ID + id);
             LOG.info(SELECT_FROM + getTableName() + WHERE_ID + id);
             rs.next();
             T object = getObjectFromResultSet(rs);
             LOG.debug(GETTING_OBJECT_WITH_ID, object, id);
             return object;
         } catch (SQLException e) {
+            LOG.info(COULDN_T_FIND_OBJECT_BY_CURRENT_ID, e);
             throw new DaoException(COULDN_T_FIND_OBJECT_BY_CURRENT_ID, e);
         }
     }
 
     /**
      * get list of objects with such params
+     *
      * @param params
      * @return objects list
      * @throws DaoException
@@ -137,6 +144,7 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
             }
             LOG.debug(GET_ENTITY_LIST_BY_CURRENT_PARAMS, params, objects);
         } catch (SQLException e) {
+            LOG.info(COULD_NOT_FIND_OBJECT_WITH_THIS_PARAMS, e);
             throw new DaoException(COULD_NOT_FIND_OBJECT_WITH_THIS_PARAMS, e);
         }
         return objects;
@@ -144,6 +152,7 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
 
     /**
      * gets all objects from table
+     *
      * @return objects list
      * @throws DaoException
      */
@@ -155,9 +164,11 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
             while (rs.next()) {
                 objects.add(getObjectFromResultSet(rs));
             }
-            LOG.info(SELECT_FROM + getTableName() + ORDER_BY_ID);
+            String LogMessage = SELECT_FROM + getTableName() + ORDER_BY_ID;
+            LOG.info(LogMessage);
             LOG.debug(GET_ENTITY_LIST, objects);
         } catch (SQLException e) {
+            LOG.info(COULDN_T_FIND_OBJECT_BY_CURRENT_ID, e);
             throw new DaoException(COULD_NOT_FIND_OBJECT_BY_CURRENT_ID, e);
         }
         return objects;
@@ -165,6 +176,7 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
 
     /**
      * gets objects for page with certain size and number
+     *
      * @param pageNumber
      * @param pageSize
      * @return objects list
@@ -173,75 +185,83 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
     @Override
     public List<T> findAll(int pageNumber, int pageSize) throws DaoException {
         List<T> objects = new ArrayList<>();
-
         try (PreparedStatement st = connection.prepareStatement(SELECT_FROM + getTableName() + " WHERE deleted=0 LIMIT ? OFFSET ?")) {
             st.setInt(1, pageSize);
             st.setInt(2, (pageNumber - 1) * pageSize);
             ResultSet rs = st.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 objects.add(getObjectFromResultSet(rs));
                 LOG.debug("Get object list from page number - {} and page siae - {} - {}", pageNumber, pageSize, objects);
             }
         } catch (SQLException e) {
-            throw new DaoException("Couldn't get object list", e);
+            LOG.info(COULDN_T_GET_OBJECT_LIST, e);
+            throw new DaoException(COULDN_T_GET_OBJECT_LIST, e);
         }
         return objects;
     }
 
     /**
      * updates object in table
+     *
      * @param t entity
      * @throws DaoException
      */
     @Override
     public void update(T t) throws DaoException {
-        try(PreparedStatement ps = connection.prepareStatement(getQueryForUpdate());) {
+        try (PreparedStatement ps = connection.prepareStatement(getQueryForUpdate())) {
             setVariablesForPreparedStatement(t, ps);
             ps.executeUpdate();
             LOG.debug(UPDATING, t);
         } catch (SQLException e) {
+            LOG.info(COULDN_T_UPDATE_OBJECT_IN_DB, e);
             throw new DaoException(COULDN_T_UPDATE_OBJECT_IN_DB);
         }
     }
 
     /**
      * sets deleted column as true
+     *
      * @param id
      * @throws DaoException
      */
     @Override
     public void delete(Integer id) throws DaoException {
-        try(Statement st = connection.createStatement();) {
-            st.executeUpdate(UPDATE + getTableName() + SET_DELETED + WHERE_ID + id);
+        try (Statement st = connection.createStatement()) {
+            st.executeUpdate("UPDATE " + getTableName() + " SET deleted=1" + WHERE_ID + id);
             LOG.debug(OBJECT_WITH_ID_DELETED_FROM_TABLE, id, getTableName());
         } catch (SQLException e) {
+            LOG.info(COULDN_T_DELETE_OBJECT, e);
             throw new DaoException(COULDN_T_DELETE_OBJECT, e);
         }
     }
 
     /**
      * get all objects from table if deleted column is false
+     *
      * @return objects list
      * @throws DaoException
      */
     @Override
     public int getNotDeletedCount() throws DaoException {
-        try(Statement st = connection.createStatement();) {
-            ResultSet rs = st.executeQuery(SELECT_COUNT_FROM + getTableName() + WHERE_NOT_DELETED);
+        try (Statement st = connection.createStatement();
+             ResultSet rs = st.executeQuery(SELECT_COUNT_FROM + getTableName() + WHERE_NOT_DELETED)) {
             rs.next();
             int count = rs.getInt(1);
             LOG.debug(TABLE_HAS_NOT_DELETED_ROWS, getTableName(), count);
             return count;
         } catch (SQLException e) {
+            LOG.info(COULDN_T_GET_COUNT, e);
             throw new DaoException(COULDN_T_GET_COUNT, e);
         }
     }
 
-    /**creates query for getting objects with certain params
+    /**
+     * creates query for getting objects with certain params
+     *
      * @param params
      * @return query(String)
      */
-    private String createQueryForFindAllByParams(Map<String, String> params){
+    private String createQueryForFindAllByParams(Map<String, String> params) {
         String resultQuery = SELECT_FROM + getTableName() + WHERE;
         for (Map.Entry<String, String> param : params.entrySet()) {
             if (params.size() == 1) {

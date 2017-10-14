@@ -12,11 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * For deleting item from order
+ *
  * @author Igor Lapin
  */
 public class DeleteOrderingItemAction implements Action {
 
-    private final static Logger LOG = LoggerFactory.getLogger(DeleteOrderingItemAction.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DeleteOrderingItemAction.class);
     private static final String CART = "cart";
     private static final String ITEM = "item";
     private static final String REFERER_PAGE = "referer";
@@ -24,7 +25,7 @@ public class DeleteOrderingItemAction implements Action {
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
-        Order order = (Order)req.getSession().getAttribute(CART);
+        Order order = (Order) req.getSession().getAttribute(CART);
         String rowNumber = req.getParameter(ITEM);
         int rowNumberInt = Integer.parseInt(rowNumber);
         order.getOrderingItems().remove(rowNumberInt);

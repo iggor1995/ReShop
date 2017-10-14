@@ -3,6 +3,7 @@ package com.epam.igor.electronicsshop.action.product;
 import com.epam.igor.electronicsshop.action.Action;
 import com.epam.igor.electronicsshop.action.ActionException;
 import com.epam.igor.electronicsshop.action.ActionResult;
+import com.epam.igor.electronicsshop.constants.ProductConstants;
 import com.epam.igor.electronicsshop.entity.Product;
 import com.epam.igor.electronicsshop.entity.ProductType;
 import com.epam.igor.electronicsshop.service.ProductService;
@@ -16,15 +17,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- *  Class sets necessary attributes for displaying edit product page.
+ * Class sets necessary attributes for displaying edit product page.
+ *
  * @author Igor Lapin
- * */
+ */
 public class ShowEditProductPageAction implements Action {
 
-    private static final String ID = "id";
+    private static final Logger LOG = LoggerFactory.getLogger(ShowEditProductPageAction.class);
     private static final String PRODUCT = "product";
-    private static final String TYPES = "types";
     private static final String EDIT_PRODUCT = "edit-product";
+    private static final String TYPES = "types";
     private static final String COULDN_T_SHOW_EDIT_PRODUCT_PAGE = "Couldn't show edit product page";
 
     @Override
@@ -33,12 +35,13 @@ public class ShowEditProductPageAction implements Action {
         ProductService productService = new ProductService();
 
         try {
-            Product product = productService.getFilledProduct(req.getParameter(ID));
+            Product product = productService.getFilledProduct(req.getParameter(ProductConstants.ID));
             req.setAttribute(PRODUCT, product);
             List<ProductType> productTypes = shopService.getAllProductTypes();
             req.setAttribute(TYPES, productTypes);
             return new ActionResult(EDIT_PRODUCT);
         } catch (ServiceException e) {
+            LOG.info(COULDN_T_SHOW_EDIT_PRODUCT_PAGE, e);
             throw new ActionException(COULDN_T_SHOW_EDIT_PRODUCT_PAGE, e);
         }
     }

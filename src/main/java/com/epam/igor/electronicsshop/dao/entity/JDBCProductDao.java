@@ -1,20 +1,20 @@
 package com.epam.igor.electronicsshop.dao.entity;
 
 import com.epam.igor.electronicsshop.dao.DaoException;
-import com.epam.igor.electronicsshop.dao.entity.JDBCAbstractDao;
 import com.epam.igor.electronicsshop.entity.Product;
 import com.epam.igor.electronicsshop.entity.ProductType;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- * Created by User on 02.08.2017.
- */
 public class JDBCProductDao extends JDBCAbstractDao<Product> {
+
+    private static final Logger LOG = LoggerFactory.getLogger(JDBCProductDao.class);
     private static final String INSERT_PRODUCT = "INSERT INTO electronics.product(name, price, type_id, " +
             "description_RU, description_EN) VALUES(?, ?, ?, ?, ?)";
     private static final String UPDATE_PRODUCT_BY_ID = "UPDATE electronics.product " +
@@ -28,7 +28,7 @@ public class JDBCProductDao extends JDBCAbstractDao<Product> {
     private static final String DESCRIPTION_RU = "description_RU";
     private static final String DESCRIPTION_EN = "description_EN";
     private static final String DELETED = "deleted";
-    private static final String CANNOT_GET_PRODUCT= "Cannot get product from result set";
+    private static final String CANNOT_GET_PRODUCT = "Cannot get product from result set";
     private static final String PRODUCT = "product";
     private static final String COULDN_T_SET_PRODUCT = "Couldn't set product variables for prepared statement";
 
@@ -45,6 +45,7 @@ public class JDBCProductDao extends JDBCAbstractDao<Product> {
             product.setEnDescription(rs.getString(DESCRIPTION_EN));
             product.setDeleted(rs.getBoolean(DELETED));
         } catch (SQLException e) {
+            LOG.info(CANNOT_GET_PRODUCT, e);
             throw new DaoException(CANNOT_GET_PRODUCT);
         }
         return product;
@@ -74,6 +75,7 @@ public class JDBCProductDao extends JDBCAbstractDao<Product> {
             ps.setString(4, product.getRuDescription());
             ps.setString(5, product.getEnDescription());
         } catch (SQLException e) {
+            LOG.info(COULDN_T_SET_PRODUCT, e);
             throw new DaoException(COULDN_T_SET_PRODUCT);
         }
     }

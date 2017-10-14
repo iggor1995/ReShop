@@ -9,20 +9,22 @@ import org.joda.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by User on 31.07.2017.
- */
+
 public class Order extends BaseEntity {
     private User user;
-    private List<OrderingItem> orderingItems = new ArrayList();
+    private List<OrderingItem> orderingItems = new ArrayList<>();
     private DateTime creationTime;
     private OrderStatus status;
     private String description;
 
-    public Order(int id){setId(id);}
+    public Order(int id) {
+        setId(id);
+    }
+
     public Order() {
         creationTime = DateTime.now();
     }
+
     public String getDescription() {
         return description;
     }
@@ -31,7 +33,7 @@ public class Order extends BaseEntity {
         this.description = description;
     }
 
-    public void addProduct(OrderingItem orderingItem){
+    public void addProduct(OrderingItem orderingItem) {
         orderingItems.add(orderingItem);
     }
 
@@ -67,7 +69,7 @@ public class Order extends BaseEntity {
         this.creationTime = creationTime;
     }
 
-    public String getFormattedCreationTime(){
+    public String getFormattedCreationTime() {
         DateTimeFormatter dateTimeFormatter = DateTimeFormat.shortDateTime();
         return creationTime.toString(dateTimeFormatter);
     }

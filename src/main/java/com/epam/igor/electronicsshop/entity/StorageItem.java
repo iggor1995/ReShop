@@ -1,8 +1,6 @@
 package com.epam.igor.electronicsshop.entity;
 
-/**
- * Created by User on 31.07.2017.
- */
+
 public class StorageItem extends BaseEntity {
     private Storage storage;
     private Product product;

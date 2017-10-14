@@ -1,18 +1,25 @@
 package com.epam.igor.electronicsshop.entity;
 
-/**
- * Created by User on 31.07.2017.
- */
+
 public class Address extends BaseEntity {
     private String country;
     private String city;
     private String street;
     private String buildingNumber;
     private String apartmentNumber;
-    public Address(){}
-    public Address(int id){
+
+    private Address(AddressBuilder builder) {
+        this.country = builder.country;
+        this.city = builder.city;
+        this.street = builder.street;
+        this.buildingNumber = builder.buildingNumber;
+        this.apartmentNumber = builder.apartmentNumber;
+    }
+
+    public Address(int id) {
         setId(id);
     }
+
     public void setCountry(String country) {
         this.country = country;
     }
@@ -52,5 +59,42 @@ public class Address extends BaseEntity {
 
     public String getApartmentNumber() {
         return apartmentNumber;
+    }
+
+    public static class AddressBuilder {
+        private String country;
+        private String city;
+        private String street;
+        private String buildingNumber;
+        private String apartmentNumber;
+
+        public AddressBuilder country(String country) {
+            this.country = country;
+            return this;
+        }
+
+        public AddressBuilder city(String city) {
+            this.city = city;
+            return this;
+        }
+
+        public AddressBuilder street(String street) {
+            this.street = street;
+            return this;
+        }
+
+        public AddressBuilder buildingNumber(String buildingNumber) {
+            this.buildingNumber = buildingNumber;
+            return this;
+        }
+
+        public AddressBuilder apartmentNumber(String apartmentNumber) {
+            this.apartmentNumber = apartmentNumber;
+            return this;
+        }
+
+        public Address build() {
+            return new Address(this);
+        }
     }
 }

@@ -16,12 +16,13 @@ import java.util.List;
 
 /**
  * Class sets necessary attributes for displaying manage user page
+ *
  * @author Igor Lapin
  */
 public class ShowManageUsersPageAction implements Action {
-    private final static Logger LOG = LoggerFactory.getLogger(ShowManageProductsPageAction.class);
-    private final static String DEFAULT_SIZE = "2";
-    private final static String FIRST_PAGE = "1";
+    private static final Logger LOG = LoggerFactory.getLogger(ShowManageProductsPageAction.class);
+    private static final String DEFAULT_SIZE = "2";
+    private static final String FIRST_PAGE = "1";
     private static final String PAGE = "page";
     private static final String PAGES_COUNT = "pagesCount";
     private static final String PAGE_SIZE = "pageSize";
@@ -33,11 +34,11 @@ public class ShowManageUsersPageAction implements Action {
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
         String page = req.getParameter(PAGE);
-        if(page == null){
-            page= FIRST_PAGE;
+        if (page == null) {
+            page = FIRST_PAGE;
         }
         String pageSize = req.getParameter(PAGE_SIZE);
-        if(pageSize == null){
+        if (pageSize == null) {
             pageSize = DEFAULT_SIZE;
         }
         ShopService shopService = new ShopService();
@@ -49,13 +50,13 @@ public class ShowManageUsersPageAction implements Action {
             users = shopService.getAllUsersOnPage(pageInt, pageSizeInt);
             usersCount = shopService.getUsersCount();
         } catch (ServiceException e) {
+            LOG.info(ERROR, e);
             throw new ActionException(ERROR);
         }
         int pageCount;
-        if(usersCount % pageSizeInt == 0){
+        if (usersCount % pageSizeInt == 0) {
             pageCount = usersCount / pageSizeInt;
-        }
-        else {
+        } else {
             pageCount = usersCount / pageSizeInt + 1;
         }
         req.setAttribute(USERS, users);

@@ -1,18 +1,17 @@
 package com.epam.igor.electronicsshop.dao.entity;
 
 import com.epam.igor.electronicsshop.dao.DaoException;
-import com.epam.igor.electronicsshop.dao.entity.JDBCAbstractDao;
 import com.epam.igor.electronicsshop.entity.Storage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- * Created by User on 02.08.2017.
- */
 public class JDBCStorageDao extends JDBCAbstractDao<Storage> {
 
+    private static final Logger LOG = LoggerFactory.getLogger(JDBCStorageDao.class);
     private static final String INSERT_STORAGE = "INSERT INTO electronics.user(name, description_RU," +
             "description_EN) VALUES (?, ?, ?)";
     private static final String UPDATE_STORAGE_BY_ID = "UPDATE electronics.user SET name = ?," +
@@ -23,6 +22,7 @@ public class JDBCStorageDao extends JDBCAbstractDao<Storage> {
     private static final String DELETED = "deleted";
     private static final String CANNOT_SET_STORAGE = "Cannot set storage variables for prepared statement";
     private static final String ELECTRONICS_STORAGE = "electronics.storage";
+    private static final String COULDN_T_SET_STORAGE_VARIABLES_FOR_PREPARED_STATEMENT = "Couldn't set storage variables for prepared statement";
 
     @Override
     protected Storage getObjectFromResultSet(ResultSet rs) throws DaoException {
@@ -33,6 +33,7 @@ public class JDBCStorageDao extends JDBCAbstractDao<Storage> {
             storage.setEnDescription(rs.getString(DESCRIPTION_EN));
             storage.setDeleted(rs.getBoolean(DELETED));
         } catch (SQLException e) {
+            LOG.info(CANNOT_SET_STORAGE, e);
             throw new DaoException(CANNOT_SET_STORAGE, e);
         }
         return storage;
@@ -60,7 +61,8 @@ public class JDBCStorageDao extends JDBCAbstractDao<Storage> {
             ps.setString(2, storage.getRuDescription());
             ps.setString(3, storage.getEnDescription());
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.info(COULDN_T_SET_STORAGE_VARIABLES_FOR_PREPARED_STATEMENT, e);
+            throw new DaoException(COULDN_T_SET_STORAGE_VARIABLES_FOR_PREPARED_STATEMENT, e);
         }
     }
 }

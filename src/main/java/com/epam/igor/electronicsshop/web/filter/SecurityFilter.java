@@ -12,7 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class-filter for work with person's authentication.
+ * Class-filter works with person's authentication.
+ *
  * @author Igor Lapin
  */
 
@@ -34,12 +35,15 @@ public class SecurityFilter implements Filter {
     private static final String MANAGE = "/manage";
     private static final String REFILL = "/refill";
     private static final String ADD = "/add";
+    private static final String HOME = "/home";
     private static final String ACCESS_DENIED = "Access denied";
     private List<String> guestAccessList;
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         guestAccessList = new ArrayList<>();
         guestAccessList.add(WELCOME);
+        guestAccessList.add(HOME);
         guestAccessList.add(PRODUCT);
         guestAccessList.add(CATALOG);
         guestAccessList.add(REGISTER);
@@ -55,17 +59,16 @@ public class SecurityFilter implements Filter {
     private void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         User user = (User) request.getSession(false).getAttribute(LOGGED_USER);
         String pathInfo = request.getPathInfo();
-        if(user == null){
+        if (user == null) {
             if (!guestAccessList.contains(pathInfo) && !pathInfo.startsWith(CART) || pathInfo.endsWith(BUY)) {
                 response.sendRedirect(request.getContextPath() + DO_LOGIN);
                 LOG.info(NOT_LOGGED_USER_REDIRECTED_TO_LOGIN_PAGE);
                 return;
-             }
-        } else if (pathInfo.startsWith(LOGIN)){
+            }
+        } else if (pathInfo.startsWith(LOGIN)) {
             response.sendError(403, ALREADY_LOGGED_IN);
             return;
-        }
-        else if(user.getRole().equals(User.Role.user)) {
+        } else if (user.getRole().equals(User.Role.user)) {
             if (pathInfo.startsWith(MANAGE) || pathInfo.startsWith(REFILL) || pathInfo.startsWith(ADD) || pathInfo.startsWith("/delete") || pathInfo.startsWith("edit")) {
                 response.sendError(403, ACCESS_DENIED);
                 return;

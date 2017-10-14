@@ -12,9 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *  For deleting storage item
+ * For deleting storage item
+ *
  * @author Igor Lapin
- * */
+ */
 public class DeleteStorageItemAction implements Action {
     private static final Logger LOG = LoggerFactory.getLogger(DeleteStorageItemAction.class);
     private static final String ID = "id";
@@ -30,7 +31,8 @@ public class DeleteStorageItemAction implements Action {
             shopService.deleteStorageItemById(id);
             LOG.info(DELETED_ITEM, id);
         } catch (ServiceException e) {
-            throw  new ActionException(ERROR_DELETE, e);
+            LOG.info(ERROR_DELETE, e);
+            throw new ActionException(ERROR_DELETE, e);
         }
         return new ActionResult(req.getHeader(REFERER_PAGE), true);
     }

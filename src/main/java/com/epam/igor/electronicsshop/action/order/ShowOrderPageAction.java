@@ -4,22 +4,25 @@ import com.epam.igor.electronicsshop.action.Action;
 import com.epam.igor.electronicsshop.action.ActionException;
 import com.epam.igor.electronicsshop.action.ActionResult;
 import com.epam.igor.electronicsshop.entity.Order;
-import com.epam.igor.electronicsshop.entity.Product;
 import com.epam.igor.electronicsshop.entity.User;
-import com.epam.igor.electronicsshop.service.ProductService;
 import com.epam.igor.electronicsshop.service.ServiceException;
 import com.epam.igor.electronicsshop.service.ShopService;
 import com.epam.igor.electronicsshop.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  * Class sets necessary attributes for displaying order page
+ *
  * @author Igor Lapin
- * */
+ */
 
 public class ShowOrderPageAction implements Action {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ShowOrderPageAction.class);
     private static final String ID = "id";
     private static final String ORDER = "order";
     private static final String USER = "user";
@@ -38,6 +41,7 @@ public class ShowOrderPageAction implements Action {
             req.setAttribute(USER, user);
             return new ActionResult(ORDER);
         } catch (ServiceException e) {
+            LOG.info(ERROR, e);
             throw new ActionException(ERROR);
         }
 

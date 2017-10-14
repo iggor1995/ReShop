@@ -15,9 +15,11 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Class creates connection pool with 10 connections
+ *
  * @author Igor Lapin
  */
 public class ConnectionPool {
+
     private static final Logger LOG = LoggerFactory.getLogger(ConnectionPool.class);
     private static final String FREE_CONNECTIONS = "Free connections: ";
     private static final String USED_CONNECTIONS = " Used connections: ";
@@ -34,8 +36,10 @@ public class ConnectionPool {
     private static final String LOAD_PROPERTY_FILE_WITH_INFORMATION_ABOUT_DB = "Load property file with information about DB";
     private static final String DATABASE_DATABASE_PROPERTIES = "database/database.properties";
     private static final String CANNOT_CREATE_CONNECTION_POOL_INSTANCE = "Cannot create connection pool instance";
-    public static final String CANNOT_RELEASE_CONNECTION = "cannot release connection";
-    public static final String COULD_NOT_CLOSE_CONNECTION = "Could not close connection";
+    private static final String CANNOT_RELEASE_CONNECTION = "cannot release connection";
+    private static final String COULD_NOT_CLOSE_CONNECTION = "Could not close connection";
+    private static final String COULDN_T_GET_CONNECTION_OR_ADD_TO_CONNECTIONS_LIST = "Couldn't get connection or add to connections list";
+    private static final String COULDN_T_CREATE_DRIVER = "Couldn't create driver";
 
     private String url;
     private String username;
@@ -45,23 +49,23 @@ public class ConnectionPool {
     private BlockingQueue<Connection> freeConnections = null;
     private BlockingQueue<Connection> usedConnections = null;
 
-    public ConnectionPool(){
+    public ConnectionPool() {
         try {
             loadDBProperties();
             registerDriver();
             initializePool();
-        }
-        catch (ConnectionPoolException e){
+        } catch (ConnectionPoolException e) {
             LOG.error(CANNOT_CREATE_CONNECTION_POOL_INSTANCE, e);
         }
     }
 
-    private void loadDBProperties() throws ConnectionPoolException{
+    private void loadDBProperties() throws ConnectionPoolException {
         Properties properties = new Properties();
         try {
             properties.load(ConnectionPool.class.getClassLoader().getResourceAsStream(DATABASE_DATABASE_PROPERTIES));
             LOG.info(LOAD_PROPERTY_FILE_WITH_INFORMATION_ABOUT_DB);
         } catch (IOException e) {
+            LOG.info(CANNOT_LOAD_PROPERTIES, e);
             throw new ConnectionPoolException(e, CANNOT_LOAD_PROPERTIES);
         }
         if (!properties.isEmpty()) {
@@ -76,63 +80,72 @@ public class ConnectionPool {
         }
     }
 
-    private void registerDriver() throws ConnectionPoolException{
+    private void registerDriver() throws ConnectionPoolException {
         try {
             LOG.info(CREATING_AND_REGISTERING_NEW_DRIVER);
             Driver driver = new FabricMySQLDriver();
             DriverManager.registerDriver(driver);
         } catch (SQLException e) {
-            throw  new ConnectionPoolException(e, CANNOT_CREATE_DRIVER);
+            LOG.info(COULDN_T_CREATE_DRIVER, e);
+            throw new ConnectionPoolException(e, CANNOT_CREATE_DRIVER);
         }
     }
-    private void initializePool() throws ConnectionPoolException{
+
+    private void initializePool() throws ConnectionPoolException {
         if (freeConnections == null) {
             freeConnections = new ArrayBlockingQueue<>(connectionsLimit);
         }
-        if(usedConnections == null) {
+        if (usedConnections == null) {
             usedConnections = new ArrayBlockingQueue<>(connectionsLimit);
         }
         try {
             Class.forName(driver);
-        for (int i = 0; i < connectionsLimit; i++) {
+            for (int i = 0; i < connectionsLimit; i++) {
                 Connection connection = DriverManager.getConnection(url, username, password);
                 freeConnections.put(connection);
             }
-        } catch (InterruptedException | ClassNotFoundException |SQLException e) {
-            e.printStackTrace();
+        } catch (InterruptedException | ClassNotFoundException | SQLException e) {
+            LOG.info(COULDN_T_GET_CONNECTION_OR_ADD_TO_CONNECTIONS_LIST, e);
+            throw new ConnectionPoolException(e, COULDN_T_GET_CONNECTION_OR_ADD_TO_CONNECTIONS_LIST);
         }
     }
-    public synchronized Connection getConnection() throws ConnectionPoolException{
+
+    public synchronized Connection getConnection() throws ConnectionPoolException {
         Connection currentConnection;
         LOG.info(FREE_CONNECTIONS + freeConnections.size() + USED_CONNECTIONS + usedConnections.size());
         try {
             currentConnection = freeConnections.take();
             usedConnections.put(currentConnection);
         } catch (InterruptedException e) {
+            LOG.info(CANNOT_REPLACE_CONNECTION, e);
             throw new ConnectionPoolException(e, CANNOT_REPLACE_CONNECTION);
         }
         LOG.info(FREE_CONNECTIONS + freeConnections.size() + USED_CONNECTIONS + usedConnections.size());
         return currentConnection;
     }
 
-    public synchronized void closeConnection(Connection connection) throws ConnectionPoolException{
+    public synchronized void closeConnection(Connection connection) throws ConnectionPoolException {
         try {
             usedConnections.remove(connection);
             freeConnections.put(connection);
         } catch (InterruptedException e) {
+            LOG.info(CANNOT_RELEASE_CONNECTION, e);
             throw new ConnectionPoolException(e, CANNOT_RELEASE_CONNECTION);
         }
     }
+
     private void closeAllConnectionsInQueue(BlockingQueue<Connection> connections) throws ConnectionPoolException {
         for (Connection connection : connections) {
             try {
                 connection.close();
             } catch (SQLException e) {
+                LOG.info(COULD_NOT_CLOSE_CONNECTION, e);
                 throw new ConnectionPoolException(e, COULD_NOT_CLOSE_CONNECTION);
             }
         }
     }
-    public static synchronized ConnectionPool getInstance(){
+
+    public static synchronized ConnectionPool getInstance() {
         return InstanceHolder.instance;
     }
 
@@ -144,11 +157,13 @@ public class ConnectionPool {
         }
 
     }
+
     public void close() throws ConnectionPoolException {
         closeAllConnectionsInQueue(freeConnections);
         closeAllConnectionsInQueue(usedConnections);
 
     }
+
     public String getUrl() {
         return url;
     }
@@ -161,7 +176,7 @@ public class ConnectionPool {
         return username;
     }
 
-    public void setUsername(String username) {
+    private void setUsername(String username) {
         this.username = username;
     }
 
@@ -177,7 +192,7 @@ public class ConnectionPool {
         return driver;
     }
 
-    public void setDriver(String driver) {
+    private void setDriver(String driver) {
         this.driver = driver;
     }
 
@@ -185,7 +200,7 @@ public class ConnectionPool {
         return connectionsLimit;
     }
 
-    public void setConnectionsLimit(int connectionsLimit) {
+    private void setConnectionsLimit(int connectionsLimit) {
         this.connectionsLimit = connectionsLimit;
     }
 

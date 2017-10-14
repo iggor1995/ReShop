@@ -1,6 +1,7 @@
 package com.epam.igor.electronicsshop.web.filter;
 
 import javax.servlet.jsp.jstl.core.Config;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,12 +14,16 @@ import java.util.Locale;
 
 /**
  * Class-filter for work with page locale.
+ *
  * @author Igor Lapin
  */
 
 public class LocaleFilter implements Filter {
 
     private static final Logger LOG = LoggerFactory.getLogger(LocaleFilter.class);
+    private static final String LOCALE = "locale";
+    private static final String LOCALE_ADDED_IN_SESSION_FROM_COOKIES = "{} locale added in session from cookies";
+    private static final String DEFAULT_LOCALE_ADDED_IN_SESSION = "{} - default locale added in session";
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -26,26 +31,26 @@ public class LocaleFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        doFilter((HttpServletRequest) servletRequest, (HttpServletResponse)servletResponse, filterChain);
+        doFilter((HttpServletRequest) servletRequest, (HttpServletResponse) servletResponse, filterChain);
     }
 
-    public void doFilter(HttpServletRequest req, HttpServletResponse resp, FilterChain filterChain) throws IOException, ServletException {
+    private void doFilter(HttpServletRequest req, HttpServletResponse resp, FilterChain filterChain) throws IOException, ServletException {
         Cookie[] cookies = req.getCookies();
-        if(cookies != null){
-            for(Cookie cookie : cookies){
-                if("locale".equals(cookie.getName())){
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (LOCALE.equals(cookie.getName())) {
                     Locale locale = new Locale(cookie.getValue());
-                    req.getSession().setAttribute("locale", locale);
+                    req.getSession().setAttribute(LOCALE, locale);
                     Config.set(req.getSession(), Config.FMT_LOCALE, locale);
-                    LOG.info("{} locale added in session from cookies", locale);
+                    LOG.info(LOCALE_ADDED_IN_SESSION_FROM_COOKIES, locale);
                 }
-                if(req.getSession(false).getAttribute("locale") == null){
-                    req.getSession().setAttribute("locale", req.getLocale());
-                    LOG.info("{} - default locale added in session", req.getLocale());
+                if (req.getSession(false).getAttribute(LOCALE) == null) {
+                    req.getSession().setAttribute(LOCALE, req.getLocale());
+                    LOG.info(DEFAULT_LOCALE_ADDED_IN_SESSION, req.getLocale());
                 }
             }
         }
-            filterChain.doFilter(req, resp);
+        filterChain.doFilter(req, resp);
     }
 
     @Override

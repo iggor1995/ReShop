@@ -13,10 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * For saving order status changes in database
+ *
  * @author Igor Lapin
  */
 public class EditOrderStatusAction implements Action {
-    private final static Logger LOG = LoggerFactory.getLogger(EditOrderStatusAction.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EditOrderStatusAction.class);
     private static final String PARAMETER_STATUS_ID = "statusId";
     private static final String PARAMETER_ORDER_ID = "orderId";
     private static final String EDIT_ERROR = "Couldn't edit order status";
@@ -26,12 +27,13 @@ public class EditOrderStatusAction implements Action {
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
         ShopService shopService = new ShopService();
-        try{
+        try {
             String statusId = req.getParameter(PARAMETER_STATUS_ID);
             String orderId = req.getParameter(PARAMETER_ORDER_ID);
             shopService.updateOrderStatus(orderId, statusId);
             LOG.info(UPDATED, orderId, statusId);
         } catch (ServiceException e) {
+            LOG.info(EDIT_ERROR, e);
             throw new ActionException(EDIT_ERROR, e);
         }
         return new ActionResult(req.getHeader(REFERER_PAGE), true);

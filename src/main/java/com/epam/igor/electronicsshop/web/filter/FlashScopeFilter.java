@@ -16,6 +16,7 @@ import java.util.Map;
 
 public class FlashScopeFilter implements Filter {
     private static final String FLASH_SESSION_KEY = "FLASH_SESSION_KEY";
+    private static final String FLASH = "flash.";
 
     @SuppressWarnings("unchecked")
     public void doFilter(ServletRequest request, ServletResponse response,
@@ -44,7 +45,7 @@ public class FlashScopeFilter implements Filter {
             Enumeration e = httpRequest.getAttributeNames();
             while (e.hasMoreElements()) {
                 String paramName = (String) e.nextElement();
-                if (paramName.startsWith("flash.")) {
+                if (paramName.startsWith(FLASH)) {
                     Object value = request.getAttribute(paramName);
                     paramName = paramName.substring(6, paramName.length());
                     flashParams.put(paramName, value);

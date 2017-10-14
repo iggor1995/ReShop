@@ -6,8 +6,9 @@ import com.epam.igor.electronicsshop.entity.BaseEntity;
 
 /**
  * Dao factory for abstract transaction methods
+ *
  * @author Igor Lapin
-*/
+ */
 public abstract class DaoFactory implements AutoCloseable {
     public static final int JDBC = 0;
 

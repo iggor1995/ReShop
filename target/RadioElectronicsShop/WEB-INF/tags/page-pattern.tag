@@ -40,7 +40,7 @@
                             class="glyphicon glyphicon-home"></span></a>
                     <c:if test="${loggedUser.role == 'user' || loggedUser.role == 'admin'}">
                         <a class="navbar-brand" href="<c:url value="/do/logout"/>"><span
-                                class="glyphicon glyphicon-exclamation-sign"></span></a>
+                                class="glyphicon glyphicon-exclamation-sign">logout</span></a>
                     </c:if>
                 </div>
                 <ul class="nav navbar-nav">
@@ -59,10 +59,10 @@
                     </c:if>
                     <div class="col-lg-1" align="right">
                         <li class="dropdown-menu-right" style="min-width: 60px">
-                            <a href="<c:url value="/do/locale?locale=ru"/>" class="language"><img
+                            <a href="<c:url value="/do/locale?locale=ru"/>" class="language" style="color: limegreen"><img
                                     style="height: 18px"
                                     src="<c:url value="/images/ru.png"/>" align="right" alt="Ru"/> Ru</a>
-                            <a href="<c:url value="/do/locale?locale=en"/>" class="language"><img
+                            <a href="<c:url value="/do/locale?locale=en"/>" class="language" style="color: limegreen"><img
                                     style="height: 18px"
                                     src="<c:url value="/images/us.png"/>" align="right" alt="En"/> En</a>
                         </li>

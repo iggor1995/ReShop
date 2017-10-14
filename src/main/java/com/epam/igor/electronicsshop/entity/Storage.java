@@ -3,13 +3,14 @@ package com.epam.igor.electronicsshop.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by User on 31.07.2017.
- */
+
 public class Storage extends EntityDescription {
     private String name;
-    private List<StorageItem> storageItems = new ArrayList();
-    public Storage(){}
+    private List<StorageItem> storageItems = new ArrayList<>();
+
+    public Storage() {
+    }
+
     public Storage(int id) {
         setId(id);
     }

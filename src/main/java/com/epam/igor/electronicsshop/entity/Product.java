@@ -5,15 +5,10 @@ import org.joda.money.Money;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by User on 31.07.2017.
- */
 public class Product extends EntityDescription {
     private String name;
     private Money price;
     private ProductType type;
-
-
 
     private List<Image> images = new ArrayList<>();
 
@@ -25,7 +20,9 @@ public class Product extends EntityDescription {
         this.images = images;
     }
 
-    public Product(){}
+    public Product() {
+    }
+
     public Product(int id) {
         setId(id);
     }

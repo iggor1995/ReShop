@@ -1,17 +1,17 @@
 package com.epam.igor.electronicsshop.dao.entity;
 
 import com.epam.igor.electronicsshop.dao.DaoException;
-import com.epam.igor.electronicsshop.dao.entity.JDBCAbstractDao;
 import com.epam.igor.electronicsshop.entity.OrderStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- * Created by User on 02.08.2017.
- */
 public class JDBCOrderStatusDao extends JDBCAbstractDao<OrderStatus> {
+
+    private static final Logger LOG = LoggerFactory.getLogger(JDBCOrderStatusDao.class);
     private static final String INSERT_ODER_STATUS = "INSERT INTO electronics.order_status" +
             "(name_ru, name_en) VALUES(?, ?)";
     private static final String UPDATE_ORDER_STATUS_BY_ID = "UPDATE electronics.order_status " +
@@ -33,6 +33,7 @@ public class JDBCOrderStatusDao extends JDBCAbstractDao<OrderStatus> {
             orderStatus.setEnName(rs.getString(NAME_EN));
             orderStatus.setDeleted(rs.getBoolean(DELETED));
         } catch (SQLException e) {
+            LOG.info(COULDN_T_SET_ORDER_STATUS, e);
             throw new DaoException(CANNOT_GET_ORDER_STATUS, e);
         }
         return orderStatus;
@@ -58,9 +59,9 @@ public class JDBCOrderStatusDao extends JDBCAbstractDao<OrderStatus> {
         try {
             ps.setString(1, orderStatus.getRuName());
             ps.setString(2, orderStatus.getEnName());
-
         } catch (SQLException e) {
-            throw  new DaoException(COULDN_T_SET_ORDER_STATUS, e);
+            LOG.info(COULDN_T_SET_ORDER_STATUS, e);
+            throw new DaoException(COULDN_T_SET_ORDER_STATUS, e);
         }
     }
 }

@@ -14,7 +14,8 @@
                       maxFractionDigits="0" value="${product.price.amount}"/>
     <p align="right"><span class="pull-left"
                            style="color: #1c0098;font-size: 14px; margin-top: 8px">${formattedPrice}</span>
-    <a class="btn btn-default" href="<c:url value="/do/product?id=${product.id}"/>" role="button" style="font-size: 12px">
-        ${details}
-    </a></p>
+            <a class="btn btn-default" href="<c:url value="/do/product?id=${product.id}"/>" role="button" style="font-size: 12px">
+                    ${details}
+            </a></p>
+
 </div>

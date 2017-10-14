@@ -16,10 +16,11 @@ import java.util.List;
 
 /**
  * Class sets necessary attributes for displaying user page
+ *
  * @author Igor Lapin
- * */
+ */
 public class ShowUserOrdersAction implements Action {
-    private final static Logger LOG = LoggerFactory.getLogger(ShowUserOrdersAction.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ShowUserOrdersAction.class);
     private static final String FIRST_PAGE = "1";
     private static final String DEFAULT_SIZE = "2";
     private static final String LOGGED_USER = "loggedUser";
@@ -30,44 +31,44 @@ public class ShowUserOrdersAction implements Action {
     private static final String ORDERS = "orders";
     private static final String USER_ORDERS_PAGE = "user-orders";
     private static final String INFO = "Page number - {}. Page size - {}. Pages count - {}";
+
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
-        User user = (User)req.getSession().getAttribute(LOGGED_USER);
+        User user = (User) req.getSession().getAttribute(LOGGED_USER);
         List<Order> orders;
         String page = req.getParameter(PAGE);
         if (page == null) {
             page = FIRST_PAGE;
         }
         String pageSize = req.getParameter(PAGE_SIZE);
-        if(pageSize == null){
+        if (pageSize == null) {
             pageSize = DEFAULT_SIZE;
         }
         int pageInt = Integer.parseInt(page);
         int pageSizeInt = Integer.parseInt(pageSize);
-        List<Order> oredersOnPage;
+        List<Order> ordersOnPage;
         try {
             UserService userService = new UserService();
             orders = userService.getUserOrders(user.getId());
-            if(orders.size() < pageInt * pageSizeInt){
-                oredersOnPage = orders.subList(((pageInt - 1) * pageSizeInt), orders.size());
-            }
-            else {
-                oredersOnPage = orders.subList(((pageInt - 1) * pageSizeInt), pageSizeInt * pageInt);
+            if (orders.size() < pageInt * pageSizeInt) {
+                ordersOnPage = orders.subList(((pageInt - 1) * pageSizeInt), orders.size());
+            } else {
+                ordersOnPage = orders.subList(((pageInt - 1) * pageSizeInt), pageSizeInt * pageInt);
             }
         } catch (ServiceException e) {
+            LOG.info(ERROR, e);
             throw new ActionException(ERROR, e);
         }
         int pageCount;
-        if(orders.size() % pageSizeInt == 0){
+        if (orders.size() % pageSizeInt == 0) {
             pageCount = orders.size() / pageSizeInt;
-        }
-        else {
+        } else {
             pageCount = orders.size() / pageSizeInt + 1;
         }
         req.setAttribute(PAGE, page);
         req.setAttribute(PAGE_SIZE, pageSize);
         req.setAttribute(PAGES_COUNT, pageCount);
-        req.setAttribute(ORDERS, oredersOnPage);
+        req.setAttribute(ORDERS, ordersOnPage);
         LOG.info(INFO, page, pageSize, pageCount);
         return new ActionResult(USER_ORDERS_PAGE);
     }

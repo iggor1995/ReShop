@@ -1,13 +1,11 @@
 package com.epam.igor.electronicsshop.entity;
 
-/**
- * Created by User on 31.07.2017.
- */
+
 public abstract class BaseEntity {
     private Integer id;
     private boolean deleted;
 
-    public BaseEntity(){
+    public BaseEntity() {
     }
 
     public void setId(Integer id) {
@@ -19,7 +17,6 @@ public abstract class BaseEntity {
     }
 
     public Integer getId() {
-
         return id;
     }
 
@@ -40,7 +37,7 @@ public abstract class BaseEntity {
 
     @Override
     public int hashCode() {
-        return  id != null ? id.hashCode() : 0;
+        return id != null ? id.hashCode() : 0;
     }
 
     @Override

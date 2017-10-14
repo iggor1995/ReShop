@@ -5,9 +5,7 @@ import org.joda.time.format.DateTimeFormat;
 
 import java.io.InputStream;
 
-/**
- * Created by User on 31.07.2017.
- */
+
 public class Image extends BaseEntity {
     private String name;
     private DateTime timeModified;

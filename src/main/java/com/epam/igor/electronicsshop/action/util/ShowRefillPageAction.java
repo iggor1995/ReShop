@@ -3,21 +3,24 @@ package com.epam.igor.electronicsshop.action.util;
 import com.epam.igor.electronicsshop.action.Action;
 import com.epam.igor.electronicsshop.action.ActionException;
 import com.epam.igor.electronicsshop.action.ActionResult;
-import com.epam.igor.electronicsshop.entity.Address;
 import com.epam.igor.electronicsshop.entity.User;
 import com.epam.igor.electronicsshop.service.ServiceException;
 import com.epam.igor.electronicsshop.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  * Class sets necessary attributes for displaying refill page
+ *
  * @author Igor Lapin
  */
 
 public class ShowRefillPageAction implements Action {
 
+    private static final Logger LOG = LoggerFactory.getLogger(ShowRefillPageAction.class);
     private static final String ID = "id";
     private static final String USER = "user";
     private static final String REFILL_PAGE = "refill";
@@ -31,6 +34,7 @@ public class ShowRefillPageAction implements Action {
             User user = userService.getFilledUserById(Integer.valueOf(id));
             req.setAttribute(USER, user);
         } catch (ServiceException e) {
+            LOG.info(ERROR, e);
             throw new ActionException(ERROR);
         }
         return new ActionResult(REFILL_PAGE);

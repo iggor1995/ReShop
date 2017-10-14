@@ -1,21 +1,22 @@
 package com.epam.igor.electronicsshop.dao.entity;
 
 import com.epam.igor.electronicsshop.dao.DaoException;
-import com.epam.igor.electronicsshop.dao.entity.JDBCAbstractDao;
 import com.epam.igor.electronicsshop.entity.Address;
 import com.epam.igor.electronicsshop.entity.Gender;
 import com.epam.igor.electronicsshop.entity.User;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- * Created by User on 01.08.2017.
- */
+
 public class JDBCUserDao extends JDBCAbstractDao<User> {
+
+    private static final Logger LOG = LoggerFactory.getLogger(JDBCUserDao.class);
     private static final String INSERT_USER = "INSERT INTO electronics.user(email, password, " +
             "firstname, lastname, address_id, phonenumber, role, cash, gender_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE_USER_BY_ID = "UPDATE electronics.user SET email = ?, password = ?, " +
@@ -39,23 +40,26 @@ public class JDBCUserDao extends JDBCAbstractDao<User> {
 
     @Override
     protected User getObjectFromResultSet(ResultSet rs) throws DaoException {
-        User user = new User();
+        User user;
         try {
+            Gender gender = new Gender();
+            gender.setId(rs.getInt(GENDER_ID));
+            user = new User.UserBuilder(rs.getString(FIRSTNAME), rs.getString(LASTNAME))
+                    .password(rs.getString(PASS_WORD))
+                    .gender(gender)
+                    .phoneNumber(rs.getString(PHONENUMBER))
+                    .email(rs.getString(EMAIL))
+                    .build();
             user.setId(rs.getInt(ID));
-            user.setEmail(rs.getString(EMAIL));
-            user.setPassword(rs.getString(PASS_WORD));
             user.setRole(User.Role.valueOf(rs.getString(ROLE)));
-            user.setFirstName(rs.getString(FIRSTNAME));
-            user.setLastName(rs.getString(LASTNAME));
             Address address = new Address(rs.getInt(ADDRESS_ID));
             user.setAddress(address);
             user.setCash(Money.of(CurrencyUnit.getInstance(KZT), rs.getBigDecimal(CASH)));
-            user.setPhoneNumber(rs.getString(PHONENUMBER));
-            Gender gender = new Gender();
-            gender.setId(rs.getInt(GENDER_ID));
-            user.setGender(gender);
             user.setDeleted(rs.getBoolean(DELETED));
+
+
         } catch (SQLException e) {
+            LOG.info(CANNOT_GET_USER_FROM_RESULT_SET, e);
             throw new DaoException(CANNOT_GET_USER_FROM_RESULT_SET, e);
         }
         return user;
@@ -89,6 +93,7 @@ public class JDBCUserDao extends JDBCAbstractDao<User> {
             ps.setBigDecimal(8, user.getCash().getAmount());
             ps.setInt(9, user.getGender().getId());
         } catch (SQLException e) {
+            LOG.info(COULDN_T_SET_USER, e);
             throw new DaoException(COULDN_T_SET_USER, e);
         }
     }

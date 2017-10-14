@@ -12,14 +12,12 @@ import com.epam.igor.electronicsshop.action.util.*;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by User on 12.08.2017.
- */
 public class ActionFactory {
     private static Map<String, Action> actions;
+
     static {
         actions = new HashMap<>();
-        actions.put("GET/welcome", new ShowPageAction("welcome"));
+        actions.put("GET/welcome", new ShowWelcomePageAction());
         actions.put("GET/register", new ShowRegisterPageAction());
         actions.put("GET/login", new ShowPageAction("login"));
         actions.put("GET/home", new ShowHomePageAction());

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * For creating new action result
+ *
  * @author Igor Lapin
  */
 

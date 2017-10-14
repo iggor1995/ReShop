@@ -11,10 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Class for deleting cart from session
+ *
  * @author Igor Lapin
  */
 public class ClearCartAction implements Action {
-    private final static Logger LOG = LoggerFactory.getLogger(ClearCartAction.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ClearCartAction.class);
     private static final String LOGGED_USER = "loggedUser";
     private static final String REFERER_PAGE = "referer";
     private static final String CART = "cart";

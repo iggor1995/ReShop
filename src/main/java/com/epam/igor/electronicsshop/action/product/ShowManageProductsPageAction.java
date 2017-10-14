@@ -15,9 +15,10 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 /**
- *  Class sets necessary attributes for displaying manage products page.
+ * Class sets necessary attributes for displaying manage products page.
+ *
  * @author Igor Lapin
- * */
+ */
 public class ShowManageProductsPageAction implements Action {
     private static final Logger LOG = LoggerFactory.getLogger(ShowManageProductsPageAction.class);
     private static final String FIRST_PAGE = "1";
@@ -29,17 +30,18 @@ public class ShowManageProductsPageAction implements Action {
     private static final String PAGE_SIZE = "pageSize";
     private static final String ERROR = "Couldn't show manage products page";
     private static final String INFO = "Page number: {}. Page size: {}. Pages count: {}";
+    private static final String COULDN_T_SET_ENCODING = "Couldn't set encoding";
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
         ShopService shopService = new ShopService();
         List<Product> products;
         String pageNumber = req.getParameter(PAGE);
-        if(pageNumber == null){
+        if (pageNumber == null) {
             pageNumber = FIRST_PAGE;
         }
         String pageSize = req.getParameter(PAGE_SIZE);
-        if(pageSize == null){
+        if (pageSize == null) {
             pageSize = DEFAULT_PAGE_SIZE;
         }
         int productsCount;
@@ -47,14 +49,14 @@ public class ShowManageProductsPageAction implements Action {
             products = shopService.getAllProductsOnPage(Integer.parseInt(pageSize), Integer.parseInt(pageNumber));
             productsCount = shopService.getProductsCount();
         } catch (ServiceException e) {
+            LOG.info(ERROR, e);
             throw new ActionException(ERROR, e);
         }
         int pageCount;
-        if(productsCount % Integer.parseInt(pageSize) == 0){
+        if (productsCount % Integer.parseInt(pageSize) == 0) {
             pageCount = productsCount / Integer.parseInt(pageSize);
-        }
-        else {
-            pageCount =  productsCount / Integer.parseInt(pageSize) + 1;
+        } else {
+            pageCount = productsCount / Integer.parseInt(pageSize) + 1;
         }
         req.setAttribute(PAGE, pageNumber);
         req.setAttribute(PAGES_COUNT, pageCount);
@@ -63,7 +65,8 @@ public class ShowManageProductsPageAction implements Action {
         try {
             req.setCharacterEncoding(ENCODING);
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            LOG.info(COULDN_T_SET_ENCODING, e);
+            throw new ActionException(COULDN_T_SET_ENCODING, e);
         }
         LOG.info(INFO, pageNumber, pageSize, pageCount);
         return new ActionResult(PRODUCTS);

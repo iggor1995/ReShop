@@ -9,6 +9,7 @@ import java.io.IOException;
 
 /**
  * Class-filter for work with view's character encoding.
+ *
  * @author Igor Lapin
  */
 public class EncodingFilter implements Filter {

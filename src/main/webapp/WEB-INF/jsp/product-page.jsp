@@ -27,18 +27,20 @@
                 <fmt:formatNumber var="formattedPrice" type="currency" currencyCode="KZT" maxFractionDigits="0"
                 value="${product.price.amount}"/>
                 <p>${price}: ${formattedPrice}</p>
-                <form action="<c:url value="/do/cart/add"/>" method="post">
-                    <input type="hidden" name="product" value="${product.id}">
-                    <div class="form-group input-group">
-                        ${quantity}: <input type="number" value="1" min="1" max="9999" name="amount" style="width: 100px;">
-                        <c:if test="${not empty amountError}">
-                            <p class="text-danger">${amountErrorMessage}</p>
-                        </c:if>
-                    </div>
-                    <div class="form-group input-group">
-                        <input type="submit" class="btn btn-default" value="${addToCart}">
-                    </div>
-                </form>
+                <c:if test="${loggedUser.role == 'user' || loggedUser.role == 'admin'}">
+                    <form action="<c:url value="/do/cart/add"/>" method="post">
+                        <input type="hidden" name="product" value="${product.id}">
+                        <div class="form-group input-group">
+                            ${quantity}: <input type="number" value="1" min="1" max="9999" name="amount" style="width: 100px;">
+                            <c:if test="${not empty amountError}">
+                                <p class="text-danger">${amountErrorMessage}</p>
+                            </c:if>
+                        </div>
+                        <div class="form-group input-group">
+                            <input type="submit" class="btn btn-default" value="${addToCart}">
+                        </div>
+                    </form>
+                </c:if>
             </div>
             <div class="col-lg-12">
                 <h4>${descriptionLabel}</h4>

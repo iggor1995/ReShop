@@ -3,6 +3,7 @@ package com.epam.igor.electronicsshop.action.util;
 import com.epam.igor.electronicsshop.action.Action;
 import com.epam.igor.electronicsshop.action.ActionException;
 import com.epam.igor.electronicsshop.action.ActionResult;
+import com.epam.igor.electronicsshop.constants.UserConstants;
 import com.epam.igor.electronicsshop.entity.Product;
 import com.epam.igor.electronicsshop.entity.ProductType;
 import com.epam.igor.electronicsshop.entity.User;
@@ -17,6 +18,7 @@ import java.util.List;
 
 /**
  * Class sets necessary attributes for displaying home page
+ *
  * @author Igor Lapin
  */
 
@@ -32,14 +34,13 @@ public class ShowHomePageAction implements Action {
     private static final String PRODUCT_TYPES = "productTypes";
     private static final String ERROR = "Couldn't fill content at home page";
     private static final String INFO = "Page number: {}. Page size: {}. Pages count: {}";
-    public static final String WELCOME = "welcome";
-    public static final String LOGGED_USER = "loggedUser";
+    private static final String WELCOME = "welcome";
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
-        User loggedUser = (User)req.getSession().getAttribute(LOGGED_USER);
-        if(loggedUser == null){
-            return new ActionResult(WELCOME);
+        User loggedUser = (User) req.getSession().getAttribute(UserConstants.LOGGED_USER);
+        if (loggedUser == null) {
+            return new ActionResult(WELCOME, true);
         }
         List<Product> products;
         List<ProductType> productTypes;
@@ -58,6 +59,7 @@ public class ShowHomePageAction implements Action {
             productsCount = shopService.getProductsCount();
             productTypes = shopService.getAllProductTypes();
         } catch (ServiceException e) {
+            LOG.info(ERROR, e);
             throw new ActionException(ERROR, e);
         }
         int pageCount;

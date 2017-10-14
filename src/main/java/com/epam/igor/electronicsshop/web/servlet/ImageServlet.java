@@ -17,6 +17,7 @@ import java.io.InputStream;
 
 /**
  * Class handles and does necessary work with images
+ *
  * @author Igor Lapin
  */
 public class ImageServlet extends HttpServlet {
@@ -30,13 +31,13 @@ public class ImageServlet extends HttpServlet {
         String pathInfo = req.getPathInfo();
         final byte[] buffer = new byte[DEFAULT_SIZE];
         int length;
-        try(ServletOutputStream sos = resp.getOutputStream()){
+        try (ServletOutputStream sos = resp.getOutputStream()) {
             ProductService productService = new ProductService();
             String productId = pathInfo.substring(1);
             Image productImage = productService.getProductPreviewImage(productId);
             resp.setContentType(productImage.getContentType());
             InputStream content = productImage.getImageStream();
-            while ((length = content.read(buffer)) != -1){
+            while ((length = content.read(buffer)) != -1) {
                 sos.write(buffer, 0, length);
             }
             LOG.debug(PRODUCT_ID_IMAGE_LOADED, productId, productImage);

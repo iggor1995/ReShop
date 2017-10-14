@@ -4,15 +4,16 @@ import com.epam.igor.electronicsshop.dao.DaoException;
 import com.epam.igor.electronicsshop.entity.Order;
 import com.epam.igor.electronicsshop.entity.OrderingItem;
 import com.epam.igor.electronicsshop.entity.Product;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- * Created by User on 02.08.2017.
- */
 public class JDBCOrderingItemDao extends JDBCAbstractDao<OrderingItem> {
+
+    private static final Logger LOG = LoggerFactory.getLogger(JDBCOrderingItemDao.class);
     private static final String
             ORDERING_ITEM = "ordering_item";
     private static final String INSERT_ORDERING_ITEM = "INSERT INTO electronics.ordering_item(order_id, product_id, " +
@@ -39,6 +40,7 @@ public class JDBCOrderingItemDao extends JDBCAbstractDao<OrderingItem> {
             orderingItem.setAmount(rs.getInt(AMOUNT));
             orderingItem.setDeleted(rs.getBoolean(DELETED));
         } catch (SQLException e) {
+            LOG.info(CANNOT_GET_ORDERING_ITEM, e);
             throw new DaoException(CANNOT_GET_ORDERING_ITEM);
         }
         return orderingItem;
@@ -66,6 +68,7 @@ public class JDBCOrderingItemDao extends JDBCAbstractDao<OrderingItem> {
             ps.setInt(2, orderingItem.getProduct().getId());
             ps.setInt(3, orderingItem.getAmount());
         } catch (SQLException e) {
+            LOG.info(CANNOT_SET_ORDERING_ITEM, e);
             throw new DaoException(CANNOT_SET_ORDERING_ITEM);
         }
     }

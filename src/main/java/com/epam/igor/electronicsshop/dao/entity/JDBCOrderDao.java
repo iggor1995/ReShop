@@ -1,21 +1,21 @@
 package com.epam.igor.electronicsshop.dao.entity;
 
 import com.epam.igor.electronicsshop.dao.DaoException;
-import com.epam.igor.electronicsshop.dao.entity.JDBCAbstractDao;
 import com.epam.igor.electronicsshop.entity.Order;
 import com.epam.igor.electronicsshop.entity.OrderStatus;
 import com.epam.igor.electronicsshop.entity.User;
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
-/**
- * Created by User on 02.08.2017.
- */
 public class JDBCOrderDao extends JDBCAbstractDao<Order> {
+
+    private static final Logger LOG = LoggerFactory.getLogger(JDBCOrderDao.class);
     private static final String INSERT_ORDER = "INSERT INTO electronics.order(user_id, created, description," +
             " status_id) VALUES(?, ?, ?, ?)";
     private static final String UPDATE_ORDER_BY_ID = "UPDATE electronics.order SET user_id = ?," +
@@ -44,6 +44,7 @@ public class JDBCOrderDao extends JDBCAbstractDao<Order> {
             order.setDeleted(rs.getBoolean(DELETED));
 
         } catch (SQLException e) {
+            LOG.info(CANNOT_GET_ORDER, e);
             throw new DaoException(CANNOT_GET_ORDER);
         }
         return order;
@@ -72,6 +73,7 @@ public class JDBCOrderDao extends JDBCAbstractDao<Order> {
             ps.setString(3, order.getDescription());
             ps.setInt(4, order.getStatus().getId());
         } catch (SQLException e) {
+            LOG.info(COULDN_T_SET_ORDER, e);
             throw new DaoException(COULDN_T_SET_ORDER, e);
         }
     }

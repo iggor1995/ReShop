@@ -13,11 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * For deleting order from user's order list
+ *
  * @author Igor Lapin
  */
 public class DeleteOrderAction implements Action {
 
-    private final static Logger LOG = LoggerFactory.getLogger(DeleteOrderAction.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DeleteOrderAction.class);
     private static final String PARAMETER_ID = "id";
     private static final String ERROR_DELETE = "Couldn't delete order by id";
     private static final String REFERER_PAGE = "referer";
@@ -30,6 +31,7 @@ public class DeleteOrderAction implements Action {
             ShopService shopService = new ShopService();
             shopService.deleteOrderById(id);
         } catch (ServiceException e) {
+            LOG.info(ERROR_DELETE, e);
             throw new ActionException(ERROR_DELETE);
         }
         LOG.info(ORDER_DELETED, id);

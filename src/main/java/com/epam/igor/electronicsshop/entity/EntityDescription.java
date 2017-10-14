@@ -2,10 +2,8 @@ package com.epam.igor.electronicsshop.entity;
 
 import java.util.Locale;
 
-/**
- * Created by User on 31.07.2017.
- */
-public class EntityDescription extends BaseEntity{
+
+public class EntityDescription extends BaseEntity {
     private String ruDescription;
     private String enDescription;
 
@@ -25,11 +23,11 @@ public class EntityDescription extends BaseEntity{
     public String getEnDescription() {
         return enDescription;
     }
-    public String getDescription(Locale locale){
-        if(locale != null && locale.getLanguage().equals("ru")){
+
+    public String getDescription(Locale locale) {
+        if (locale != null && locale.getLanguage().equals("ru")) {
             return ruDescription;
-        }
-        else return enDescription;
+        } else return enDescription;
     }
 
     @Override
