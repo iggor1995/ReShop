@@ -36,7 +36,7 @@ public class EditProductAction implements Action {
     private static final String INVALID_CONTENT_TYPE = "Invalid content type - {}";
     private static final String UPDATED_BY = "{} updated by {}";
     private static final String LOGGED_USER = "loggedUser";
-    private static final String MANAGE_PRODUTS = "manage/products";
+    private static final String MANAGE_PRODUCTS = "manage/products";
     private static final String COULDN_T_EDIT_PRODUCT = "Couldn't edit product";
     private boolean invalid;
     private static final String PROPERTIES_ERROR = "Cannot load properties";
@@ -70,7 +70,7 @@ public class EditProductAction implements Action {
         if (updateImageData(req)) {
             return new ActionResult(req.getHeader(REFERER), true);
         }
-        return new ActionResult(MANAGE_PRODUTS, true);
+        return new ActionResult(MANAGE_PRODUCTS, true);
 
     }
 
