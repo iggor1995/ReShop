@@ -41,9 +41,7 @@ public class ReShopServlet extends HttpServlet {
     private static final String PATH_FOR_FORWARD = "Path for 'forward' - ";
     private static final String INIT_BY_KEY = "{} init by key: '{}'";
 
-    @Override
-    public void init() throws ServletException {
-    }
+
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -83,7 +81,7 @@ public class ReShopServlet extends HttpServlet {
             LOG.info(LOCATION_FOR_REDIRECT + location);
             resp.sendRedirect(location);
         } else {
-            String path = String.format(WEB_INF_JSP + result.getView() + JSP);
+            String path = WEB_INF_JSP + result.getView() + JSP;
             LOG.info(PATH_FOR_FORWARD + path);
             req.getRequestDispatcher(path).forward(req, resp);
         }

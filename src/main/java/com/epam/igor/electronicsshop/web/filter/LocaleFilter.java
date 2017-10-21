@@ -38,6 +38,7 @@ public class LocaleFilter implements Filter {
         Cookie[] cookies = req.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
+                cookie.setSecure(true);
                 if (LOCALE.equals(cookie.getName())) {
                     Locale locale = new Locale(cookie.getValue());
                     req.getSession().setAttribute(LOCALE, locale);
@@ -55,6 +56,6 @@ public class LocaleFilter implements Filter {
 
     @Override
     public void destroy() {
-
+        throw new UnsupportedOperationException();
     }
 }

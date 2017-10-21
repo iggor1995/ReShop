@@ -33,47 +33,47 @@
                         <label for="country">${country}</label>
                         <input type="text" class="form-control" id="country" name="country"
                                value="${address.country}">
-                        <c:if test="${not empty countryError}">
-                            <p class="text-danger"style="height: 10px;font-size: 12px;">
-                                    ${countryErrorMessage}</p>
-                        </c:if>
                     </div>
+                    <c:if test="${not empty countryError}">
+                        <p class="text-danger"style="height: 10px;font-size: 12px;">
+                                ${countryErrorMessage}</p>
+                    </c:if>
                     <div class="form-control input-group">
                         <label for="city">${city}</label>
                         <input type="text" class="form-control" id="city" name="city"
                                value="${address.city}">
-                        <c:if test="${not empty cityError}">
-                            <p class="text-danger"style="height: 10px;font-size: 12px;">
-                                    ${cityErrorMessage}</p>
-                        </c:if>
                     </div>
+                    <c:if test="${not empty cityError}">
+                        <p class="text-danger"style="height: 10px;font-size: 12px;">
+                                ${cityErrorMessage}</p>
+                    </c:if>
                     <div class="form-control input-group">
                         <label for="street">${street}</label>
                         <input type="text" class="form-control" id="street" name="street"
                                value="${address.street}">
-                        <c:if test="${not empty streetError}">
-                            <p class="text-danger"style="height: 10px;font-size: 12px;">
-                                    ${streetErrorMessage}</p>
-                        </c:if>
                     </div>
+                    <c:if test="${not empty streetError}">
+                        <p class="text-danger"style="height: 10px;font-size: 12px;">
+                                ${streetErrorMessage}</p>
+                    </c:if>
                     <div class="form-control input-group">
                         <label for="buildingNumber">${buildingnumber}</label>
                         <input type="text" class="form-control" id="buildingNumber" name="buildingNumber"
                                value="${address.buildingNumber}">
-                        <c:if test="${not empty buildingNumberError}">
-                            <p align="right" class="text-danger"style="height: 10px;font-size: 12px;">
-                                    ${buildingNumberErrorMessage}</p>
-                        </c:if>
                     </div>
+                    <c:if test="${not empty buildingNumberError}">
+                        <p align="right" class="text-danger"style="height: 10px;font-size: 12px;">
+                                ${buildingNumberErrorMessage}</p>
+                    </c:if>
                     <div class="form-control input-group">
                         <label for="apartmentNumber">${apartmentnumber}</label>
                         <input type="text" class="form-control" id="apartmentNumber" name="apartmentNumber"
                                value="${address.apartmentNumber}">
-                        <c:if test="${not empty apartmentNumberError}">
-                            <p align="right" class="text-danger"style="height: 10px;font-size: 12px;">
-                                    ${apartmentNumberErrorMessage}</p>
-                        </c:if>
                     </div>
+                    <c:if test="${not empty apartmentNumberError}">
+                        <p align="right" class="text-danger"style="height: 10px;font-size: 12px;">
+                                ${apartmentNumberErrorMessage}</p>
+                    </c:if>
                 </div>
                 <div class="col-lg-12">
                     <button type="submit" class="btn btn-default" style="width: 120px">${save}</button>

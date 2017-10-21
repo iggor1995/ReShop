@@ -10,6 +10,9 @@ public final class UserConstants {
     public static final String ROLE = "role";
     public static final String ID = "id";
     public static final String USER = "user";
+    public static final String USERS = "users";
+    public static final String USER_ID = "userId";
+    public static final String ADDRESS = "address";
     public static final String PASS_WORD_REGEX = "password.regex";
     public static final String PASS_WORD = "password";
     public static final String FIRST_NAME = "firstName";

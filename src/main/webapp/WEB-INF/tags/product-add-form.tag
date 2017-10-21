@@ -29,12 +29,12 @@
         <div class="form-group input-group">
             <label for="image">${image}</label>
             <input type="file" class="form-control" id="image" name="image">
-            <c:if test="${imageError.equals('true')}">
-                <p class="text-danger" style="height: 10px;font-size: 12px;">
-                        ${imageErrorMessage}
-                </p>
-            </c:if>
         </div>
+        <c:if test="${imageError.equals('true')}">
+            <p class="text-danger" style="height: 10px;font-size: 12px;">
+                    ${imageErrorMessage}
+            </p>
+        </c:if>
         <div class="form-group input-group">
             <label for="type">${typeL}</label>
             <select class="form-control" id="type" name="typeId">
@@ -49,12 +49,12 @@
             <fmt:formatNumber var="formattedPrice" type="number"
                               groupingUsed="false" maxFractionDigits="0" value="${product.price.amount}"/>
             <input type="text" class="form-control" id="price" name="price" value="${formattedPrice}" min="0">
-            <c:if test="${moneyError.equals('true')}">
-                <p class="text-danger" style="height: 10px; font-size: 12px">
-                    ${moneyErrorMessage}
-                </p>
-            </c:if>
         </div>
+        <c:if test="${moneyError.equals('true')}">
+            <p class="text-danger" style="height: 10px; font-size: 12px">
+                    ${moneyErrorMessage}
+            </p>
+        </c:if>
     </div>
     <div class="col-lg-6" style="width: 400px">
         <div class="form-group input-group">

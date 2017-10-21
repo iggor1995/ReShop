@@ -17,7 +17,7 @@
     <fmt:message key="profile.myprofile" var="myprofile"/>
     <fmt:message key="common.products" var="products"/>
     <fmt:message key="common.empty" var="emptyLabel"/>
-    <fmt:message key="author" var="author"/>
+    <fmt:message key="logout" var="logout"/>
 
 </fmt:bundle>
 
@@ -40,7 +40,7 @@
                             class="glyphicon glyphicon-home"></span></a>
                     <c:if test="${loggedUser.role == 'user' || loggedUser.role == 'admin'}">
                         <a class="navbar-brand" href="<c:url value="/do/logout"/>"><span
-                                class="glyphicon glyphicon-exclamation-sign">logout</span></a>
+                                class="glyphicon glyphicon-exclamation-sign">${logout}</span></a>
                     </c:if>
                 </div>
                 <ul class="nav navbar-nav">

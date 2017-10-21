@@ -16,6 +16,33 @@ public class Address extends BaseEntity {
         this.apartmentNumber = builder.apartmentNumber;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Address address = (Address) o;
+
+        if (country != null ? !country.equals(address.country) : address.country != null) return false;
+        if (city != null ? !city.equals(address.city) : address.city != null) return false;
+        if (street != null ? !street.equals(address.street) : address.street != null) return false;
+        if (buildingNumber != null ? !buildingNumber.equals(address.buildingNumber) : address.buildingNumber != null)
+            return false;
+        return apartmentNumber != null ? apartmentNumber.equals(address.apartmentNumber) : address.apartmentNumber == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (country != null ? country.hashCode() : 0);
+        result = 31 * result + (city != null ? city.hashCode() : 0);
+        result = 31 * result + (street != null ? street.hashCode() : 0);
+        result = 31 * result + (buildingNumber != null ? buildingNumber.hashCode() : 0);
+        result = 31 * result + (apartmentNumber != null ? apartmentNumber.hashCode() : 0);
+        return result;
+    }
+
     public Address(int id) {
         setId(id);
     }

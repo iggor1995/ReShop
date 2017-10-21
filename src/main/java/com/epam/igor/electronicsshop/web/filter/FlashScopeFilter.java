@@ -29,14 +29,10 @@ public class FlashScopeFilter implements Filter {
                 Map<String, Object> flashParams = (Map<String, Object>)
                         session.getAttribute(FLASH_SESSION_KEY);
                 if (flashParams != null) {
-                    for (Map.Entry<String, Object> flashEntry : flashParams.entrySet()) {
-                        request.setAttribute(flashEntry.getKey(), flashEntry.getValue());
-                    }
-                    session.removeAttribute(FLASH_SESSION_KEY);
+                    removeAttributes(flashParams, session, (HttpServletRequest) request);
                 }
             }
         }
-
         chain.doFilter(request, response);
 
         if (request instanceof HttpServletRequest) {
@@ -56,6 +52,13 @@ public class FlashScopeFilter implements Filter {
                 session.setAttribute(FLASH_SESSION_KEY, flashParams);
             }
         }
+    }
+
+    private void removeAttributes( Map<String, Object> flashParams, HttpSession session, HttpServletRequest request){
+        for (Map.Entry<String, Object> flashEntry : flashParams.entrySet()) {
+            request.setAttribute(flashEntry.getKey(), flashEntry.getValue());
+        }
+        session.removeAttribute(FLASH_SESSION_KEY);
     }
 
     public void init(FilterConfig filterConfig) throws ServletException {

@@ -3,6 +3,7 @@ package com.epam.igor.electronicsshop.action.user;
 import com.epam.igor.electronicsshop.action.Action;
 import com.epam.igor.electronicsshop.action.ActionException;
 import com.epam.igor.electronicsshop.action.ActionResult;
+import com.epam.igor.electronicsshop.constants.PageConstants;
 import com.epam.igor.electronicsshop.constants.UserConstants;
 import com.epam.igor.electronicsshop.entity.Gender;
 import com.epam.igor.electronicsshop.entity.User;
@@ -24,9 +25,7 @@ import java.util.List;
 public class ShowEditUserDataAction implements Action {
 
     private static final Logger LOG = LoggerFactory.getLogger(ShowEditUserDataAction.class);
-    private static final String USER = "user";
     private static final String USER_INFO = "{} - user";
-    private static final String EDIT_USER_DATA_PAGE = "edit-user-data";
     private static final String ERROR = "Couldn't show edit user page";
 
     @Override
@@ -38,12 +37,12 @@ public class ShowEditUserDataAction implements Action {
             ShopService shopService = new ShopService();
             List<Gender> genders = shopService.getAllGenders();
             LOG.info(USER_INFO, user);
-            req.setAttribute(USER, user);
+            req.setAttribute(UserConstants.USER, user);
             req.getSession(false).setAttribute(UserConstants.GENDERS, genders);
         } catch (ServiceException e) {
             LOG.info(ERROR, e);
             throw new ActionException(ERROR, e);
         }
-        return new ActionResult(EDIT_USER_DATA_PAGE);
+        return new ActionResult(PageConstants.EDIT_USER_DATA);
     }
 }

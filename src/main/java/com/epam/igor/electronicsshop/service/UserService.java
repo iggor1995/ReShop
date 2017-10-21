@@ -3,7 +3,6 @@ package com.epam.igor.electronicsshop.service;
 import com.epam.igor.electronicsshop.dao.DaoException;
 import com.epam.igor.electronicsshop.dao.DaoFactory;
 import com.epam.igor.electronicsshop.dao.GenericDaoInterface;
-import com.epam.igor.electronicsshop.dao.entity.JDBCDaoFactory;
 import com.epam.igor.electronicsshop.entity.*;
 import org.joda.money.Money;
 import org.slf4j.Logger;
@@ -11,7 +10,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
-import static com.epam.igor.electronicsshop.dao.DaoFactory.JDBC;
 import static com.epam.igor.electronicsshop.dao.DaoFactory.getDaoFactory;
 
 /**
@@ -39,6 +37,7 @@ public class UserService {
     private static final String COULDN_T_GET_USER = "Couldn't get user";
     private static final String PASSWORD = "password";
     private static final String COULDN_T_GET_USER_S_GENDER = "Couldn't get user's gender";
+    private static final String USER_UPDATED = "User updated";
 
     /**
      * Performing user login. If user's params don't match, return null
@@ -49,7 +48,7 @@ public class UserService {
      * @throws ServiceException
      */
     public User performUserLogin(String email, String password) throws ServiceException {
-        try (DaoFactory jdbcDaofactory = new JDBCDaoFactory();) {
+        try (DaoFactory jdbcDaofactory = getDaoFactory();) {
             Map<String, String> params = new HashMap<>();
             params.put(EMAIL, email);
             params.put(PASSWORD, password);
@@ -74,7 +73,7 @@ public class UserService {
      * @throws ServiceException
      */
     public boolean checkEmail(String email) throws ServiceException {
-        try (DaoFactory jdbcDaoFactory = new JDBCDaoFactory()) {
+        try (DaoFactory jdbcDaoFactory = getDaoFactory()) {
             GenericDaoInterface<User> userDao = jdbcDaoFactory.getDao(User.class);
             List<User> usersWithCurrentEmail = userDao.findAllByParams(Collections.singletonMap(EMAIL, email));
             return usersWithCurrentEmail.isEmpty();
@@ -94,22 +93,33 @@ public class UserService {
      */
     public User registerUser(User user, Address address) throws ServiceException {
         User registeredUser;
-        try (DaoFactory jdbcDaoFactory = new JDBCDaoFactory()) {
-            try {
-                jdbcDaoFactory.startTransaction();
-                GenericDaoInterface<User> userDao = jdbcDaoFactory.getDao(User.class);
-                GenericDaoInterface<Address> addressDao = jdbcDaoFactory.getDao(Address.class);
-                Address registeredAddress = addressDao.insert(address);
-                user.setAddress(registeredAddress);
-                registeredUser = userDao.insert(user);
-                jdbcDaoFactory.commitTransaction();
-            } catch (DaoException e) {
-                LOG.info(COULDN_T_REGISTER_USER, e);
-                jdbcDaoFactory.rollbackTransaction();
-                throw new ServiceException(e, COULDN_T_REGISTER_USER);
-            }
+        try (DaoFactory jdbcDaoFactory = getDaoFactory()) {
+            registeredUser = registerUserToDB(jdbcDaoFactory, user, address);
         } catch (DaoException e) {
             throw new ServiceException(e, COULDN_T_INITIALIZE_FACTORY);
+        }
+        return registeredUser;
+    }
+
+    /**method adds user and address to db
+     * @param jdbcDaoFactory
+     * @param user
+     * @param address
+     */
+    private User registerUserToDB(DaoFactory jdbcDaoFactory, User user, Address address) throws DaoException, ServiceException {
+        User registeredUser;
+        try {
+            jdbcDaoFactory.startTransaction();
+            GenericDaoInterface<User> userDao = jdbcDaoFactory.getDao(User.class);
+            GenericDaoInterface<Address> addressDao = jdbcDaoFactory.getDao(Address.class);
+            Address registeredAddress = addressDao.insert(address);
+            user.setAddress(registeredAddress);
+            registeredUser = userDao.insert(user);
+            jdbcDaoFactory.commitTransaction();
+        } catch (DaoException e) {
+            LOG.info(COULDN_T_REGISTER_USER, e);
+            jdbcDaoFactory.rollbackTransaction();
+            throw new ServiceException(e, COULDN_T_REGISTER_USER);
         }
         return registeredUser;
     }
@@ -119,10 +129,9 @@ public class UserService {
      *
      * @param user
      * @return address
-     * @throws ServiceException
      */
     public Address getUserAddress(User user) throws ServiceException {
-        try (DaoFactory jdbcDaoFactory = new JDBCDaoFactory()) {
+        try (DaoFactory jdbcDaoFactory = getDaoFactory()) {
             GenericDaoInterface<Address> addressDao = jdbcDaoFactory.getDao(Address.class);
             return addressDao.findByPK(user.getAddress().getId());
         } catch (DaoException e) {
@@ -136,10 +145,9 @@ public class UserService {
      *
      * @param user
      * @return gender
-     * @throws ServiceException
      */
     public Gender getUserGender(User user) throws ServiceException {
-        try (DaoFactory jdbcDaoFactory = new JDBCDaoFactory()) {
+        try (DaoFactory jdbcDaoFactory = getDaoFactory()) {
             GenericDaoInterface<Gender> genderDao = jdbcDaoFactory.getDao(Gender.class);
             return genderDao.findByPK(user.getGender().getId());
         } catch (DaoException e) {
@@ -152,13 +160,12 @@ public class UserService {
      * if user has been changed, it has to be updated in database
      *
      * @param user
-     * @return
-     * @throws ServiceException
      */
     public User updateUser(User user) throws ServiceException {
-        try (DaoFactory jdbcDaoFactory = new JDBCDaoFactory()) {
+        try (DaoFactory jdbcDaoFactory = getDaoFactory()) {
             GenericDaoInterface<User> userDao = jdbcDaoFactory.getDao(User.class);
             userDao.update(user);
+            LOG.info(USER_UPDATED);
         } catch (DaoException e) {
             LOG.info(COULDN_T_UPDATE_USER, e);
             throw new ServiceException(e, COULDN_T_UPDATE_USER);
@@ -172,27 +179,37 @@ public class UserService {
      * @param id
      * @param cash
      * @return updated user
-     * @throws ServiceException
      */
     public User refillCash(int id, String cash) throws ServiceException {
         User user;
-        try (DaoFactory jdbcDaoFactory = new JDBCDaoFactory()) {
-            try {
-                jdbcDaoFactory.startTransaction();
-                GenericDaoInterface<User> userDao = jdbcDaoFactory.getDao(User.class);
-                user = userDao.findByPK(id);
-                Money totalCash = user.getCash().plus(Money.parse(KZT + cash));
-                user.setCash(totalCash);
-                userDao.update(user);
-                jdbcDaoFactory.commitTransaction();
-            } catch (DaoException e) {
-                LOG.info(COULDN_T_REFILL_USER_S_MONEY, e);
-                jdbcDaoFactory.rollbackTransaction();
-                throw new ServiceException(e, COULDN_T_REFILL_USER_S_MONEY);
-            }
+        try (DaoFactory jdbcDaoFactory = getDaoFactory()) {
+            user = updateUserCash(jdbcDaoFactory, id, cash);
         } catch (DaoException e) {
             LOG.info(COULDN_T_INITIALIZE_FACTORY, e);
             throw new ServiceException(e, COULDN_T_INITIALIZE_FACTORY);
+        }
+        return user;
+    }
+
+    /** Method updates users money
+     * @param jdbcDaoFactory
+     * @param id
+     * @param cash
+     */
+    private User updateUserCash(DaoFactory jdbcDaoFactory, int id, String cash) throws DaoException, ServiceException {
+        User user;
+        try {
+            jdbcDaoFactory.startTransaction();
+            GenericDaoInterface<User> userDao = jdbcDaoFactory.getDao(User.class);
+            user = userDao.findByPK(id);
+            Money totalCash = user.getCash().plus(Money.parse(KZT + cash));
+            user.setCash(totalCash);
+            userDao.update(user);
+            jdbcDaoFactory.commitTransaction();
+        } catch (DaoException e) {
+            LOG.info(COULDN_T_REFILL_USER_S_MONEY, e);
+            jdbcDaoFactory.rollbackTransaction();
+            throw new ServiceException(e, COULDN_T_REFILL_USER_S_MONEY);
         }
         return user;
     }
@@ -201,12 +218,10 @@ public class UserService {
      * get user's orders. Set order's status, items. Set item's product
      *
      * @param id
-     * @return
-     * @throws ServiceException
      */
     public List<Order> getUserOrders(int id) throws ServiceException {
         List<Order> orders;
-        try (DaoFactory jdbcDaoFactory = new JDBCDaoFactory()) {
+        try (DaoFactory jdbcDaoFactory = getDaoFactory()) {
             GenericDaoInterface<Order> orderDao = jdbcDaoFactory.getDao(Order.class);
             GenericDaoInterface<OrderStatus> orderStatusDao = jdbcDaoFactory.getDao(OrderStatus.class);
             GenericDaoInterface<OrderingItem> orderItemDao = jdbcDaoFactory.getDao(OrderingItem.class);
@@ -236,7 +251,7 @@ public class UserService {
      * @throws ServiceException
      */
     public Address updateUserAddress(Address address) throws ServiceException {
-        try (DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)) {
+        try (DaoFactory jdbcDaoFactory = getDaoFactory()) {
             GenericDaoInterface<Address> addressDao = jdbcDaoFactory.getDao(Address.class);
             addressDao.update(address);
         } catch (DaoException e) {
@@ -255,7 +270,7 @@ public class UserService {
      */
     public User getFilledUserById(int id) throws ServiceException {
         User user;
-        try (DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)) {
+        try (DaoFactory jdbcDaoFactory = getDaoFactory()) {
             GenericDaoInterface<User> userDao = jdbcDaoFactory.getDao(User.class);
             GenericDaoInterface<Address> addressDao = jdbcDaoFactory.getDao(Address.class);
             GenericDaoInterface<Gender> genderDao = jdbcDaoFactory.getDao(Gender.class);

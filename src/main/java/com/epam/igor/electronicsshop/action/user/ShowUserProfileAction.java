@@ -3,6 +3,7 @@ package com.epam.igor.electronicsshop.action.user;
 import com.epam.igor.electronicsshop.action.Action;
 import com.epam.igor.electronicsshop.action.ActionException;
 import com.epam.igor.electronicsshop.action.ActionResult;
+import com.epam.igor.electronicsshop.constants.PageConstants;
 import com.epam.igor.electronicsshop.constants.UserConstants;
 import com.epam.igor.electronicsshop.entity.Address;
 import com.epam.igor.electronicsshop.entity.User;
@@ -23,8 +24,6 @@ import javax.servlet.http.HttpServletResponse;
 public class ShowUserProfileAction implements Action {
 
     private static final Logger LOG = LoggerFactory.getLogger(ShowUserProfileAction.class);
-    private static final String ADDRESS = "address";
-    private static final String USER_PROFILE_PAGE = "user-profile";
     private static final String ERROR = "Couldn't show user profile page";
 
     @Override
@@ -35,11 +34,12 @@ public class ShowUserProfileAction implements Action {
             UserService userService = new UserService();
             address = userService.getUserAddress(user);
             user.setGender(userService.getUserGender(user));
-            req.setAttribute(ADDRESS, address);
+            req.setAttribute(UserConstants.ADDRESS, address);
         } catch (ServiceException e) {
             LOG.info(ERROR, e);
             throw new ActionException(ERROR);
         }
-        return new ActionResult(USER_PROFILE_PAGE);
+        String path = PageConstants.USER_PROFILE;
+        return new ActionResult(path);
     }
 }

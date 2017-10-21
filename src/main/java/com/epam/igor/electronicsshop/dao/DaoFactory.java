@@ -12,13 +12,8 @@ import com.epam.igor.electronicsshop.entity.BaseEntity;
 public abstract class DaoFactory implements AutoCloseable {
     public static final int JDBC = 0;
 
-    public static DaoFactory getDaoFactory(int factoryType) throws DaoException {
-        switch (factoryType) {
-            case JDBC:
+    public static DaoFactory getDaoFactory() throws DaoException {
                 return new JDBCDaoFactory();
-            default:
-                return new JDBCDaoFactory();
-        }
     }
 
     public abstract <T extends BaseEntity> GenericDaoInterface<T> getDao(Class<T> clazz) throws DaoException;

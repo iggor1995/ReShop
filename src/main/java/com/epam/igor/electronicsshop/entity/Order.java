@@ -17,6 +17,33 @@ public class Order extends BaseEntity {
     private OrderStatus status;
     private String description;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Order order = (Order) o;
+
+        if (user != null ? !user.equals(order.user) : order.user != null) return false;
+        if (orderingItems != null ? !orderingItems.equals(order.orderingItems) : order.orderingItems != null)
+            return false;
+        if (creationTime != null ? !creationTime.equals(order.creationTime) : order.creationTime != null) return false;
+        if (status != null ? !status.equals(order.status) : order.status != null) return false;
+        return description != null ? description.equals(order.description) : order.description == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (user != null ? user.hashCode() : 0);
+        result = 31 * result + (orderingItems != null ? orderingItems.hashCode() : 0);
+        result = 31 * result + (creationTime != null ? creationTime.hashCode() : 0);
+        result = 31 * result + (status != null ? status.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        return result;
+    }
+
     public Order(int id) {
         setId(id);
     }

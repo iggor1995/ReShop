@@ -85,7 +85,6 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
      *
      * @param t entity
      * @return Entity
-     * @throws DaoException
      */
     @Override
     public T insert(T t) throws DaoException {
@@ -109,14 +108,14 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
      *
      * @param id or primary key
      * @return Entity
-     * @throws DaoException
      */
     @Override
     public T findByPK(Integer id) throws DaoException {
+        StringBuilder builder = new StringBuilder();
+        builder.append(SELECT_FROM).append(getTableName()).append(WHERE_ID).append(id);
         try (Statement st = connection.createStatement();
-             ResultSet rs = st.executeQuery(SELECT_FROM + getTableName() + WHERE_ID + id)) {
-            LOG.info(SELECT_FROM + getTableName() + WHERE_ID + id);
-            LOG.info(SELECT_FROM + getTableName() + WHERE_ID + id);
+             ResultSet rs = st.executeQuery(builder.toString())) {
+            LOG.info(builder.toString());
             rs.next();
             T object = getObjectFromResultSet(rs);
             LOG.debug(GETTING_OBJECT_WITH_ID, object, id);
@@ -132,7 +131,6 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
      *
      * @param params
      * @return objects list
-     * @throws DaoException
      */
     @Override
     public List<T> findAllByParams(Map<String, String> params) throws DaoException {
@@ -154,18 +152,18 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
      * gets all objects from table
      *
      * @return objects list
-     * @throws DaoException
      */
     @Override
     public List<T> findAll() throws DaoException {
         List<T> objects = new ArrayList<>();
+        StringBuilder builder = new StringBuilder();
+        builder.append(SELECT_FROM).append(getTableName()).append(ORDER_BY_ID);
         try (Statement st = connection.createStatement();
-             ResultSet rs = st.executeQuery(SELECT_FROM + getTableName() + ORDER_BY_ID)) {
+             ResultSet rs = st.executeQuery(builder.toString())) {
             while (rs.next()) {
                 objects.add(getObjectFromResultSet(rs));
             }
-            String LogMessage = SELECT_FROM + getTableName() + ORDER_BY_ID;
-            LOG.info(LogMessage);
+            LOG.info(builder.toString());
             LOG.debug(GET_ENTITY_LIST, objects);
         } catch (SQLException e) {
             LOG.info(COULDN_T_FIND_OBJECT_BY_CURRENT_ID, e);
@@ -180,12 +178,13 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
      * @param pageNumber
      * @param pageSize
      * @return objects list
-     * @throws DaoException
      */
     @Override
     public List<T> findAll(int pageNumber, int pageSize) throws DaoException {
         List<T> objects = new ArrayList<>();
-        try (PreparedStatement st = connection.prepareStatement(SELECT_FROM + getTableName() + " WHERE deleted=0 LIMIT ? OFFSET ?")) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(SELECT_FROM).append(getTableName()).append(" WHERE deleted=0 LIMIT ? OFFSET ?");
+        try (PreparedStatement st = connection.prepareStatement(builder.toString())) {
             st.setInt(1, pageSize);
             st.setInt(2, (pageNumber - 1) * pageSize);
             ResultSet rs = st.executeQuery();
@@ -204,7 +203,6 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
      * updates object in table
      *
      * @param t entity
-     * @throws DaoException
      */
     @Override
     public void update(T t) throws DaoException {
@@ -227,7 +225,10 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
     @Override
     public void delete(Integer id) throws DaoException {
         try (Statement st = connection.createStatement()) {
-            st.executeUpdate("UPDATE " + getTableName() + " SET deleted=1" + WHERE_ID + id);
+            StringBuilder builder = new StringBuilder();
+            builder.append("UPDATE ").append(getTableName()).append(" SET deleted=1").append(WHERE_ID).append(id);
+            st.executeUpdate(builder.toString());
+
             LOG.debug(OBJECT_WITH_ID_DELETED_FROM_TABLE, id, getTableName());
         } catch (SQLException e) {
             LOG.info(COULDN_T_DELETE_OBJECT, e);
@@ -243,8 +244,10 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
      */
     @Override
     public int getNotDeletedCount() throws DaoException {
+        StringBuilder builder = new StringBuilder();
+        builder.append(SELECT_COUNT_FROM).append(getTableName()).append(WHERE_NOT_DELETED);
         try (Statement st = connection.createStatement();
-             ResultSet rs = st.executeQuery(SELECT_COUNT_FROM + getTableName() + WHERE_NOT_DELETED)) {
+             ResultSet rs = st.executeQuery(builder.toString())) {
             rs.next();
             int count = rs.getInt(1);
             LOG.debug(TABLE_HAS_NOT_DELETED_ROWS, getTableName(), count);
@@ -262,13 +265,17 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
      * @return query(String)
      */
     private String createQueryForFindAllByParams(Map<String, String> params) {
-        String resultQuery = SELECT_FROM + getTableName() + WHERE;
+        StringBuilder resultQuery = new StringBuilder();
+        resultQuery.append(SELECT_FROM).append(getTableName()).append(WHERE);
+        //String resultQuery = SELECT_FROM + getTableName() + WHERE;
         for (Map.Entry<String, String> param : params.entrySet()) {
             if (params.size() == 1) {
-                resultQuery += param.getKey() + " = '" + param.getValue() + "'";
-                return resultQuery;
+                resultQuery.append(param.getKey()).append(" = '").append(param.getValue()).append("'");
+                //resultQuery += param.getKey() + " = '" + param.getValue() + "'";
+                return resultQuery.toString();
             } else {
-                resultQuery += param.getKey() + " = '" + param.getValue() + AND;
+                resultQuery.append(param.getKey()).append(" = '").append(param.getValue()).append(AND);
+                //resultQuery += param.getKey() + " = '" + param.getValue() + AND;
             }
         }
         LOG.info(RESULT_QUERY, resultQuery);

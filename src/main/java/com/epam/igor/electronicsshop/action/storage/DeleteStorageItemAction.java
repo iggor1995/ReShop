@@ -3,6 +3,8 @@ package com.epam.igor.electronicsshop.action.storage;
 import com.epam.igor.electronicsshop.action.Action;
 import com.epam.igor.electronicsshop.action.ActionException;
 import com.epam.igor.electronicsshop.action.ActionResult;
+import com.epam.igor.electronicsshop.constants.PageConstants;
+import com.epam.igor.electronicsshop.constants.UserConstants;
 import com.epam.igor.electronicsshop.service.ServiceException;
 import com.epam.igor.electronicsshop.service.ShopService;
 import org.slf4j.Logger;
@@ -18,15 +20,13 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class DeleteStorageItemAction implements Action {
     private static final Logger LOG = LoggerFactory.getLogger(DeleteStorageItemAction.class);
-    private static final String ID = "id";
-    private static final String REFERER_PAGE = "referer";
     private static final String DELETED_ITEM = "storage item - {} has been deleted";
     private static final String ERROR_DELETE = "Couldn't delete sotrage item by id";
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
         ShopService shopService = new ShopService();
-        String id = req.getParameter(ID);
+        String id = req.getParameter(UserConstants.ID);
         try {
             shopService.deleteStorageItemById(id);
             LOG.info(DELETED_ITEM, id);
@@ -34,6 +34,6 @@ public class DeleteStorageItemAction implements Action {
             LOG.info(ERROR_DELETE, e);
             throw new ActionException(ERROR_DELETE, e);
         }
-        return new ActionResult(req.getHeader(REFERER_PAGE), true);
+        return new ActionResult(req.getHeader(PageConstants.REFERER_PAGE), true);
     }
 }

@@ -3,6 +3,7 @@ package com.epam.igor.electronicsshop.action.product;
 import com.epam.igor.electronicsshop.action.Action;
 import com.epam.igor.electronicsshop.action.ActionException;
 import com.epam.igor.electronicsshop.action.ActionResult;
+import com.epam.igor.electronicsshop.constants.PageConstants;
 import com.epam.igor.electronicsshop.constants.ProductConstants;
 import com.epam.igor.electronicsshop.service.ServiceException;
 import com.epam.igor.electronicsshop.service.ShopService;
@@ -19,7 +20,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class DeleteProductAction implements Action {
     private static final Logger LOG = LoggerFactory.getLogger(DeleteProductAction.class);
-    private static final String REFERER_PAGE = "referer";
     private static final String ERROR_DELETE = "Couldn't delete product by id";
     private static final String DELETED_PRODUCT = "product - {} has been deleted";
 
@@ -34,6 +34,6 @@ public class DeleteProductAction implements Action {
             throw new ActionException(ERROR_DELETE);
         }
         LOG.info(DELETED_PRODUCT, id);
-        return new ActionResult(req.getHeader(REFERER_PAGE), true);
+        return new ActionResult(req.getHeader(PageConstants.REFERER_PAGE), true);
     }
 }

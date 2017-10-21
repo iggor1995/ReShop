@@ -4,6 +4,10 @@ import com.epam.igor.electronicsshop.action.Action;
 import com.epam.igor.electronicsshop.action.ActionException;
 import com.epam.igor.electronicsshop.action.ActionResult;
 import com.epam.igor.electronicsshop.action.Validation;
+import com.epam.igor.electronicsshop.constants.ErrorConstants;
+import com.epam.igor.electronicsshop.constants.OrderConstants;
+import com.epam.igor.electronicsshop.constants.PageConstants;
+import com.epam.igor.electronicsshop.constants.ProductConstants;
 import com.epam.igor.electronicsshop.entity.Order;
 import com.epam.igor.electronicsshop.entity.OrderingItem;
 import com.epam.igor.electronicsshop.entity.Product;
@@ -23,17 +27,11 @@ import java.util.Properties;
  * @author Igor Lapin
  */
 public class AddProductToCartAction implements Action {
-    private static final String AMOUNT = "amount";
-    private static final String ERROR_AMOUNT = "amountError";
     private static final String ERROR_ADD = "Couldn't add product to cart";
     private static final String INVALID_AMOUNT = "Invalid product amount format - {}";
-    private static final String PARAMETER_PRODUCT = "product";
-    private static final String REFERER_PAGE = "referer";
-    private static final String ATTRIBUTE_CART = "cart";
     private static final String AMOUNT_INCREASED = "Product amount in cart increased by - {}";
     private static final String PRODUCT_ADDED = "product - {} added in cart. Amount - {}";
     private static final String PROPERTY_PRODUCT_AMOUNT = "product.amount";
-    private static final String TRUE = "true";
     private static final String CANNOT_LOAD_PROPERTIES = "Cannot load properties";
     private static final String VALIDATION_PROPERTIES = "validation.properties";
     private boolean invalid;
@@ -53,26 +51,26 @@ public class AddProductToCartAction implements Action {
 
         if (checkAmount(req)) {
             invalid = false;
-            req.setAttribute(ERROR_AMOUNT, TRUE);
+            req.setAttribute(ErrorConstants.ERROR_AMOUNT, ErrorConstants.TRUE);
             LOG.info(INVALID_AMOUNT, amount);
-            return new ActionResult(req.getHeader(REFERER_PAGE), true);
+            return new ActionResult(req.getHeader(PageConstants.REFERER_PAGE), true);
         }
 
-        cart = (Order) req.getSession(false).getAttribute(ATTRIBUTE_CART);
+        cart = (Order) req.getSession(false).getAttribute(PageConstants.CART);
         if (cart == null) {
             cart = new Order();
         }
         setOrderingItem(req);
-        return new ActionResult(req.getHeader(REFERER_PAGE), true);
+        return new ActionResult(req.getHeader(PageConstants.REFERER_PAGE), true);
     }
 
     private boolean checkAmount(HttpServletRequest req) {
-        amount = req.getParameter(AMOUNT);
+        amount = req.getParameter(OrderConstants.AMOUNT);
         Validation validation = new Validation();
-        invalid = validation.checkParameterByRegex(invalid, amount, AMOUNT,
+        invalid = validation.checkParameterByRegex(invalid, amount, OrderConstants.AMOUNT,
                 properties.getProperty(PROPERTY_PRODUCT_AMOUNT), req);
         if (invalid) {
-            req.setAttribute(ERROR_AMOUNT, TRUE);
+            req.setAttribute(ErrorConstants.ERROR_AMOUNT, ErrorConstants.TRUE);
             LOG.info(INVALID_AMOUNT, amount);
         }
         return invalid;
@@ -80,13 +78,13 @@ public class AddProductToCartAction implements Action {
 
     private void setOrderingItem(HttpServletRequest req) throws ActionException {
 
-        String productId = req.getParameter(PARAMETER_PRODUCT);
+        String productId = req.getParameter(ProductConstants.PRODUCT);
         Integer amountInt = Integer.parseInt(amount);
 
         for (OrderingItem orderingItem : cart.getOrderingItems()) {                   //if already in cart
             if (orderingItem.getProduct().getId() == Integer.parseInt(productId)) {
                 orderingItem.setAmount(orderingItem.getAmount() + amountInt);
-                req.getSession().setAttribute(ATTRIBUTE_CART, cart);
+                req.getSession().setAttribute(PageConstants.CART, cart);
                 LOG.info(AMOUNT_INCREASED, amount);
             }
         }
@@ -98,7 +96,7 @@ public class AddProductToCartAction implements Action {
             Product product = productService.getProductById(productId);
             orderingItem.setProduct(product);
             cart.addProduct(orderingItem);
-            req.getSession().setAttribute(ATTRIBUTE_CART, cart);
+            req.getSession().setAttribute(PageConstants.CART, cart);
             LOG.info(PRODUCT_ADDED, product, amount);
         } catch (ServiceException e) {
             LOG.info(ERROR_ADD, e);

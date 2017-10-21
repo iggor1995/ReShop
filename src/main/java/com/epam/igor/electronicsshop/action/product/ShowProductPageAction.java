@@ -3,6 +3,7 @@ package com.epam.igor.electronicsshop.action.product;
 import com.epam.igor.electronicsshop.action.Action;
 import com.epam.igor.electronicsshop.action.ActionException;
 import com.epam.igor.electronicsshop.action.ActionResult;
+import com.epam.igor.electronicsshop.constants.PageConstants;
 import com.epam.igor.electronicsshop.constants.ProductConstants;
 import com.epam.igor.electronicsshop.entity.Product;
 import com.epam.igor.electronicsshop.service.ProductService;
@@ -21,8 +22,6 @@ import javax.servlet.http.HttpServletResponse;
 public class ShowProductPageAction implements Action {
 
     private static final Logger LOG = LoggerFactory.getLogger(ShowProductPageAction.class);
-    private static final String PRODUCT = "product";
-    private static final String PRODUCT_PAGE = "product-page";
     private static final String ERROR = "Could't show product page action";
 
     @Override
@@ -35,7 +34,7 @@ public class ShowProductPageAction implements Action {
             LOG.info(ERROR, e);
             throw new ActionException(ERROR);
         }
-        req.setAttribute(PRODUCT, product);
-        return new ActionResult(PRODUCT_PAGE);
+        req.setAttribute(ProductConstants.PRODUCT, product);
+        return new ActionResult(PageConstants.PRODUCT);
     }
 }

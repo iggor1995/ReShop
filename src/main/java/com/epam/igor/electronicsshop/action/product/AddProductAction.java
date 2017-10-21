@@ -4,6 +4,8 @@ import com.epam.igor.electronicsshop.action.Action;
 import com.epam.igor.electronicsshop.action.ActionException;
 import com.epam.igor.electronicsshop.action.ActionResult;
 import com.epam.igor.electronicsshop.action.Validation;
+import com.epam.igor.electronicsshop.constants.ErrorConstants;
+import com.epam.igor.electronicsshop.constants.PageConstants;
 import com.epam.igor.electronicsshop.constants.ProductConstants;
 import com.epam.igor.electronicsshop.constants.UserConstants;
 import com.epam.igor.electronicsshop.entity.Image;
@@ -34,29 +36,22 @@ import java.util.regex.Pattern;
 public class AddProductAction implements Action {
     private static final Logger LOG = LoggerFactory.getLogger(AddProductAction.class);
     private static final String COULDN_T_ADD_PRODUCT = "Couldn't add product";
-    private static final String TRUE = "true";
-    private static final String PRODUCT = "product";
     private static final String INVALID_CONTENT_TYPE = "Invalid content type - {}";
     private boolean invalid;
     private static final String MONEY = "money";
     private static final String MONEY_REGEX = "money.regex";
-    private static final String ERROR_MONEY = "moneyError";
-    private static final String ERROR_IMAGE = "imageError";
     private static final String ERROR_PROPERTIES = "Couldn't get validation.properties";
-    private static final String ADD_PRODUCT_PAGE = "product-add";
-    private static final String MANAGE_PRODUCTS_PAGE = "manage/products";
     private static final String VALIDATION_PROPERTIES = "validation.properties";
     private static final String ADDED_PRODUCT = "{} inserted in db and added on central storage by {}";
-    private Properties properties = new Properties();
-    private Validation validation = new Validation();
     private String name;
     private String type;
     private String descriptionRU;
     private String descriptionEN;
-    private String price;
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
+        String price;
+        Properties properties = new Properties();
         try {
             properties.load(AddProductAction.class.getClassLoader().getResourceAsStream(VALIDATION_PROPERTIES));
         } catch (IOException e) {
@@ -71,22 +66,23 @@ public class AddProductAction implements Action {
 
         try {
             Product product = filledProduct();
+            Validation validation = new Validation();
             invalid = validation.checkParameterByRegex(invalid, price, MONEY, properties.getProperty(MONEY_REGEX), req);
             if (invalid) {
                 invalid = false;
-                req.setAttribute(ERROR_MONEY, TRUE);
-                req.setAttribute(PRODUCT, product);
-                return new ActionResult(ADD_PRODUCT_PAGE);
+                req.setAttribute(ErrorConstants.ERROR_MONEY, ErrorConstants.TRUE);
+                req.setAttribute(ProductConstants.PRODUCT, product);
+                return new ActionResult(PageConstants.ADD_PRODUCT);
             }
             product.setPrice(Money.parse(ProductConstants.KZT + price));
             if (fillImage(req, product)) {
-                return new ActionResult(ADD_PRODUCT_PAGE);
+                return new ActionResult(PageConstants.ADD_PRODUCT);
             }
         } catch (ServiceException | IOException | ServletException e) {
             LOG.info(COULDN_T_ADD_PRODUCT, e);
             throw new ActionException(COULDN_T_ADD_PRODUCT, e);
         }
-        return new ActionResult(MANAGE_PRODUCTS_PAGE, true);
+        return new ActionResult(PageConstants.MANAGE_PRODUCTS_REDIRECT, true);
     }
 
     private Product filledProduct() {
@@ -102,8 +98,8 @@ public class AddProductAction implements Action {
         ProductService productService = new ProductService();
         Part imagePart = req.getPart(ProductConstants.IMAGE);
         if (!imagePart.getContentType().startsWith(ProductConstants.IMAGE)) {
-            req.setAttribute(ERROR_IMAGE, TRUE);
-            req.setAttribute(PRODUCT, product);
+            req.setAttribute(ErrorConstants.ERROR_IMAGE, ErrorConstants.TRUE);
+            req.setAttribute(ProductConstants.PRODUCT, product);
             LOG.error(INVALID_CONTENT_TYPE, imagePart.getContentType());
             return true;
         }

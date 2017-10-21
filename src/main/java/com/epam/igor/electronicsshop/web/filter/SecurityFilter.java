@@ -69,7 +69,9 @@ public class SecurityFilter implements Filter {
             response.sendError(403, ALREADY_LOGGED_IN);
             return;
         } else if (user.getRole().equals(User.Role.user)) {
-            if (pathInfo.startsWith(MANAGE) || pathInfo.startsWith(REFILL) || pathInfo.startsWith(ADD) || pathInfo.startsWith("/delete") || pathInfo.startsWith("edit")) {
+            if (pathInfo.startsWith(MANAGE) || pathInfo.startsWith(REFILL)
+                    || pathInfo.startsWith(ADD) || pathInfo.startsWith("/delete")
+                    || pathInfo.startsWith("edit")) {
                 response.sendError(403, ACCESS_DENIED);
                 return;
             }
@@ -79,6 +81,5 @@ public class SecurityFilter implements Filter {
 
     @Override
     public void destroy() {
-
     }
 }

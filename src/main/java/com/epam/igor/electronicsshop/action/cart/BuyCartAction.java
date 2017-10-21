@@ -3,6 +3,8 @@ package com.epam.igor.electronicsshop.action.cart;
 import com.epam.igor.electronicsshop.action.Action;
 import com.epam.igor.electronicsshop.action.ActionException;
 import com.epam.igor.electronicsshop.action.ActionResult;
+import com.epam.igor.electronicsshop.constants.ErrorConstants;
+import com.epam.igor.electronicsshop.constants.PageConstants;
 import com.epam.igor.electronicsshop.constants.UserConstants;
 import com.epam.igor.electronicsshop.entity.Order;
 import com.epam.igor.electronicsshop.entity.User;
@@ -22,35 +24,30 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class BuyCartAction implements Action {
     private static final Logger LOG = LoggerFactory.getLogger(BuyCartAction.class);
-    private static final String BALANCE_ERROR = "balance.error";
-    private static final String BALANCE_NEEDED = "balance.needed";
     private static final String ERROR_MESSAGE = "{} - doesn't has enough money. Money needed - {}";
     private static final String NOT_ENOUGH = "notEnough";
-    private static final String USER_PROFILE_PAGE = "user/profile";
-    private static final String USER_ORDERS_PAGE = "user/orders";
     private static final String ERROR_PLACING = "Couldn't place order";
     private static final String BOUGHT_ORDER = "{} has been bought by - {}";
-    private static final String CART = "cart";
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
-        Order order = (Order) req.getSession().getAttribute(CART);
+        Order order = (Order) req.getSession().getAttribute(PageConstants.CART);
         User loggedUser = (User) req.getSession().getAttribute(UserConstants.LOGGED_USER);
         order.setUser(loggedUser);
         if (loggedUser.getCash().isLessThan(order.getPrice())) {
-            req.setAttribute(BALANCE_ERROR, NOT_ENOUGH);
+            req.setAttribute(ErrorConstants.BALANCE_ERROR, NOT_ENOUGH);
             Money balanceNeeded = order.getPrice().minus(loggedUser.getCash());
-            req.setAttribute(BALANCE_NEEDED, balanceNeeded);
+            req.setAttribute(ErrorConstants.BALANCE_NEEDED, balanceNeeded);
             LOG.info(ERROR_MESSAGE, loggedUser, balanceNeeded);
-            return new ActionResult(USER_PROFILE_PAGE, true);
+            return new ActionResult(PageConstants.USER_PROFILE, true);
         }
         try {
             ShopService shopService = new ShopService();
             User user = shopService.buyCart(order);
             req.getSession().setAttribute(UserConstants.LOGGED_USER, user);
-            req.getSession(false).removeAttribute(CART);
+            req.getSession(false).removeAttribute(PageConstants.CART);
             LOG.info(BOUGHT_ORDER, order, loggedUser);
-            return new ActionResult(USER_ORDERS_PAGE, true);
+            return new ActionResult(PageConstants.USER_ORDERS, true);
         } catch (ServiceException e) {
             LOG.info(ERROR_PLACING, e);
             throw new ActionException(ERROR_PLACING, e);

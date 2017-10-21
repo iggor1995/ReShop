@@ -35,37 +35,37 @@
                     <div class="form-control input-group">
                         <label for="password">${password}</label>
                         <input type="password" class="form-control" id="password" name="password">
-                        <c:if test="${not empty passwordError}">
-                            <p class="text-danger"style="height: 10px;font-size: 12px;">${passwordErrorMessage}</p>
-                        </c:if>
                     </div>
+                    <c:if test="${not empty passwordError}">
+                        <p class="text-danger"style="height: 10px;font-size: 12px;">${passwordErrorMessage}</p>
+                    </c:if>
                     <div class="form-control input-group">
                         <label for="firstName">${firstname}</label>
                         <input type="text" class="form-control" id="firstName" name="firstName"
                                value="${user.firstName}">
-                        <c:if test="${not empty firstNameError}">
-                            <p class="text-danger"style="height: 10px;font-size: 12px;">
-                                    ${firstNameErrorMessage}</p>
-                        </c:if>
                     </div>
+                    <c:if test="${not empty firstNameError}">
+                        <p class="text-danger"style="height: 10px;font-size: 12px;">
+                                ${firstNameErrorMessage}</p>
+                    </c:if>
                     <div class="form-control input-group">
                         <label for="lastName">${lastname}</label>
                         <input type="text" class="form-control" id="lastName" name="lastName"
                                value="${user.lastName}">
-                        <c:if test="${not empty lastNameError}">
-                            <p class="text-danger"style="height: 10px;font-size: 12px;">
-                                    ${lastNameErrorMessage}</p>
-                        </c:if>
                     </div>
+                    <c:if test="${not empty lastNameError}">
+                        <p class="text-danger"style="height: 10px;font-size: 12px;">
+                                ${lastNameErrorMessage}</p>
+                    </c:if>
                     <div class="form-control input-group">
                         <label for="phoneNumber">${phonenumber}</label>
                         <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"
                                value="${user.phoneNumber}">
-                        <c:if test="${not empty phoneNumberError}">
-                            <p class="text-danger"style="height: 10px;font-size: 12px;">
-                                    ${phoneNumberErrorMessage}</p>
-                        </c:if>
                     </div>
+                    <c:if test="${not empty phoneNumberError}">
+                        <p class="text-danger"style="height: 10px;font-size: 12px;">
+                                ${phoneNumberErrorMessage}</p>
+                    </c:if>
                     <div class="form-control input-group">
                         <label for="gender">${gender_title}:</label>
                         <select  class="form-control" id="gender" name="gender">

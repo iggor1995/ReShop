@@ -3,6 +3,8 @@ package com.epam.igor.electronicsshop.action.product;
 import com.epam.igor.electronicsshop.action.Action;
 import com.epam.igor.electronicsshop.action.ActionException;
 import com.epam.igor.electronicsshop.action.ActionResult;
+import com.epam.igor.electronicsshop.constants.PageConstants;
+import com.epam.igor.electronicsshop.constants.ProductConstants;
 import com.epam.igor.electronicsshop.entity.Product;
 import com.epam.igor.electronicsshop.service.ServiceException;
 import com.epam.igor.electronicsshop.service.ShopService;
@@ -21,28 +23,21 @@ import java.util.List;
  */
 public class ShowManageProductsPageAction implements Action {
     private static final Logger LOG = LoggerFactory.getLogger(ShowManageProductsPageAction.class);
-    private static final String FIRST_PAGE = "1";
-    private static final String DEFAULT_PAGE_SIZE = "2";
-    private static final String PAGE = "page";
     private static final String ENCODING = "UTF-8";
-    private static final String PRODUCTS = "products";
-    private static final String PAGES_COUNT = "pagesCount";
-    private static final String PAGE_SIZE = "pageSize";
     private static final String ERROR = "Couldn't show manage products page";
-    private static final String INFO = "Page number: {}. Page size: {}. Pages count: {}";
     private static final String COULDN_T_SET_ENCODING = "Couldn't set encoding";
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
         ShopService shopService = new ShopService();
         List<Product> products;
-        String pageNumber = req.getParameter(PAGE);
+        String pageNumber = req.getParameter(PageConstants.PAGE);
         if (pageNumber == null) {
-            pageNumber = FIRST_PAGE;
+            pageNumber = PageConstants.FIRST_PAGE;
         }
-        String pageSize = req.getParameter(PAGE_SIZE);
+        String pageSize = req.getParameter(PageConstants.PAGE_SIZE);
         if (pageSize == null) {
-            pageSize = DEFAULT_PAGE_SIZE;
+            pageSize = PageConstants.DEFAULT_SIZE;
         }
         int productsCount;
         try {
@@ -58,17 +53,17 @@ public class ShowManageProductsPageAction implements Action {
         } else {
             pageCount = productsCount / Integer.parseInt(pageSize) + 1;
         }
-        req.setAttribute(PAGE, pageNumber);
-        req.setAttribute(PAGES_COUNT, pageCount);
-        req.setAttribute(PAGE_SIZE, pageSize);
-        req.setAttribute(PRODUCTS, products);
+        req.setAttribute(PageConstants.PAGE, pageNumber);
+        req.setAttribute(PageConstants.PAGES_COUNT, pageCount);
+        req.setAttribute(PageConstants.PAGE_SIZE, pageSize);
+        req.setAttribute(ProductConstants.PRODUCTS, products);
         try {
             req.setCharacterEncoding(ENCODING);
         } catch (UnsupportedEncodingException e) {
             LOG.info(COULDN_T_SET_ENCODING, e);
             throw new ActionException(COULDN_T_SET_ENCODING, e);
         }
-        LOG.info(INFO, pageNumber, pageSize, pageCount);
-        return new ActionResult(PRODUCTS);
+        LOG.info(PageConstants.INFO, pageNumber, pageSize, pageCount);
+        return new ActionResult(ProductConstants.PRODUCTS);
     }
 }

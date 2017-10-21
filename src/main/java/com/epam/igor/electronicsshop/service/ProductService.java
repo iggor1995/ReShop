@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.epam.igor.electronicsshop.dao.DaoFactory.JDBC;
 import static com.epam.igor.electronicsshop.dao.DaoFactory.getDaoFactory;
 
 /**
@@ -43,7 +42,7 @@ public class ProductService {
      */
     public Product getProductById(String id) throws ServiceException {
         Product product;
-        try (DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)) {
+        try (DaoFactory jdbcDaoFactory = getDaoFactory()) {
             GenericDaoInterface<Product> productDao = jdbcDaoFactory.getDao(Product.class);
             product = productDao.findByPK(Integer.parseInt(id));
 
@@ -55,7 +54,7 @@ public class ProductService {
     }
 
     /**
-     * adding product to database
+     * Initialize DaoFactory, call method addProductToDB
      *
      * @param product - inserting product
      * @param image   - inserting image
@@ -63,20 +62,8 @@ public class ProductService {
      * @throws ServiceException in case Dao exception caught does rollback transaction
      */
     public Product addProduct(Product product, Image image) throws ServiceException {
-        try (DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)) {
-            try {
-                jdbcDaoFactory.startTransaction();
-                GenericDaoInterface<Product> productDao = jdbcDaoFactory.getDao(Product.class);
-                GenericDaoInterface<Image> imageDao = jdbcDaoFactory.getDao(Image.class);
-                Product addedProduct = productDao.insert(product);
-                image.setProduct(addedProduct);
-                imageDao.insert(image);
-                jdbcDaoFactory.commitTransaction();
-            } catch (DaoException e) {
-                LOG.info(COULDN_T_ADD_PRODUCT, e);
-                jdbcDaoFactory.rollbackTransaction();
-                throw new ServiceException(e, COULDN_T_ADD_PRODUCT);
-            }
+        try (DaoFactory jdbcDaoFactory = getDaoFactory()) {
+           addProductToDB(product, image, jdbcDaoFactory);
         } catch (DaoException e) {
             LOG.info(COULDN_T_INITIALIZE_JDBC_FACTORY, e);
             throw new ServiceException(e, COULDN_T_INITIALIZE_JDBC_FACTORY);
@@ -85,12 +72,38 @@ public class ProductService {
     }
 
     /**
+     * Method adds product to DB
+     * @param product
+     * @param image
+     * @param jdbcDaoFactory
+     * @return product
+     */
+    private Product addProductToDB(Product product, Image image, DaoFactory jdbcDaoFactory) throws ServiceException, DaoException {
+        try {
+            jdbcDaoFactory.startTransaction();
+            GenericDaoInterface<Product> productDao = jdbcDaoFactory.getDao(Product.class);
+            GenericDaoInterface<Image> imageDao = jdbcDaoFactory.getDao(Image.class);
+            Product addedProduct = productDao.insert(product);
+            image.setProduct(addedProduct);
+            imageDao.insert(image);
+            jdbcDaoFactory.commitTransaction();
+        } catch (DaoException e) {
+            LOG.info(COULDN_T_ADD_PRODUCT, e);
+            jdbcDaoFactory.rollbackTransaction();
+            throw new ServiceException(e, COULDN_T_ADD_PRODUCT);
+        }
+        return product;
+    }
+
+
+
+    /**
      * after adding product to database, product has to be set in storage
      *
      * @param product - inserting product
      */
     public void addProductToStorage(Product product) throws ServiceException {
-        try (DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)) {
+        try (DaoFactory jdbcDaoFactory = getDaoFactory()) {
             GenericDaoInterface<StorageItem> storageDao = jdbcDaoFactory.getDao(StorageItem.class);
             StorageItem storageItem = new StorageItem();
             storageItem.setProduct(product);
@@ -105,7 +118,7 @@ public class ProductService {
 
     public List<Product> getFeaturedProducts() throws ServiceException {
         List<Product> featuredProducts;
-        try (DaoFactory jdbcDaoFactory = getDaoFactory(JDBC);) {
+        try (DaoFactory jdbcDaoFactory = getDaoFactory();) {
             GenericDaoInterface<Product> productDao = jdbcDaoFactory.getDao(Product.class);
             List<Product> products = productDao.findAll();
             featuredProducts = products.subList(products.size() - 9, products.size());
@@ -124,7 +137,7 @@ public class ProductService {
      */
     public List<Product> getAllProductsByType(String typeId) throws ServiceException {
         List<Product> productsList;
-        try (DaoFactory jdbcDaoFactory = getDaoFactory(JDBC);) {
+        try (DaoFactory jdbcDaoFactory = getDaoFactory();) {
             GenericDaoInterface<Product> productDao = jdbcDaoFactory.getDao(Product.class);
             productsList = productDao.findAllByParams(Collections.singletonMap(TYPE_ID, typeId));
             productsList = productsList.stream().filter(product -> !product.isDeleted()).collect(Collectors.toList());
@@ -143,7 +156,7 @@ public class ProductService {
      */
     public Image getProductPreviewImage(String id) throws ServiceException {
         List<Image> images;
-        try (DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)) {
+        try (DaoFactory jdbcDaoFactory = getDaoFactory()) {
             GenericDaoInterface<Image> imageDao = jdbcDaoFactory.getDao(Image.class);
             images = imageDao.findAllByParams(Collections.singletonMap(PRODUCT_ID, id));
         } catch (DaoException e) {
@@ -161,29 +174,39 @@ public class ProductService {
      * @throws ServiceException in case Dao exception throw service exception and do rollback transaction
      */
     public Product getFilledProduct(String id) throws ServiceException {
-        Product product;
-        try (DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)) {
-            try {
-                jdbcDaoFactory.startTransaction();
-                GenericDaoInterface<Product> productDao = jdbcDaoFactory.getDao(Product.class);
-                GenericDaoInterface<Image> imageDao = jdbcDaoFactory.getDao(Image.class);
-                GenericDaoInterface<ProductType> productTypeDao = jdbcDaoFactory.getDao(ProductType.class);
-                product = productDao.findByPK(Integer.parseInt(id));
-                ProductType productType = productTypeDao.findByPK(product.getType().getId());
-                product.setType(productType);
-                Map<String, String> productParam = Collections.singletonMap(PRODUCT_ID, id);
-                List<Image> images = imageDao.findAllByParams(productParam);
-                product.setImages(images);
-                jdbcDaoFactory.commitTransaction();
-            } catch (DaoException e) {
-                LOG.info(COULDN_T_GET_FILLED_PRODUCT, e);
-                jdbcDaoFactory.rollbackTransaction();
-                throw new ServiceException(e, COULDN_T_GET_FILLED_PRODUCT);
-            }
-
+        Product product = null;
+        try (DaoFactory jdbcDaoFactory = getDaoFactory()) {
+            product = fillProduct(id, jdbcDaoFactory);
         } catch (DaoException e) {
             LOG.info(COULDN_T_INITIALIZE_JDBC_FACTORY, e);
             throw new ServiceException(e, COULDN_T_INITIALIZE_JDBC_FACTORY);
+        }
+        return product;
+    }
+
+    /** Method fills product with params
+     * @param id
+     * @param jdbcDaoFactory
+     * @return product
+     */
+    private Product fillProduct(String id, DaoFactory jdbcDaoFactory) throws ServiceException, DaoException {
+        Product product;
+        try {
+            jdbcDaoFactory.startTransaction();
+            GenericDaoInterface<Product> productDao = jdbcDaoFactory.getDao(Product.class);
+            GenericDaoInterface<Image> imageDao = jdbcDaoFactory.getDao(Image.class);
+            GenericDaoInterface<ProductType> productTypeDao = jdbcDaoFactory.getDao(ProductType.class);
+            product = productDao.findByPK(Integer.parseInt(id));
+            ProductType productType = productTypeDao.findByPK(product.getType().getId());
+            product.setType(productType);
+            Map<String, String> productParam = Collections.singletonMap(PRODUCT_ID, id);
+            List<Image> images = imageDao.findAllByParams(productParam);
+            product.setImages(images);
+            jdbcDaoFactory.commitTransaction();
+        } catch (DaoException e) {
+            LOG.info(COULDN_T_GET_FILLED_PRODUCT, e);
+            jdbcDaoFactory.rollbackTransaction();
+            throw new ServiceException(e, COULDN_T_GET_FILLED_PRODUCT);
         }
         return product;
     }
@@ -194,7 +217,7 @@ public class ProductService {
      * @param product
      */
     public void updateProduct(Product product) throws ServiceException {
-        try (DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)) {
+        try (DaoFactory jdbcDaoFactory = getDaoFactory()) {
             GenericDaoInterface<Product> productDao = jdbcDaoFactory.getDao(Product.class);
             productDao.update(product);
         } catch (DaoException e) {
@@ -210,7 +233,7 @@ public class ProductService {
      * @throws ServiceException
      */
     public void updateProductImage(Image image) throws ServiceException {
-        try (DaoFactory jdbcDaoFactory = getDaoFactory(JDBC)) {
+        try (DaoFactory jdbcDaoFactory = getDaoFactory()) {
             GenericDaoInterface<Image> imageDao = jdbcDaoFactory.getDao(Image.class);
             imageDao.update(image);
         } catch (DaoException e) {

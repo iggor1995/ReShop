@@ -3,6 +3,7 @@ package com.epam.igor.electronicsshop.action.product;
 import com.epam.igor.electronicsshop.action.Action;
 import com.epam.igor.electronicsshop.action.ActionException;
 import com.epam.igor.electronicsshop.action.ActionResult;
+import com.epam.igor.electronicsshop.constants.PageConstants;
 import com.epam.igor.electronicsshop.constants.ProductConstants;
 import com.epam.igor.electronicsshop.entity.Product;
 import com.epam.igor.electronicsshop.entity.ProductType;
@@ -24,9 +25,6 @@ import java.util.List;
 public class ShowEditProductPageAction implements Action {
 
     private static final Logger LOG = LoggerFactory.getLogger(ShowEditProductPageAction.class);
-    private static final String PRODUCT = "product";
-    private static final String EDIT_PRODUCT = "edit-product";
-    private static final String TYPES = "types";
     private static final String COULDN_T_SHOW_EDIT_PRODUCT_PAGE = "Couldn't show edit product page";
 
     @Override
@@ -36,10 +34,10 @@ public class ShowEditProductPageAction implements Action {
 
         try {
             Product product = productService.getFilledProduct(req.getParameter(ProductConstants.ID));
-            req.setAttribute(PRODUCT, product);
+            req.setAttribute(ProductConstants.PRODUCT, product);
             List<ProductType> productTypes = shopService.getAllProductTypes();
-            req.setAttribute(TYPES, productTypes);
-            return new ActionResult(EDIT_PRODUCT);
+            req.setAttribute(ProductConstants.TYPES, productTypes);
+            return new ActionResult(PageConstants.EDIT_PRODUCT);
         } catch (ServiceException e) {
             LOG.info(COULDN_T_SHOW_EDIT_PRODUCT_PAGE, e);
             throw new ActionException(COULDN_T_SHOW_EDIT_PRODUCT_PAGE, e);

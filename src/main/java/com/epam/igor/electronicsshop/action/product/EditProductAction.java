@@ -5,7 +5,10 @@ import com.epam.igor.electronicsshop.action.ActionException;
 import com.epam.igor.electronicsshop.action.ActionResult;
 import com.epam.igor.electronicsshop.action.Validation;
 import com.epam.igor.electronicsshop.action.user.RegisterAction;
+import com.epam.igor.electronicsshop.constants.ErrorConstants;
+import com.epam.igor.electronicsshop.constants.PageConstants;
 import com.epam.igor.electronicsshop.constants.ProductConstants;
+import com.epam.igor.electronicsshop.constants.UserConstants;
 import com.epam.igor.electronicsshop.entity.Image;
 import com.epam.igor.electronicsshop.entity.Product;
 import com.epam.igor.electronicsshop.service.ProductService;
@@ -30,19 +33,15 @@ public class EditProductAction implements Action {
 
     private static final Logger LOG = LoggerFactory.getLogger(EditProductAction.class);
     private static final String MONEY_REGEX = "money.regex";
-    private static final String REFERER = "referer";
     private static final String INVALID_MONEY_FORMAT = "Invalid money format - {}";
-    private static final String IMAGE_ERROR = "imageError";
     private static final String INVALID_CONTENT_TYPE = "Invalid content type - {}";
     private static final String UPDATED_BY = "{} updated by {}";
-    private static final String LOGGED_USER = "loggedUser";
-    private static final String MANAGE_PRODUCTS = "manage/products";
     private static final String COULDN_T_EDIT_PRODUCT = "Couldn't edit product";
-    private boolean invalid;
     private static final String PROPERTIES_ERROR = "Cannot load properties";
     private static final String MONEY = "money";
     private static final String VALIDATION_PROPERTIES = "validation.properties";
     private Properties properties = new Properties();
+    private boolean invalid;
     private String price;
     private String id;
     private String name;
@@ -59,7 +58,7 @@ public class EditProductAction implements Action {
         }
         if (checkPrice(req)) {
             invalid = false;
-            return new ActionResult(req.getHeader(REFERER), true);
+            return new ActionResult(req.getHeader(PageConstants.REFERER_PAGE), true);
         }
         try {
             updateProductData(req);
@@ -68,9 +67,9 @@ public class EditProductAction implements Action {
             throw new ActionException(COULDN_T_EDIT_PRODUCT, e);
         }
         if (updateImageData(req)) {
-            return new ActionResult(req.getHeader(REFERER), true);
+            return new ActionResult(req.getHeader(PageConstants.REFERER_PAGE), true);
         }
-        return new ActionResult(MANAGE_PRODUCTS, true);
+        return new ActionResult(PageConstants.MANAGE_PRODUCTS_REDIRECT, true);
 
     }
 
@@ -106,7 +105,7 @@ public class EditProductAction implements Action {
             Part imagePart = req.getPart(ProductConstants.IMAGE);
             if (imagePart.getSize() != 0) {
                 if (!imagePart.getContentType().startsWith(ProductConstants.IMAGE)) {
-                    req.setAttribute(IMAGE_ERROR, true);
+                    req.setAttribute(ErrorConstants.IMAGE_ERROR, true);
                     LOG.info(INVALID_CONTENT_TYPE, imagePart.getContentType());
                     return true;                                                // go to referer page
                 } else {
@@ -116,7 +115,7 @@ public class EditProductAction implements Action {
                     image.setImageStream(imagePart.getInputStream());
                     productService.updateProductImage(image);
                 }
-                LOG.info(UPDATED_BY, product, req.getSession(false).getAttribute(LOGGED_USER));
+                LOG.info(UPDATED_BY, product, req.getSession(false).getAttribute(UserConstants.LOGGED_USER));
             }
         } catch (IOException | ServletException | ServiceException e) {
             LOG.info(COULDN_T_EDIT_PRODUCT, e);

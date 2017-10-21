@@ -1,18 +1,18 @@
 package com.epam.igor.electronicsshop.action;
 
 import com.epam.igor.electronicsshop.action.cart.*;
+import com.epam.igor.electronicsshop.action.common.*;
 import com.epam.igor.electronicsshop.action.order.*;
 import com.epam.igor.electronicsshop.action.product.*;
 import com.epam.igor.electronicsshop.action.storage.DeleteStorageItemAction;
 import com.epam.igor.electronicsshop.action.storage.EditStorageItemAction;
 import com.epam.igor.electronicsshop.action.storage.ShowManageStoragePageAction;
 import com.epam.igor.electronicsshop.action.user.*;
-import com.epam.igor.electronicsshop.action.util.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ActionFactory {
+public final class ActionFactory {
     private static Map<String, Action> actions;
 
     static {

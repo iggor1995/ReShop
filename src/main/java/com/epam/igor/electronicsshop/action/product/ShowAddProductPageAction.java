@@ -3,6 +3,8 @@ package com.epam.igor.electronicsshop.action.product;
 import com.epam.igor.electronicsshop.action.Action;
 import com.epam.igor.electronicsshop.action.ActionException;
 import com.epam.igor.electronicsshop.action.ActionResult;
+import com.epam.igor.electronicsshop.constants.PageConstants;
+import com.epam.igor.electronicsshop.constants.ProductConstants;
 import com.epam.igor.electronicsshop.entity.ProductType;
 import com.epam.igor.electronicsshop.service.ServiceException;
 import com.epam.igor.electronicsshop.service.ShopService;
@@ -22,8 +24,6 @@ public class ShowAddProductPageAction implements Action {
 
     private static final Logger LOG = LoggerFactory.getLogger(ShowAddProductPageAction.class);
     private static final String ERROR = "Couldn't show product-add page";
-    private static final String PRODUCT_ADD_PAGE = "product-add";
-    private static final String TYPES = "types";
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
@@ -36,7 +36,7 @@ public class ShowAddProductPageAction implements Action {
             LOG.info(ERROR, e);
             throw new ActionException(ERROR, e);
         }
-        req.getSession(false).setAttribute(TYPES, productTypes);
-        return new ActionResult(PRODUCT_ADD_PAGE);
+        req.getSession(false).setAttribute(ProductConstants.TYPES, productTypes);
+        return new ActionResult(PageConstants.ADD_PRODUCT);
     }
 }

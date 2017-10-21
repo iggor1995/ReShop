@@ -3,6 +3,8 @@ package com.epam.igor.electronicsshop.action.user;
 import com.epam.igor.electronicsshop.action.Action;
 import com.epam.igor.electronicsshop.action.ActionException;
 import com.epam.igor.electronicsshop.action.ActionResult;
+import com.epam.igor.electronicsshop.constants.ErrorConstants;
+import com.epam.igor.electronicsshop.constants.PageConstants;
 import com.epam.igor.electronicsshop.constants.UserConstants;
 import com.epam.igor.electronicsshop.entity.User;
 import com.epam.igor.electronicsshop.service.ServiceException;
@@ -21,28 +23,25 @@ import javax.servlet.http.HttpServletResponse;
 public class DeleteUserAction implements Action {
 
     private static final Logger LOG = LoggerFactory.getLogger(DeleteUserAction.class);
-    private static final String REFERER_PAGE = "referer";
-    private static final String PARAMETER_ID = "id";
     private static final String DELETE_ERROR = "Couldn't delete user by id";
     private static final String DELETE_LOG_ERROR = "{} tried to delete himself when logged in";
     private static final String LOG_DELETED = "{} - has been deleted";
-    private static final String TRUE = "true";
 
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
         User user = (User) req.getSession().getAttribute(UserConstants.LOGGED_USER);
-        String id = req.getParameter(PARAMETER_ID);
+        String id = req.getParameter(UserConstants.ID);
         if (id.equals(String.valueOf(user.getId()))) {
-            req.setAttribute(DELETE_ERROR, TRUE);
+            req.setAttribute(DELETE_ERROR, ErrorConstants.TRUE);
             LOG.info(DELETE_LOG_ERROR, user);
-            return new ActionResult(req.getHeader(REFERER_PAGE), true);
+            return new ActionResult(req.getHeader(PageConstants.REFERER_PAGE), true);
         }
         try {
             ShopService shopService = new ShopService();
             shopService.deleteUserById(id);
             LOG.info(LOG_DELETED, user);
-            return new ActionResult(req.getHeader(REFERER_PAGE), true);
+            return new ActionResult(req.getHeader(PageConstants.REFERER_PAGE), true);
         } catch (ServiceException e) {
             LOG.info(DELETE_ERROR, e);
             throw new ActionException(DELETE_ERROR, e);
