@@ -38,7 +38,7 @@ public final class ActionFactory {
         actions.put("GET/delete/order", new DeleteOrderAction());
         actions.put("GET/delete/user", new DeleteUserAction());
         actions.put("GET/delete/product", new DeleteProductAction());
-        actions.put("GET/delete/orderingItem", new DeleteOrderingItemAction());
+        actions.put("GET/orderingItem/delete", new DeleteOrderingItemAction());
         actions.put("GET/delete/storageItem", new DeleteStorageItemAction());
         actions.put("GET/edit/user", new ShowEditUserPageAction());
         actions.put("GET/edit/product", new ShowEditProductPageAction());

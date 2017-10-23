@@ -21,7 +21,6 @@ public class DeleteOrderingItemAction implements Action {
 
     private static final Logger LOG = LoggerFactory.getLogger(DeleteOrderingItemAction.class);
     private static final String ITEM_DELETED = "item - {} deleted from cart";
-
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
         Order order = (Order) req.getSession().getAttribute(PageConstants.CART);
@@ -32,4 +31,5 @@ public class DeleteOrderingItemAction implements Action {
         req.getSession().setAttribute(PageConstants.CART, order);
         return new ActionResult(req.getHeader(PageConstants.REFERER_PAGE), true);
     }
+
 }

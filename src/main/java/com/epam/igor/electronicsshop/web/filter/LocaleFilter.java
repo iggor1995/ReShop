@@ -27,6 +27,7 @@ public class LocaleFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
+        //no-op
     }
 
     @Override
@@ -56,6 +57,6 @@ public class LocaleFilter implements Filter {
 
     @Override
     public void destroy() {
-        throw new UnsupportedOperationException();
+        //no-op
     }
 }

@@ -70,7 +70,7 @@
                                         <td>${formattedItemPrice}</td>
                                         <td>
                                             <a class="btn btn-default"
-                                               href="<c:url value="/do/delete/orderingItem?item=${itemRow.index}"/>"
+                                               href="<c:url value="/do/orderingItem/delete?item=${itemRow.index}"/>"
                                             >${delete}
                                             </a>
                                         </td>

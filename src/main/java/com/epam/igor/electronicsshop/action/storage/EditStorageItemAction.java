@@ -74,5 +74,4 @@ public class EditStorageItemAction implements Action {
         req.setAttribute(ErrorConstants.FLASH_ERROR_MAP, errorMap);
         return new ActionResult(req.getHeader(PageConstants.REFERER_PAGE), true);
     }
-
 }

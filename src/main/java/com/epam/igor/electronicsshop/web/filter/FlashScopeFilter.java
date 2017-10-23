@@ -62,8 +62,10 @@ public class FlashScopeFilter implements Filter {
     }
 
     public void init(FilterConfig filterConfig) throws ServletException {
+        //no-op
     }
 
     public void destroy() {
+        //no-op
     }
 }

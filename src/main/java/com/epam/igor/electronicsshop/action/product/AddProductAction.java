@@ -34,6 +34,7 @@ import java.util.regex.Pattern;
  */
 
 public class AddProductAction implements Action {
+
     private static final Logger LOG = LoggerFactory.getLogger(AddProductAction.class);
     private static final String COULDN_T_ADD_PRODUCT = "Couldn't add product";
     private static final String INVALID_CONTENT_TYPE = "Invalid content type - {}";

@@ -19,12 +19,13 @@ public class Validation {
     private static final String CHECK_PARAMETER = "Check parameter '{}' with value '{}' by regex '{}'";
     private static final String WRONG_PARAMETER = "Parameter '{}' with value '{}' is unsuitable.";
     private static final String ERROR = "Error";
-    private static final String FLASH = "flash.";
     private static final String TRUE = "true";
     private static final String NOT_EMPTY_TEXT = "not_empty_string.regex";
     private static final String NOT_EMPTY_NUMBER = "not_empty_digits.regex";
     private static final String EMAIL_ERROR = "emailError";
     private static final String EMAIL_TAKEN = "email {} has already been taken!";
+    private static final String USED = "used";
+    private static final String FLASH = "flash.";
     private boolean invalid;
     private Properties properties = new Properties();
 
@@ -37,28 +38,27 @@ public class Validation {
         Matcher matcher = pattern.matcher(parameter);
         if (!matcher.matches()) {
             LOG.debug(WRONG_PARAMETER, parameterName, parameter);
-            req.setAttribute(parameterName + ERROR, TRUE);
+            req.setAttribute(FLASH + parameterName + ERROR, TRUE);
             invalidPar = true;
         }
         if (!invalid) {
             return invalidPar;
         } else return true;
     }
-
-    public boolean checkUserParam(HttpServletRequest req, boolean data, boolean address) throws ActionException, ServiceException {
+    public boolean checkUserParam(HttpServletRequest req, boolean checkData, boolean checkAddress) throws ActionException, ServiceException {
         try {
             properties.load(RegisterAction.class.getClassLoader().getResourceAsStream(UserConstants.VALIDATION_PROPERTIES));
         } catch (IOException e) {
             LOG.info(UserConstants.PROPERTIES_ERROR, e);
             throw new ActionException(UserConstants.PROPERTIES_ERROR, e);
         }
-        if(data) {
+        if(checkData) {
             checkProfileData(req);
         }
-        if(address){
+        if(checkAddress){
             checkAddressData(req);
         }
-        if(data && address){
+        if(checkAddress && checkData){
             emailCheck(req);
         }
         return invalid;
@@ -69,7 +69,7 @@ public class Validation {
         String email = req.getParameter(UserConstants.EMAIL);
         UserService userService = new UserService();
             if (!userService.checkEmail(email)) {
-                req.setAttribute(EMAIL_ERROR, TRUE);
+                req.setAttribute(FLASH + EMAIL_ERROR, USED);
                 LOG.error(EMAIL_TAKEN, email);
                 invalid = true;
             }
@@ -123,7 +123,8 @@ public class Validation {
                 properties.getProperty(NOT_EMPTY_NUMBER), req);
 
         if (invalid) {
-            req.setAttribute(UserConstants.COUNTRY, city);
+            req.setAttribute(UserConstants.COUNTRY, country);
+            req.setAttribute(UserConstants.CITY, city);
             req.setAttribute(UserConstants.STREET, street);
             req.setAttribute(UserConstants.BUILDING_NUMBER, buildingNumber);
             req.setAttribute(UserConstants.APARTMENT_NUMBER, apartmentNumber);
