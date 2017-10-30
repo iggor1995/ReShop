@@ -1,7 +1,9 @@
 package com.epam.igor.electronicsshop.action;
 
 import com.epam.igor.electronicsshop.action.user.RegisterAction;
+import com.epam.igor.electronicsshop.constants.OrderConstants;
 import com.epam.igor.electronicsshop.constants.UserConstants;
+import com.epam.igor.electronicsshop.entity.User;
 import com.epam.igor.electronicsshop.service.ServiceException;
 import com.epam.igor.electronicsshop.service.UserService;
 import org.slf4j.Logger;
@@ -25,76 +27,133 @@ public class Validation {
     private static final String EMAIL_ERROR = "emailError";
     private static final String EMAIL_TAKEN = "email {} has already been taken!";
     private static final String USED = "used";
-    private static final String FLASH = "flash.";
+    private static final String MONEY = "money";
+    private static final String MONEY_REGEX = "money.regex";
+    private static final String PROPERTY_PRODUCT_AMOUNT = "product.amount";
     private boolean invalid;
     private Properties properties = new Properties();
+    private String email;
+    private String password;
+    private String firstName;
+    private String lastName;
+    private String phoneNumber;
+    private String country;
+    private String city;
+    private String street;
+    private String buildingNumber;
+    private String apartmentNumber;
 
 
-    public boolean checkParameterByRegex(boolean invalid, String parameter, String parameterName, String regex, HttpServletRequest req) {
-
-        boolean invalidPar = false;
+    public boolean checkParameterByRegex(String parameter, String parameterName, String regex, HttpServletRequest req) {
         LOG.debug(CHECK_PARAMETER, parameterName, parameter, regex);
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(parameter);
         if (!matcher.matches()) {
             LOG.debug(WRONG_PARAMETER, parameterName, parameter);
-            req.setAttribute(FLASH + parameterName + ERROR, TRUE);
-            invalidPar = true;
+            req.setAttribute(parameterName + ERROR, TRUE);
+            invalid = true;
+            return true;
         }
-        if (!invalid) {
-            return invalidPar;
-        } else return true;
+        return false;
     }
-    public boolean checkUserParam(HttpServletRequest req, boolean checkData, boolean checkAddress) throws ActionException, ServiceException {
+
+    public boolean checkMoney(HttpServletRequest req, String price) throws ActionException {
+        loadProperties();
+        return checkParameterByRegex(price, MONEY, properties.getProperty(MONEY_REGEX), req);
+    }
+
+    public boolean checkAmount(HttpServletRequest req, String amount) throws ActionException {
+        loadProperties();
+        return checkParameterByRegex(amount, OrderConstants.AMOUNT,
+                properties.getProperty(PROPERTY_PRODUCT_AMOUNT), req);
+    }
+    private void loadProperties() throws ActionException {
         try {
             properties.load(RegisterAction.class.getClassLoader().getResourceAsStream(UserConstants.VALIDATION_PROPERTIES));
         } catch (IOException e) {
             LOG.info(UserConstants.PROPERTIES_ERROR, e);
             throw new ActionException(UserConstants.PROPERTIES_ERROR, e);
         }
-        if(checkData) {
-            checkProfileData(req);
-        }
-        if(checkAddress){
+    }
+
+    public boolean validateUserAddress(HttpServletRequest req) throws ActionException {
+            loadProperties();
+            setAddressData(req);
             checkAddressData(req);
-        }
-        if(checkAddress && checkData){
-            emailCheck(req);
-        }
+            setAddressErrorsAttributes(req);
         return invalid;
     }
 
-    private void emailCheck(HttpServletRequest req) throws ServiceException {
+    public boolean fullCheck(HttpServletRequest req) throws ServiceException, ActionException {
+        loadProperties();
+        emailCheck(req);
+        emailExistsCheck(req);
+        validateUser(req);
+        validateUserAddress(req);
+        return invalid;
+    }
 
-        String email = req.getParameter(UserConstants.EMAIL);
-        UserService userService = new UserService();
+    public boolean userAndEmailCheck(HttpServletRequest req) throws ActionException, ServiceException {
+        validateUser(req);
+        emailCheck(req);
+        emailExistsCheck(req);
+        return invalid;
+    }
+
+    public boolean validateUser(HttpServletRequest req) throws ActionException {
+        loadProperties();
+        setProfileData(req);
+        checkProfileData(req);
+        setProfileErrorsAttributes(req);
+        return invalid;
+    }
+
+    private boolean emailExistsCheck(HttpServletRequest req) throws ServiceException {
+
+            UserService userService = new UserService();
             if (!userService.checkEmail(email)) {
-                req.setAttribute(FLASH + EMAIL_ERROR, USED);
+                req.setAttribute(EMAIL_ERROR, USED);
                 LOG.error(EMAIL_TAKEN, email);
                 invalid = true;
             }
-            invalid = checkParameterByRegex(invalid, email, UserConstants.EMAIL,
-                    properties.getProperty(UserConstants.EMAIL_REGEX), req);
-            if(invalid){
-                req.setAttribute(UserConstants.EMAIL, email);
-            }
+        return invalid;
     }
 
-    private void checkProfileData(HttpServletRequest req){
+    private boolean emailCheck(HttpServletRequest req) throws ActionException {
+        loadProperties();
+        email = req.getParameter(UserConstants.EMAIL);
+            checkParameterByRegex(email, UserConstants.EMAIL,
+                    properties.getProperty(UserConstants.EMAIL_REGEX), req);
+            if(invalid){
+                req.setAttribute(EMAIL_ERROR, TRUE);
+            }
+            req.setAttribute(UserConstants.EMAIL, email);
+            return invalid;
+    }
 
-        String password = req.getParameter(UserConstants.PASS_WORD);
-        String firstName = req.getParameter(UserConstants.FIRST_NAME);
-        String lastName = req.getParameter(UserConstants.LAST_NAME);
-        String phoneNumber = req.getParameter(UserConstants.PHONE_NUMBER);
+    private void setProfileData(HttpServletRequest req) {
+        password = req.getParameter(UserConstants.PASS_WORD);
+        firstName = req.getParameter(UserConstants.FIRST_NAME);
+        lastName = req.getParameter(UserConstants.LAST_NAME);
+        phoneNumber = req.getParameter(UserConstants.PHONE_NUMBER);
+        email = req.getParameter(UserConstants.EMAIL);
 
-        invalid = checkParameterByRegex(invalid, password, UserConstants.PASS_WORD,
+    }
+
+    private void checkProfileData(HttpServletRequest req) throws ActionException {
+        loadProperties();
+        checkParameterByRegex(password, UserConstants.PASS_WORD,
                 properties.getProperty(UserConstants.PASS_WORD_REGEX), req);
-        invalid = checkParameterByRegex(invalid, firstName, UserConstants.FIRST_NAME,
+        checkParameterByRegex(firstName, UserConstants.FIRST_NAME,
                 properties.getProperty(NOT_EMPTY_TEXT), req);
-        invalid = checkParameterByRegex(invalid, lastName, UserConstants.LAST_NAME,
+        checkParameterByRegex(lastName, UserConstants.LAST_NAME,
                 properties.getProperty(NOT_EMPTY_TEXT), req);
-        invalid = checkParameterByRegex(invalid, phoneNumber, UserConstants.PHONE_NUMBER,
+        checkParameterByRegex(phoneNumber, UserConstants.PHONE_NUMBER,
                 properties.getProperty(NOT_EMPTY_NUMBER), req);
+
+    }
+
+    private void setProfileErrorsAttributes(HttpServletRequest req){
         if (invalid) {
             req.setAttribute(UserConstants.PASS_WORD, password);
             req.setAttribute(UserConstants.FIRST_NAME, firstName);
@@ -104,24 +163,32 @@ public class Validation {
         }
     }
 
-    private void checkAddressData(HttpServletRequest req){
-        String country = req.getParameter(UserConstants.COUNTRY);
-        String city = req.getParameter(UserConstants.CITY);
-        String street = req.getParameter(UserConstants.STREET);
-        String buildingNumber = req.getParameter(UserConstants.BUILDING_NUMBER);
-        String apartmentNumber = req.getParameter(UserConstants.APARTMENT_NUMBER);
+    private void setAddressData(HttpServletRequest req){
+        country = req.getParameter(UserConstants.COUNTRY);
+        city = req.getParameter(UserConstants.CITY);
+        street = req.getParameter(UserConstants.STREET);
+        buildingNumber = req.getParameter(UserConstants.BUILDING_NUMBER);
+        apartmentNumber = req.getParameter(UserConstants.APARTMENT_NUMBER);
+    }
 
-        invalid = checkParameterByRegex(invalid, country, UserConstants.COUNTRY,
+    private void checkAddressData(HttpServletRequest req) throws ActionException {
+
+        loadProperties();
+        checkParameterByRegex(country, UserConstants.COUNTRY,
                 properties.getProperty(NOT_EMPTY_TEXT), req);
-        invalid = checkParameterByRegex(invalid, city, UserConstants.CITY,
+        checkParameterByRegex(city, UserConstants.CITY,
                 properties.getProperty(NOT_EMPTY_TEXT), req);
-        invalid = checkParameterByRegex(invalid, street, UserConstants.STREET,
+        checkParameterByRegex(street, UserConstants.STREET,
                 properties.getProperty(NOT_EMPTY_TEXT), req);
-        invalid = checkParameterByRegex(invalid, buildingNumber, UserConstants.BUILDING_NUMBER,
+        checkParameterByRegex(buildingNumber, UserConstants.BUILDING_NUMBER,
                 properties.getProperty(NOT_EMPTY_NUMBER), req);
-        invalid = checkParameterByRegex(invalid, apartmentNumber, UserConstants.APARTMENT_NUMBER,
+        checkParameterByRegex(apartmentNumber, UserConstants.APARTMENT_NUMBER,
                 properties.getProperty(NOT_EMPTY_NUMBER), req);
 
+
+    }
+
+    private void setAddressErrorsAttributes(HttpServletRequest req){
         if (invalid) {
             req.setAttribute(UserConstants.COUNTRY, country);
             req.setAttribute(UserConstants.CITY, city);

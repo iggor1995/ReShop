@@ -10,6 +10,7 @@ import com.epam.igor.electronicsshop.entity.Order;
 import com.epam.igor.electronicsshop.entity.User;
 import com.epam.igor.electronicsshop.service.ServiceException;
 import com.epam.igor.electronicsshop.service.UserService;
+import com.epam.igor.electronicsshop.util.PageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,37 +29,23 @@ public class ShowUserOrdersAction implements Action {
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
+        PageUtil<Order> pageUtil = new PageUtil<>();
         User user = (User) req.getSession().getAttribute(UserConstants.LOGGED_USER);
         List<Order> orders;
-        String page = req.getParameter(PageConstants.PAGE);
-        if (page == null) {
-            page = PageConstants.FIRST_PAGE;
-        }
-        String pageSize = req.getParameter(PageConstants.PAGE_SIZE);
-        if (pageSize == null) {
-            pageSize = PageConstants.DEFAULT_SIZE;
-        }
+        String page = pageUtil.getPage(req);
+        String pageSize = pageUtil.getPageSize(req);
         int pageInt = Integer.parseInt(page);
         int pageSizeInt = Integer.parseInt(pageSize);
         List<Order> ordersOnPage;
         try {
             UserService userService = new UserService();
             orders = userService.getUserOrders(user.getId());
-            if (orders.size() < pageInt * pageSizeInt) {
-                ordersOnPage = orders.subList(((pageInt - 1) * pageSizeInt), orders.size());
-            } else {
-                ordersOnPage = orders.subList(((pageInt - 1) * pageSizeInt), pageSizeInt * pageInt);
-            }
+            ordersOnPage = pageUtil.getEntitiesOnPage(orders, pageInt, pageSizeInt);
         } catch (ServiceException e) {
             LOG.info(ERROR, e);
             throw new ActionException(ERROR, e);
         }
-        int pageCount;
-        if (orders.size() % pageSizeInt == 0) {
-            pageCount = orders.size() / pageSizeInt;
-        } else {
-            pageCount = orders.size() / pageSizeInt + 1;
-        }
+        int pageCount = pageUtil.getPageCount(orders.size(), pageSize);
         req.setAttribute(PageConstants.PAGE, page);
         req.setAttribute(PageConstants.PAGE_SIZE, pageSize);
         req.setAttribute(PageConstants.PAGES_COUNT, pageCount);

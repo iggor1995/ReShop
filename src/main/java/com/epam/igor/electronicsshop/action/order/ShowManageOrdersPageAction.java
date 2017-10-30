@@ -9,6 +9,7 @@ import com.epam.igor.electronicsshop.entity.Order;
 import com.epam.igor.electronicsshop.entity.OrderStatus;
 import com.epam.igor.electronicsshop.service.ServiceException;
 import com.epam.igor.electronicsshop.service.ShopService;
+import com.epam.igor.electronicsshop.util.PageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,34 +28,22 @@ public class ShowManageOrdersPageAction implements Action {
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
-        String page = req.getParameter(PageConstants.PAGE);
-        if (page == null) {
-            page = PageConstants.FIRST_PAGE;
-        }
-        String pageSize = req.getParameter(PageConstants.PAGE_SIZE);
-        if (pageSize == null) {
-            pageSize = PageConstants.DEFAULT_SIZE;
-        }
+        PageUtil pageUtil = new PageUtil();
+        String page = pageUtil.getPage(req);
+        String pageSize = pageUtil.getPageSize(req);
         List<Order> orders;
         List<OrderStatus> orderStatuses;
         int ordersCount;
-        int pageInt = Integer.parseInt(page);
-        int pageSizeInt = Integer.parseInt(pageSize);
         try {
             ShopService shopService = new ShopService();
-            orders = shopService.getAllOrdersOnPage(pageSizeInt, pageInt);
+            orders = shopService.getAllOrdersOnPage(Integer.parseInt(pageSize), Integer.parseInt(page));
             ordersCount = shopService.getOrdersCount();
             orderStatuses = shopService.getAllOrderStatuses();
         } catch (ServiceException e) {
             LOG.info(ERROR, e);
             throw new ActionException(ERROR);
         }
-        int pageCount;
-        if (ordersCount % pageSizeInt == 0) {
-            pageCount = ordersCount / pageSizeInt;
-        } else {
-            pageCount = ordersCount / pageSizeInt + 1;
-        }
+        int pageCount = pageUtil.getPageCount(ordersCount, pageSize);
         req.setAttribute(OrderConstants.ORDERS, orders);
         req.setAttribute(OrderConstants.STATUSES, orderStatuses);
         req.setAttribute(PageConstants.PAGES_COUNT, pageCount);

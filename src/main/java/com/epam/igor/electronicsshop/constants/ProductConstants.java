@@ -17,7 +17,7 @@ public final class ProductConstants {
     public static final String TYPE = "type";
     public static final String DESCRIPTION_EN = "descriptionEN";
     public static final String DESCRIPTION_RU = "descriptionRU";
-    public static final String KZT = "KZT";
+    public static final String KZT = "KZT ";
     public static final String IMAGE = "image";
 
 }

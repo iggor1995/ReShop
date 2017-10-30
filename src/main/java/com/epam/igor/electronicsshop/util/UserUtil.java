@@ -1,6 +1,5 @@
 package com.epam.igor.electronicsshop.util;
 
-import com.epam.igor.electronicsshop.action.ActionException;
 import com.epam.igor.electronicsshop.constants.UserConstants;
 import com.epam.igor.electronicsshop.entity.Address;
 import com.epam.igor.electronicsshop.entity.Gender;
@@ -16,24 +15,19 @@ import javax.servlet.http.HttpServletRequest;
 public class UserUtil {
 
     private static final Logger LOG = LoggerFactory.getLogger(UserUtil.class);
-    private static final String UNABLE_REGISTER = "Couldn't register user";
-    private static final String USER_HAS_BEEN_REGISTERED = "{} registered. Address - {}";
-    private static final String ROLE = "ROLE - {}";
     private static final String UPDATED = "{} updated data to {}, {}";
-    private static String email;
-    private static String password;
-    private static String firstName;
-    private static String lastName;
-    private static String phoneNumber;
-    private static String country;
-    private static String city;
-    private static String street;
-    private static String buildingNumber;
-    private static String apartmentNumber;
+    private String email;
+    private String password;
+    private String firstName;
+    private String lastName;
+    private String phoneNumber;
+    private String country;
+    private String city;
+    private String street;
+    private String buildingNumber;
+    private String apartmentNumber;
 
-    private UserUtil(){}
-
-    private static void setUserParamsFromRequest(HttpServletRequest req){
+    private void setUserParamsFromRequest(HttpServletRequest req){
         email = req.getParameter(UserConstants.EMAIL);
         password = req.getParameter(UserConstants.PASS_WORD);
         firstName = req.getParameter(UserConstants.FIRST_NAME);
@@ -41,7 +35,8 @@ public class UserUtil {
         phoneNumber = req.getParameter(UserConstants.PHONE_NUMBER);
 
     }
-    private static void setAddressParamsFromRequest(HttpServletRequest req){
+
+    private void setAddressParamsFromRequest(HttpServletRequest req){
         country = req.getParameter(UserConstants.COUNTRY);
         city = req.getParameter(UserConstants.CITY);
         street = req.getParameter(UserConstants.STREET);
@@ -49,38 +44,32 @@ public class UserUtil {
         apartmentNumber = req.getParameter(UserConstants.APARTMENT_NUMBER);
     }
 
-    public static void fillUser(HttpServletRequest req) throws ActionException {
+    public User fillUser(HttpServletRequest req) {
         setUserParamsFromRequest(req);
-        setAddressParamsFromRequest(req);
         String md5HexPassword = DigestUtils.md5Hex(password);
         Gender gender = new Gender();
         gender.setId(Integer.valueOf(req.getParameter(UserConstants.GENDER)));
-        User user = new User.UserBuilder(firstName, lastName)
+        return new User.UserBuilder(firstName, lastName)
                 .email(email)
                 .phoneNumber(phoneNumber)
                 .gender(gender)
                 .password(md5HexPassword)
                 .build();
-        Address address = new Address.AddressBuilder()
+    }
+
+    public Address fillAddress(HttpServletRequest req){
+        setAddressParamsFromRequest(req);
+        return new Address.AddressBuilder()
                 .country(country)
                 .city(city)
                 .street(street)
                 .buildingNumber(buildingNumber)
                 .apartmentNumber(apartmentNumber)
                 .build();
-        try {
-            UserService userService = new UserService();
-            User registeredUser = userService.registerUser(user, address);
-            req.getSession(false).setAttribute(UserConstants.LOGGED_USER, registeredUser);
-            req.getSession(false).removeAttribute(UserConstants.GENDERS);
-            LOG.info(USER_HAS_BEEN_REGISTERED, registeredUser, address);
-            LOG.info(ROLE, registeredUser.getRole());
-        } catch (ServiceException e) {
-            throw new ActionException(UNABLE_REGISTER, e);
-        }
+
     }
 
-    public static void fillUser(HttpServletRequest req, User user) throws ServiceException {
+    public void fillUser(HttpServletRequest req, User user) throws ServiceException {
         setUserParamsFromRequest(req);
         String md5HexPassword = DigestUtils.md5Hex(password);
         UserService userService = new UserService();
@@ -97,7 +86,7 @@ public class UserUtil {
         LOG.info(UPDATED, req.getSession(false).getAttribute(UserConstants.LOGGED_USER), user);
     }
 
-    public static void fillAddress(HttpServletRequest req, User user) throws ServiceException {
+    public void getFilledAddress(HttpServletRequest req, User user) throws ServiceException {
         setAddressParamsFromRequest(req);
         UserService userService = new UserService();
         Address userAddress = user.getAddress();

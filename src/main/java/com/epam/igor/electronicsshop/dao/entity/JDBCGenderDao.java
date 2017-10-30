@@ -26,7 +26,6 @@ public class JDBCGenderDao extends JDBCAbstractDao<Gender> {
     @Override
     protected Gender getObjectFromResultSet(ResultSet rs) throws DaoException {
         Gender gender = new Gender();
-        LOG.info("123");
         try {
             gender.setId(rs.getInt(ID));
             gender.setRuName(rs.getString(NAME_RU));

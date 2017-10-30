@@ -20,27 +20,22 @@ import static com.epam.igor.electronicsshop.constants.UserConstants.FIRST_NAME;
  * @author Igor Lapin
  */
 public class EditUserDataAction implements Action {
-    private static final String UNABLE_UPDATE= "Couldn't update user data";
     private static final String UPDATED_ERROR = "Could not update profile";
     private static final Logger LOG = LoggerFactory.getLogger(EditUserAction.class);
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
-        UserService userService = new UserService();
-        User user;
-        Validation validation = new Validation();
         try {
+            UserService userService = new UserService();
+            User user;
+            UserUtil userUtil = new UserUtil();
+            Validation validation = new Validation();
             user = userService.getFilledUserById(Integer.valueOf(req.getParameter(UserConstants.USER_ID)));
-            if(validation.checkUserParam(req, true, false)){
+            if(validation.validateUser(req)){
                 req.setAttribute(UserConstants.USER, user);
                 return new ActionResult(PageConstants.EDIT_USER_DATA);
             }
-        } catch (ServiceException e) {
-            LOG.info(UNABLE_UPDATE, e);
-            throw new ActionException(UNABLE_UPDATE, e);
-        }
-        try {
-            UserUtil.fillUser(req, user);
+            userUtil.fillUser(req, user);
             req.getSession().setAttribute(UserConstants.LOGGED_USER, user);
             String path = PageConstants.USER_PROFILE_REDIRECT;
             return new ActionResult(path, true);

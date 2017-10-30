@@ -8,6 +8,8 @@ import com.epam.igor.electronicsshop.constants.ProductConstants;
 import com.epam.igor.electronicsshop.entity.Product;
 import com.epam.igor.electronicsshop.service.ProductService;
 import com.epam.igor.electronicsshop.service.ServiceException;
+import com.epam.igor.electronicsshop.util.PageUtil;
+import com.epam.igor.electronicsshop.util.ProductUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,35 +24,19 @@ public class ShowWelcomePageAction implements Action {
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
         List<Product> products;
-        String page = req.getParameter(PageConstants.PAGE);
-        if (page == null) {
-            page = PageConstants.FIRST_PAGE;
-        }
-        String pageSize = req.getParameter(PageConstants.PAGE_SIZE);
-        if (pageSize == null) {
-            pageSize = PageConstants.DEFAULT_SIZE;
-        }
-        int pageInt = Integer.parseInt(page);
-        int pageSizeInt = Integer.parseInt(pageSize);
+        PageUtil<Product> pageUtil = new PageUtil<>();
+        String page = pageUtil.getPage(req);
+        String pageSize = pageUtil.getPageSize(req);
         List<Product> productsOnPage;
         try {
             ProductService productService = new ProductService();
             products = productService.getFeaturedProducts();
-            if (products.size() < pageInt * pageSizeInt) {
-                productsOnPage = products.subList(((pageInt - 1) * pageSizeInt), products.size());
-            } else {
-                productsOnPage = products.subList(((pageInt - 1) * pageSizeInt), pageInt * pageSizeInt);
-            }
+            productsOnPage = pageUtil.getEntitiesOnPage(products, Integer.parseInt(page), Integer.parseInt(pageSize));
         } catch (ServiceException e) {
             LOG.info(ERROR, e);
             throw new ActionException(ERROR, e);
         }
-        int pageCount;
-        if (products.size() % Integer.parseInt(pageSize) == 0) {
-            pageCount = products.size() / Integer.parseInt(pageSize);
-        } else {
-            pageCount = products.size() / Integer.parseInt(pageSize) + 1;
-        }
+        int pageCount = pageUtil.getPageCount(products.size(), pageSize);
         req.setAttribute(ProductConstants.PRODUCTS, productsOnPage);
         req.setAttribute(PageConstants.PAGE, page);
         req.setAttribute(PageConstants.PAGES_COUNT, pageCount);

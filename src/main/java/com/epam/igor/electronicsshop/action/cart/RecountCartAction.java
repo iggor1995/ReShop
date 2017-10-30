@@ -27,30 +27,18 @@ import java.util.Properties;
  */
 public class RecountCartAction implements Action {
     private static final Logger LOG = LoggerFactory.getLogger(RecountCartAction.class);
-    private static final String VALIDATION_PROPERTIES = "validation.properties";
     private static final String INVALID_PRODUCT_AMOUNT_FORMAT = "Invalid product amount format - {}";
     private static final String AMOUNT_SET_TO = "{} amount set to {}";
-    private static final String CANNOT_LOAD_PROPERTIES = "Cannot load properties";
-    private static final String STORAGE_AMOUNT_REGEXP = "storage.amount.regexp";
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
-        boolean invalid = false;
         Order cart = (Order) req.getSession(false).getAttribute(PageConstants.CART);
         List<OrderingItem> orderItems = cart.getOrderingItems();
         Map<Integer, String> errorMap = new HashMap<>();
-        Properties properties = new Properties();
-        try {
-            properties.load(AddProductToCartAction.class.getClassLoader().getResourceAsStream(VALIDATION_PROPERTIES));
-        } catch (IOException e) {
-            LOG.info(CANNOT_LOAD_PROPERTIES, e);
-            throw new ActionException(CANNOT_LOAD_PROPERTIES, e);
-        }
         for (int i = 0; i < orderItems.size(); i++) {
             String amount = req.getParameter(OrderConstants.ITEM + i);
             Validation validation = new Validation();
-            invalid = validation.checkParameterByRegex(invalid, amount, OrderConstants.AMOUNT, properties.getProperty(STORAGE_AMOUNT_REGEXP), req);
-            if (invalid) {
+            if (validation.checkAmount(req, amount)) {
                 errorMap.put(i, ErrorConstants.TRUE);
                 LOG.info(INVALID_PRODUCT_AMOUNT_FORMAT, amount);
             } else {

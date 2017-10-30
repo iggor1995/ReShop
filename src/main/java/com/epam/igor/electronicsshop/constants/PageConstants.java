@@ -14,6 +14,7 @@ public final class PageConstants {
     public static final String USER_PROFILE = "user-profile";
     public static final String USER_PROFILE_REDIRECT = "user/profile";
     public static final String USER_ORDERS = "user-orders";
+    public static final String USER_ORDERS_REDIRECT = "user/orders";
     public static final String HOME= "home";
     public static final String LOGIN = "login";
     public static final String WELCOME = "welcome";

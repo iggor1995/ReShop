@@ -9,6 +9,7 @@ import com.epam.igor.electronicsshop.constants.UserConstants;
 import com.epam.igor.electronicsshop.entity.User;
 import com.epam.igor.electronicsshop.service.ServiceException;
 import com.epam.igor.electronicsshop.service.ShopService;
+import com.epam.igor.electronicsshop.util.PageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,14 +28,9 @@ public class ShowManageUsersPageAction implements Action {
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
-        String page = req.getParameter(PageConstants.PAGE);
-        if (page == null) {
-            page = PageConstants.FIRST_PAGE;
-        }
-        String pageSize = req.getParameter(PageConstants.PAGE_SIZE);
-        if (pageSize == null) {
-            pageSize = PageConstants.DEFAULT_SIZE;
-        }
+        PageUtil pageUtil = new PageUtil();
+        String page = pageUtil.getPage(req);
+        String pageSize = pageUtil.getPageSize(req);
         ShopService shopService = new ShopService();
         List<User> users;
         int usersCount;
@@ -47,12 +43,7 @@ public class ShowManageUsersPageAction implements Action {
             LOG.info(ERROR, e);
             throw new ActionException(ERROR);
         }
-        int pageCount;
-        if (usersCount % pageSizeInt == 0) {
-            pageCount = usersCount / pageSizeInt;
-        } else {
-            pageCount = usersCount / pageSizeInt + 1;
-        }
+        int pageCount = pageUtil.getPageCount(usersCount, pageSize);
         req.setAttribute(UserConstants.USERS, users);
         req.setAttribute(PageConstants.PAGES_COUNT, pageCount);
         req.setAttribute(PageConstants.PAGE_SIZE, pageSize);

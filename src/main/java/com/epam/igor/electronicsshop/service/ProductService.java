@@ -95,8 +95,6 @@ public class ProductService {
         return product;
     }
 
-
-
     /**
      * after adding product to database, product has to be set in storage
      *

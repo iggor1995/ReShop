@@ -18,7 +18,8 @@
     <fmt:message key="common.country" var="country"/>
     <fmt:message key="common.button" var="button"/>
     <fmt:message key="common.role" var="role"/>
-    <fmt:message key="error.email" var="emailErrorMessage"/>
+    <fmt:message key="error.email" var="email_error_message"/>
+    <fmt:message key="error.emailUsed" var="email_used_message"/>
     <fmt:message key="role.admin" var="adminRole"/>
     <fmt:message key="role.user" var="userRole"/>
     <fmt:message key="error.password" var="passwordErrorMessage"/>
@@ -51,9 +52,11 @@
                         <input type="email" class="form-control" id="email" name="email"
                                value="${user.email}">
                     </div>
-                    <c:if test="${not empty emailError}">
-                        <p class="text-danger"style="height: 10px;font-size: 12px;">
-                                ${emailErrorMessage}</p>
+                    <c:if test="${emailError.equals('true')}">
+                        <p class="text-danger" style="height: 20px;font-size: 12px;">${email_error_message}</p>
+                    </c:if>
+                    <c:if test="${emailError.equals('used')}">
+                        <p class="text-danger" style="height: 20px;font-size: 12px;">${email_used_message}</p>
                     </c:if>
                     <div class="form-control input-group">
                         <label for="password">${password}</label>

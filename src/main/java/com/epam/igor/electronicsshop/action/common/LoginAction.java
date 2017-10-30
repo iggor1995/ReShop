@@ -37,22 +37,22 @@ public class LoginAction implements Action {
         String password = req.getParameter(UserConstants.PASS_WORD);
         String md5HexPassword = DigestUtils.md5Hex(password);
         User user;
-
         try {
             UserService userService = new UserService();
             user = userService.performUserLogin(email, md5HexPassword);
+            if (user != null) {
+                req.getSession().setAttribute(UserConstants.LOGGED_USER, user);
+                LOG.info(LOGGED, user);
+                return new ActionResult(PageConstants.HOME, true);
+            } else {
+                LOG.info(INPUT_ERROR, email, password);
+                req.setAttribute(LOGIN_ERROR, INVALID_DATA);
+                return new ActionResult(PageConstants.LOGIN);
+            }
         } catch (ServiceException e) {
             LOG.info(SERVICE_ERROR, e);
             throw new ActionException(SERVICE_ERROR, e);
         }
-        if (user != null) {
-            req.getSession().setAttribute(UserConstants.LOGGED_USER, user);
-            LOG.info(LOGGED, user);
-            return new ActionResult(PageConstants.HOME, true);
-        } else {
-            LOG.info(INPUT_ERROR, email, password);
-            req.setAttribute(LOGIN_ERROR, INVALID_DATA);
-            return new ActionResult(PageConstants.LOGIN);
-        }
+
     }
 }

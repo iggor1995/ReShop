@@ -29,7 +29,6 @@ public class SelectLocaleAction implements Action {
         Config.set(req.getSession(), Config.FMT_LOCALE, new Locale(language));
         Cookie cookie = new Cookie(LOCALE, language);
         cookie.setMaxAge(MAX_AGE);
-        cookie.setSecure(true);
         res.addCookie(cookie);
         LOG.info(CHANGED, req.getSession(false).getAttribute(UserConstants.LOGGED_USER), language);
         return new ActionResult(req.getHeader(PageConstants.REFERER_PAGE), true);

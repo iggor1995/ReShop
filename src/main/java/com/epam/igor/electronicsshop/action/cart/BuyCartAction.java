@@ -39,7 +39,7 @@ public class BuyCartAction implements Action {
             Money balanceNeeded = order.getPrice().minus(loggedUser.getCash());
             req.setAttribute(ErrorConstants.BALANCE_NEEDED, balanceNeeded);
             LOG.info(ERROR_MESSAGE, loggedUser, balanceNeeded);
-            return new ActionResult(PageConstants.USER_PROFILE, true);
+            return new ActionResult(PageConstants.USER_PROFILE_REDIRECT, true);
         }
         try {
             ShopService shopService = new ShopService();
@@ -47,7 +47,7 @@ public class BuyCartAction implements Action {
             req.getSession().setAttribute(UserConstants.LOGGED_USER, user);
             req.getSession(false).removeAttribute(PageConstants.CART);
             LOG.info(BOUGHT_ORDER, order, loggedUser);
-            return new ActionResult(PageConstants.USER_ORDERS, true);
+            return new ActionResult(PageConstants.USER_ORDERS_REDIRECT, true);
         } catch (ServiceException e) {
             LOG.info(ERROR_PLACING, e);
             throw new ActionException(ERROR_PLACING, e);

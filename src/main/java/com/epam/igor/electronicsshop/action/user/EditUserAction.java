@@ -22,7 +22,6 @@ import javax.servlet.http.HttpServletResponse;
  * @author Igor Lapin
  */
 public class EditUserAction implements Action {
-    private static final String UPDATED_ERROR = "Could not update profile";
     private static final String UNABLE_REGISTER = "Couldn't register user";
     private static final Logger LOG = LoggerFactory.getLogger(EditUserAction.class);
 
@@ -31,27 +30,21 @@ public class EditUserAction implements Action {
 
         UserService userService = new UserService();
         Validation validation = new Validation();
+        UserUtil userUtil = new UserUtil();
         User user;
         try {
             user = userService.getFilledUserById(Integer.valueOf(req.getParameter(UserConstants.USER_ID)));
-
-            if (validation.checkUserParam(req, true, true)) {
+            if (validation.userAndEmailCheck(req)) {
                 req.setAttribute(UserConstants.USER, user);
                 req.setAttribute(UserConstants.ADDRESS, user.getAddress());
                 return new ActionResult(PageConstants.EDIT_USER);
             }
+            userUtil.fillUser(req, user);
+            userUtil.getFilledAddress(req, user);
+            return new ActionResult(PageConstants.MANAGE_USERS_REDIRECT, true);
         } catch (ServiceException e) {
             LOG.info(UNABLE_REGISTER, e);
             throw new ActionException(UNABLE_REGISTER, e);
-        }
-
-        try {
-            UserUtil.fillUser(req, user);
-            UserUtil.fillAddress(req, user);
-            return new ActionResult(PageConstants.MANAGE_USERS_REDIRECT, true);
-        } catch (ServiceException e) {
-            LOG.info(UPDATED_ERROR, e);
-            throw new ActionException(UPDATED_ERROR, e);
         }
     }
 

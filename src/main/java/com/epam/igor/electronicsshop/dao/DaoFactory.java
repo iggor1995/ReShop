@@ -3,7 +3,6 @@ package com.epam.igor.electronicsshop.dao;
 import com.epam.igor.electronicsshop.dao.entity.JDBCDaoFactory;
 import com.epam.igor.electronicsshop.entity.BaseEntity;
 
-
 /**
  * Dao factory for abstract transaction methods
  *

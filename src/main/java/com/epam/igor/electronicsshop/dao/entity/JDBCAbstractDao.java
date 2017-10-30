@@ -66,7 +66,6 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
      *
      * @param t  Entity
      * @param ps prepared statement except id
-     * @throws DaoException
      */
     private void setVariablesForPreparedStatement(T t, PreparedStatement ps) throws DaoException {
         setVariablesForPreparedStatementExceptId(t, ps);
@@ -267,15 +266,12 @@ public abstract class JDBCAbstractDao<T extends BaseEntity> implements GenericDa
     private String createQueryForFindAllByParams(Map<String, String> params) {
         StringBuilder resultQuery = new StringBuilder();
         resultQuery.append(SELECT_FROM).append(getTableName()).append(WHERE);
-        //String resultQuery = SELECT_FROM + getTableName() + WHERE;
         for (Map.Entry<String, String> param : params.entrySet()) {
             if (params.size() == 1) {
                 resultQuery.append(param.getKey()).append(" = '").append(param.getValue()).append("'");
-                //resultQuery += param.getKey() + " = '" + param.getValue() + "'";
                 return resultQuery.toString();
             } else {
                 resultQuery.append(param.getKey()).append(" = '").append(param.getValue()).append(AND);
-                //resultQuery += param.getKey() + " = '" + param.getValue() + AND;
             }
         }
         LOG.info(RESULT_QUERY, resultQuery);

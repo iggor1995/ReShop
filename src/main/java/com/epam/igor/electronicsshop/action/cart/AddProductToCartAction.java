@@ -31,77 +31,70 @@ public class AddProductToCartAction implements Action {
     private static final String INVALID_AMOUNT = "Invalid product amount format - {}";
     private static final String AMOUNT_INCREASED = "Product amount in cart increased by - {}";
     private static final String PRODUCT_ADDED = "product - {} added in cart. Amount - {}";
-    private static final String PROPERTY_PRODUCT_AMOUNT = "product.amount";
-    private static final String CANNOT_LOAD_PROPERTIES = "Cannot load properties";
-    private static final String VALIDATION_PROPERTIES = "validation.properties";
-    private boolean invalid;
     private static final Logger LOG = LoggerFactory.getLogger(AddProductToCartAction.class);
-    private Properties properties = new Properties();
     private String amount;
     private Order cart;
 
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse res) throws ActionException {
-        try {
-            properties.load(AddProductToCartAction.class.getClassLoader().getResourceAsStream(VALIDATION_PROPERTIES));
-        } catch (IOException e) {
-            LOG.info(CANNOT_LOAD_PROPERTIES, e);
-            throw new ActionException(CANNOT_LOAD_PROPERTIES, e);
-        }
 
         if (checkAmount(req)) {
-            invalid = false;
-            req.setAttribute(ErrorConstants.ERROR_AMOUNT, ErrorConstants.TRUE);
-            LOG.info(INVALID_AMOUNT, amount);
             return new ActionResult(req.getHeader(PageConstants.REFERER_PAGE), true);
         }
-
-        cart = (Order) req.getSession(false).getAttribute(PageConstants.CART);
-        if (cart == null) {
-            cart = new Order();
+        cart = getCart(req);
+        String productId = req.getParameter(ProductConstants.PRODUCT);
+        Integer amountInt = Integer.parseInt(amount);
+        if(!increaseAmountIfAlreadyExists(amountInt ,productId, req)) {
+            setOrderingItem(req, amountInt ,productId);
         }
-        setOrderingItem(req);
+
         return new ActionResult(req.getHeader(PageConstants.REFERER_PAGE), true);
     }
 
-    private boolean checkAmount(HttpServletRequest req) {
+    private boolean checkAmount(HttpServletRequest req) throws ActionException {
         amount = req.getParameter(OrderConstants.AMOUNT);
         Validation validation = new Validation();
-        invalid = validation.checkParameterByRegex(invalid, amount, OrderConstants.AMOUNT,
-                properties.getProperty(PROPERTY_PRODUCT_AMOUNT), req);
-        if (invalid) {
+        if (validation.checkAmount(req, amount)) {
             req.setAttribute(ErrorConstants.ERROR_AMOUNT, ErrorConstants.TRUE);
             LOG.info(INVALID_AMOUNT, amount);
+            return true;
         }
-        return invalid;
+        return false;
     }
 
-    private void setOrderingItem(HttpServletRequest req) throws ActionException {
+    private void setOrderingItem(HttpServletRequest req, Integer amountInt, String productId) throws ActionException {
+            try {
+                OrderingItem orderingItem = new OrderingItem();                 //else set new one
+                orderingItem.setAmount(amountInt);
+                ProductService productService = new ProductService();
+                Product product = productService.getProductById(productId);
+                orderingItem.setProduct(product);
+                cart.addProduct(orderingItem);
+                req.getSession().setAttribute(PageConstants.CART, cart);
+                LOG.info(PRODUCT_ADDED, product, amount);
+            } catch (ServiceException e) {
+                LOG.info(ERROR_ADD, e);
+                throw new ActionException(ERROR_ADD, e);
+            }
+    }
 
-        String productId = req.getParameter(ProductConstants.PRODUCT);
-        Integer amountInt = Integer.parseInt(amount);
-
+    private boolean increaseAmountIfAlreadyExists(Integer amountInt, String productId, HttpServletRequest req){
         for (OrderingItem orderingItem : cart.getOrderingItems()) {                   //if already in cart
             if (orderingItem.getProduct().getId() == Integer.parseInt(productId)) {
                 orderingItem.setAmount(orderingItem.getAmount() + amountInt);
                 req.getSession().setAttribute(PageConstants.CART, cart);
                 LOG.info(AMOUNT_INCREASED, amount);
+                return true;
             }
         }
-        OrderingItem orderingItem = new OrderingItem();                 //else set new one
-        orderingItem.setAmount(amountInt);
+        return false;
+    }
 
-        try {
-            ProductService productService = new ProductService();
-            Product product = productService.getProductById(productId);
-            orderingItem.setProduct(product);
-            cart.addProduct(orderingItem);
-            req.getSession().setAttribute(PageConstants.CART, cart);
-            LOG.info(PRODUCT_ADDED, product, amount);
-        } catch (ServiceException e) {
-            LOG.info(ERROR_ADD, e);
-            throw new ActionException(ERROR_ADD, e);
+    private Order getCart(HttpServletRequest req){
+        Order cart = (Order) req.getSession(false).getAttribute(PageConstants.CART);
+        if (cart == null) {
+            cart = new Order();
         }
-
+        return cart;
     }
 }
